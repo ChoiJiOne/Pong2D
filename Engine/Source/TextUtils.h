@@ -11,7 +11,7 @@
  * 이때 이 클래스는 정적 클래스로 헤더 선언만 하면
  * 인스턴스 생성 없이 바로 사용할 수 있습니다.
  */
-class Text
+class TextUtils
 {
 public:
 	/**

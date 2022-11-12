@@ -16,7 +16,7 @@
 #include "Music.h"
 #include "PhysicComponent.h"
 #include "Sound.h"
-#include "Text.h"
+#include "TextUtils.h"
 #include "Texture.h"
 #include "Timer.h"
 #include "Vector.h"

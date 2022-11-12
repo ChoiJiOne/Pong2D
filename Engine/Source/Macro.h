@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Text.h"
+#include "TextUtils.h"
 
 
 /**
@@ -18,7 +18,7 @@
 	if(!EXPRESSION)\
 	{\
 		throw std::exception(\
-			Text::Format(\
+			TextUtils::Format(\
 			"file : %s, line : %d, function : %s, message : %s",\
 				__FILE__, __LINE__, __FUNCTION__, MESSAGE).c_str()\
 		);\
@@ -38,7 +38,7 @@
 #define ENFORCE_THROW_EXCEPTION(MESSAGE)\
 {\
 	throw std::exception(\
-		Text::Format(\
+		TextUtils::Format(\
 		"file : %s, line : %d, function : %s, message : %s",\
 			__FILE__, __LINE__, __FUNCTION__, MESSAGE).c_str()\
 	);\
