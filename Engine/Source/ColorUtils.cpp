@@ -28,10 +28,10 @@ RGBA32 ColorUtils::ToRGBA32(const LinearColor& InColor)
 LinearColor ColorUtils::ToLinearColor(uint8_t InRed, uint8_t InGreen, uint8_t InBlue, uint8_t InAlpha)
 {
 	return LinearColor(
-		std::clamp<float>(static_cast<float>(InRed)   / 255.0f, 0.0f, 1.0f),
-		std::clamp<float>(static_cast<float>(InGreen) / 255.0f, 0.0f, 1.0f),
-		std::clamp<float>(static_cast<float>(InBlue)  / 255.0f, 0.0f, 1.0f),
-		std::clamp<float>(static_cast<float>(InAlpha) / 255.0f, 0.0f, 1.0f)
+		MathUtils::Clamp<float>(static_cast<float>(InRed)   / 255.0f, 0.0f, 1.0f),
+		MathUtils::Clamp<float>(static_cast<float>(InGreen) / 255.0f, 0.0f, 1.0f),
+		MathUtils::Clamp<float>(static_cast<float>(InBlue)  / 255.0f, 0.0f, 1.0f),
+		MathUtils::Clamp<float>(static_cast<float>(InAlpha) / 255.0f, 0.0f, 1.0f)
 	);
 }
 
