@@ -1,4 +1,5 @@
 #include "ColorUtils.h"
+#include "MathUtils.h"
 
 #include <algorithm>
 
@@ -51,8 +52,8 @@ void ColorUtils::ToR8G8B8A8(const RGBA32& InRGBA32, uint8_t& OutRed, uint8_t& Ou
 
 void ColorUtils::ToR8G8B8A8(const LinearColor& InColor, uint8_t& OutRed, uint8_t& OutGreen, uint8_t& OutBlue, uint8_t& OutAlpha)
 {
-	OutRed   = static_cast<uint8_t>(std::clamp<float>(InColor.x, 0.0f, 1.0f) * 255.0f);
-	OutGreen = static_cast<uint8_t>(std::clamp<float>(InColor.y, 0.0f, 1.0f) * 255.0f);
-	OutBlue  = static_cast<uint8_t>(std::clamp<float>(InColor.z, 0.0f, 1.0f) * 255.0f);
-	OutAlpha = static_cast<uint8_t>(std::clamp<float>(InColor.w, 0.0f, 1.0f) * 255.0f);
+	OutRed   = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.x, 0.0f, 1.0f) * 255.0f);
+	OutGreen = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.y, 0.0f, 1.0f) * 255.0f);
+	OutBlue  = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.z, 0.0f, 1.0f) * 255.0f);
+	OutAlpha = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.w, 0.0f, 1.0f) * 255.0f);
 }
