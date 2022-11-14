@@ -40,21 +40,25 @@ void Graphics::DrawPoint2D(const Vec2i& InPosition, const LinearColor& InColor)
 	CHECK((SDL_RenderDrawPoint(Renderer_, InPosition.x, InPosition.y) == 0), SDL_GetError());
 }
 
-void Graphics::DrawLine2D(const Vec2i& InPosition0, const Vec2i& InPosition1, const LinearColor& InColor)
+void Graphics::DrawLine2D(const Vec2i& InPositionFrom, const Vec2i& InPositionTo, const LinearColor& InColor)
 {
 	SetDrawColor(InColor);
-	CHECK((SDL_RenderDrawLine(Renderer_, InPosition0.x, InPosition0.y, InPosition1.x, InPosition1.y) == 0), SDL_GetError());
+	CHECK((SDL_RenderDrawLine(
+		Renderer_, 
+		InPositionFrom.x, InPositionFrom.y,
+		InPositionTo.x, InPositionTo.y
+	) == 0), SDL_GetError());
 }
 
-void Graphics::DrawRect2D(const Vec2i& InPosition0, const Vec2i& InPosition1, const LinearColor& InColor)
+void Graphics::DrawRect2D(const Vec2i& InPositionFrom, const Vec2i& InPositionTo, const LinearColor& InColor)
 {
 	SetDrawColor(InColor);
 
 	SDL_Rect Rect = {
-		std::min(InPosition0.x, InPosition1.x),
-		std::min(InPosition0.y, InPosition1.y),
-		std::abs(InPosition1.x - InPosition0.x),
-		std::abs(InPosition1.y - InPosition0.y)
+		std::min(InPositionFrom.x, InPositionTo.x),
+		std::min(InPositionFrom.y, InPositionTo.y),
+		std::abs(InPositionTo.x - InPositionFrom.x),
+		std::abs(InPositionTo.y - InPositionFrom.y)
 	};
 
 	CHECK((SDL_RenderDrawRect(Renderer_, &Rect) == 0), SDL_GetError());
@@ -67,21 +71,21 @@ void Graphics::DrawRect2D(const Vec2i& InCenterPosition, int32_t InWidth, int32_
 		static_cast<int32_t>(static_cast<float>(InHeight) / 2.0f)
 	);
 
-	Vec2i Position0 = InCenterPosition - DeltaPosition;
-	Vec2i Position1 = InCenterPosition + DeltaPosition;
+	Vec2i PositionFrom = InCenterPosition - DeltaPosition;
+	Vec2i PositionTo = InCenterPosition + DeltaPosition;
 
-	DrawRect2D(Position0, Position1, InColor);
+	DrawRect2D(PositionFrom, PositionTo, InColor);
 }
 
-void Graphics::DrawFillRect2D(const Vec2i& InPosition0, const Vec2i& InPosition1, const LinearColor& InColor)
+void Graphics::DrawFillRect2D(const Vec2i& InPositionFrom, const Vec2i& InPositionTo, const LinearColor& InColor)
 {
 	SetDrawColor(InColor);
 
 	SDL_Rect Rect = {
-		std::min(InPosition0.x, InPosition1.x),
-		std::min(InPosition0.y, InPosition1.y),
-		std::abs(InPosition1.x - InPosition0.x),
-		std::abs(InPosition1.y - InPosition0.y)
+		std::min(InPositionFrom.x, InPositionTo.x),
+		std::min(InPositionFrom.y, InPositionTo.y),
+		std::abs(InPositionTo.x - InPositionFrom.x),
+		std::abs(InPositionTo.y - InPositionFrom.y)
 	};
 
 	CHECK((SDL_RenderFillRect(Renderer_, &Rect) == 0), SDL_GetError());
@@ -94,19 +98,19 @@ void Graphics::DrawFillRect2D(const Vec2i& InCenterPosition, int32_t InWidth, in
 		static_cast<int32_t>(static_cast<float>(InHeight) / 2.0f)
 	);
 
-	Vec2i Position0 = InCenterPosition - DeltaPosition;
-	Vec2i Position1 = InCenterPosition + DeltaPosition;
+	Vec2i PositionFrom = InCenterPosition - DeltaPosition;
+	Vec2i PositionTo = InCenterPosition + DeltaPosition;
 
-	DrawFillRect2D(Position0, Position1, InColor);
+	DrawFillRect2D(PositionFrom, PositionTo, InColor);
 }
 
-void Graphics::DrawTexture2D(Texture& InTexture, const Vec2i& InPosition0, const Vec2i& InPosition1, float InRotateAngle)
+void Graphics::DrawTexture2D(Texture& InTexture, const Vec2i& InPositionFrom, const Vec2i& InPositionTo, float InRotateAngle)
 {
 	SDL_Rect Rect = {
-		std::min(InPosition0.x, InPosition1.x),
-		std::min(InPosition0.y, InPosition1.y),
-		std::abs(InPosition1.x - InPosition0.x),
-		std::abs(InPosition1.y - InPosition0.y),
+		std::min(InPositionFrom.x, InPositionTo.x),
+		std::min(InPositionFrom.y, InPositionTo.y),
+		std::abs(InPositionTo.x - InPositionFrom.x),
+		std::abs(InPositionTo.y - InPositionFrom.y),
 	};
 
 	CHECK((SDL_RenderCopyEx(Renderer_, InTexture.GetTexture(), nullptr, &Rect, InRotateAngle, nullptr, SDL_FLIP_NONE) == 0), SDL_GetError());
