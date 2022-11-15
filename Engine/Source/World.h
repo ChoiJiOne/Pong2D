@@ -19,7 +19,7 @@ public:
 	 * @param InWidth - 2D 게임 월드의 가로 크기입니다.
 	 * @param InHeight - 2D 게임 월드의 세로 크기입니다.
 	 */
-	explicit World(const int32_t& InWidth, const int32_t& InHeight);
+	explicit World(const float& InWidth, const float& InHeight);
 
 
 	/**
@@ -66,7 +66,7 @@ public:
 	 * 
 	 * @return 2D 게임 월드의 가로 크기를 반환합니다.
 	 */
-	int32_t GetWidth() const { return Width_; }
+	float GetWidth() const { return Width_; }
 
 
 	/**
@@ -74,7 +74,7 @@ public:
 	 * 
 	 * @return 2D 게임 월드의 세로 크기를 반환합니다.
 	 */
-	int32_t GetHeight() const { return Height_; }
+	float GetHeight() const { return Height_; }
 
 
 	/**
@@ -83,7 +83,7 @@ public:
 	 * @param OutWidth - 2D 게임 월드의 가로 크기입니다.
 	 * @param OutHeight - 2D 게임 월드의 세로 크기입니다.
 	 */
-	void GetSize(int32_t& OutWidth, int32_t& OutHeight) const
+	void GetSize(float& OutWidth, float& OutHeight) const
 	{
 		OutWidth = Width_;
 		OutHeight = Height_;
@@ -102,13 +102,13 @@ private:
 	/**
 	 * 게임 월드 전체의 가로 크기입니다.
 	 */
-	int32_t Width_ = 0;
+	float Width_ = 0;
 
 
 	/**
 	 * 게임 월드 전체의 세로 크기입니다.
 	 */
-	int32_t Height_ = 0;
+	float Height_ = 0;
 
 
 	/**

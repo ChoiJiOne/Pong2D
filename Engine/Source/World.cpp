@@ -1,7 +1,7 @@
 #include "World.h"
 #include "GameObject.h"
 
-World::World(const int32_t& InWidth, const int32_t& InHeight)
+World::World(const float& InWidth, const float& InHeight)
 {
 	Width_ = InWidth;
 	Height_ = InHeight;
