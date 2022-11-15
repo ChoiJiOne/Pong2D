@@ -197,6 +197,27 @@ public:
 	bool IsCollision(const Body& InBody);
 
 
+	/**
+	 * 다른 오브젝트 바디를 포함하는지 검사합니다.
+	 * 
+	 * @param InBody - 검사를 수행할 다른 오브젝트의 몸체입니다.
+	 * 
+	 * @return 다른 오브젝트를 포함한다면 true, 그렇지 않다면 false를 반환합니다.
+	 */
+	bool IsInclude(const Body& InBody);
+
+
+private:
+	/**
+	 * 점이 오브젝트의 경계 영역에 포함되는지 검사합니다.
+	 * 
+	 * @param InPosition - 검사를 수행할 점입니다.
+	 * 
+	 * @return 점을 포함한다면 true, 그렇지 않다면 false를 반환합니다.
+	 */
+	bool IsIncludePositionInBoundingPositions(const Vec2f& InPosition);
+
+
 private:
 	/**
 	 * 오브젝트 바디의 월드상 중심 좌표입니다.

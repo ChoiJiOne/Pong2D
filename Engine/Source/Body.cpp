@@ -115,3 +115,27 @@ bool Body::IsCollision(const Body& InBody)
 
 	return true;
 }
+
+bool Body::IsInclude(const Body& InBody)
+{
+	const std::array<Vec2f, 4>& BoundingPositions = InBody.GetBoundingPositions();
+
+	for (const auto& BoundingPosition : BoundingPositions)
+	{
+		if (!IsIncludePositionInBoundingPositions(BoundingPosition))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool Body::IsIncludePositionInBoundingPositions(const Vec2f& InPosition)
+{
+	Vec2f MinPosition = BoundingPositions_[0];
+	Vec2f MaxPosition = BoundingPositions_[2];
+
+	return (MinPosition.x <= InPosition.x && InPosition.x <= MaxPosition.x)
+		&& (MinPosition.y <= InPosition.y && InPosition.y <= MaxPosition.y);
+}
