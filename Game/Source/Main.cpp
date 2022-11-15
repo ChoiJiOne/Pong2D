@@ -20,7 +20,8 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
-		Player_.reset();
+		Player1_.reset();
+		Player2_.reset();
 	}
 
 
@@ -59,7 +60,8 @@ public:
 
 		CenterPosition = Vec2i(500, 400);
 
-		Player_ = std::make_unique<Player>(World_.get());
+		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(250.0f, 400.0f), 50.0f, 150.0f, 200.0f);
+		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(750.0f, 400.0f), 50.0f, 150.0f, 200.0f);
 	}
 
 
@@ -89,7 +91,8 @@ public:
 	 */
 	virtual void Update() override
 	{
-		Player_->Update(*Input_, Timer_.GetDeltaSeconds());
+		Player1_->Update(*Input_, Timer_.GetDeltaSeconds());
+		Player2_->Update(*Input_, Timer_.GetDeltaSeconds());
 	}
 
 
@@ -102,7 +105,8 @@ public:
 	{
 		Graphics_->BeginFrame(ColorUtils::Black);
 
-		Player_->Render(*Graphics_);
+		Player1_->Render(*Graphics_);
+		Player2_->Render(*Graphics_);
 
 		Graphics_->EndFrame();
 	}
@@ -122,9 +126,15 @@ private:
 
 
 	/**
-	 * 게임 플레이어입니다.
+	 * 게임 플레이어1입니다.
 	 */
-	std::unique_ptr<Player> Player_ = nullptr;
+	std::unique_ptr<Player> Player1_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어2입니다.
+	 */
+	std::unique_ptr<Player> Player2_ = nullptr;
 };
 
 
