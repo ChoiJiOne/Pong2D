@@ -1,19 +1,22 @@
 #pragma once
 
-class GameObject;
+#include "Component.h"
+
 class World;
 
 
 /**
- * 물리 처리를 수행하는 컴포넌트입니다.
+ * 게임 오브젝트의 물리 처리를 수행하는 컴포넌트입니다.
  */
-class PhysicComponent
+class PhysicComponent : public Component
 {
 public:
 	/**
-	 * 물리 처리 컴포넌트의 디폴트 생성자입니다.
+	 * 물리 처리 컴포넌트의 생성자입니다.
+	 * 
+	 * @param InObject - 이 컴포넌트를 소유하고 있는 게임 오브젝트의 포인터입니다.
 	 */
-	PhysicComponent() = default;
+	explicit PhysicComponent(GameObject* InObject) : Component(InObject) { }
 
 
 	/**
@@ -25,9 +28,8 @@ public:
 	/**
 	 * 물리 처리 컴포넌트를 업데이트합니다.
 	 * 
-	 * @param InObject - 물리 처리를 수행할 게임 오브젝트입니다.
 	 * @param InWorld - 2D 게임 월드입니다.
 	 * @param InDeltaSeconds - 초단위 델타 시간 값입니다.
 	 */
-	virtual void Tick(GameObject& InObject, World& InWorld, float InDeltaSeconds) = 0;
+	virtual void Tick(World& InWorld, float InDeltaSeconds) = 0;
 };
