@@ -53,6 +53,8 @@ public:
 		);
 
 		Input_ = std::make_unique<Input>();
+
+		CenterPosition = Vec2i(500, 400);
 	}
 
 
@@ -104,6 +106,12 @@ private:
 	 * 게임 타이머입니다.
 	 */
 	Timer Timer_;
+
+
+	/**
+	 * Pong2D 게임의 중심 지점입니다.
+	 */
+	Vec2i CenterPosition;
 };
 
 
