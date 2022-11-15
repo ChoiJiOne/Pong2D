@@ -63,8 +63,12 @@ public:
 	 */
 	virtual void Run() override
 	{
+		Timer_.Reset();
+
 		while (!bIsDone_ && !Input_->Tick())
 		{
+			Timer_.Tick();
+
 			Update();
 			Render();
 		}
@@ -90,8 +94,16 @@ public:
 	virtual void Render() override
 	{
 		Graphics_->BeginFrame(ColorUtils::Black);
+
 		Graphics_->EndFrame();
 	}
+
+
+private:
+	/**
+	 * 게임 타이머입니다.
+	 */
+	Timer Timer_;
 };
 
 
