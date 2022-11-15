@@ -3,7 +3,7 @@
 #include "InputComponent.h"
 #include "GraphicsComponent.h"
 #include "PhysicComponent.h"
-#include "SoundComponent.h"
+#include "AudioComponent.h"
 #include "World.h"
 
 GameObject::GameObject(World* InWorld)
@@ -15,10 +15,16 @@ GameObject::GameObject(World* InWorld)
 GameObject::~GameObject()
 {
 	if (Body_) Body_.reset();
-	if (Input_) Input_.reset();
-	if (Physic_) Physic_.reset();
-	if (Graphics_) Graphics_.reset();
-	if (Sound_) Sound_.reset();
+
+	for (auto& component : Components_)
+	{
+		component.second.reset();
+	}
 
 	World_->RemoveObject(this);
+}
+
+bool GameObject::HaveComponent(const std::size_t& InKey)
+{
+	return Components_.find(InKey) != Components_.end();
 }
