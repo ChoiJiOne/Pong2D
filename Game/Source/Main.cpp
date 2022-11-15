@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Ground.h"
+
 #include "ToyEngine.h"
 
 
@@ -20,6 +22,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Ground_.reset();
 		Player1_.reset();
 		Player2_.reset();
 	}
@@ -62,6 +65,7 @@ public:
 
 		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(250.0f, 400.0f), 50.0f, 150.0f, 200.0f);
 		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(750.0f, 400.0f), 50.0f, 150.0f, 200.0f);
+		Ground_ = std::make_unique<Ground>(World_.get(), Vec2f(500.0f, 400.0f), 900.0f, 600.0f);
 	}
 
 
@@ -93,6 +97,7 @@ public:
 	{
 		Player1_->Update(*Input_, Timer_.GetDeltaSeconds());
 		Player2_->Update(*Input_, Timer_.GetDeltaSeconds());
+		Ground_->Update(*Input_, Timer_.GetDeltaSeconds());
 	}
 
 
@@ -105,6 +110,7 @@ public:
 	{
 		Graphics_->BeginFrame(ColorUtils::Black);
 
+		Ground_->Render(*Graphics_);
 		Player1_->Render(*Graphics_);
 		Player2_->Render(*Graphics_);
 
@@ -135,6 +141,12 @@ private:
 	 * 게임 플레이어2입니다.
 	 */
 	std::unique_ptr<Player> Player2_ = nullptr;
+
+
+	/**
+	 * 게임 그라운드입니다.
+	 */
+	std::unique_ptr<Ground> Ground_ = nullptr;
 };
 
 
