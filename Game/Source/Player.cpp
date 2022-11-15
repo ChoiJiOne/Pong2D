@@ -5,10 +5,17 @@
 #include "PlayerGraphicsComponent.h"
 #include "TextUtils.h"
 
-Player::Player(World* InWorld)
-	: GameObject(InWorld)
+Player::Player(
+	World* InWorld,
+	const EType& InType,
+	const Vec2f& InPosition,
+	const float& InWidth,
+	const float& InHeight,
+	const float& InVelocity
+) : GameObject(InWorld)
 {
-	Body_ = std::make_unique<Body>(Vec2f(500.0f, 400.0f), 50.0f, 200.0f, 0.0f, 200.0f);
+	Type_ = InType;
+	Body_ = std::make_unique<Body>(InPosition, InWidth, InHeight, 0.0f, InVelocity);
 
 	AddComponent<PlayerInputComponent>(TextUtils::GetHash("Input"));
 	AddComponent<PlayerPhysicComponent>(TextUtils::GetHash("Physic"));

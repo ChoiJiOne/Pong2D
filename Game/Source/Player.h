@@ -10,11 +10,36 @@ class Player : public GameObject
 {
 public:
 	/**
+	 * 플레이어 타입입니다.
+	 * PLAYER1는 왼쪽 플레이어이고, PLAYER2는 오른쪽 플레이어입니다.
+	 */
+	enum class EType : int32_t
+	{
+		PLAYER1 = 0,
+		PLAYER2 = 1,
+	};
+
+
+public:
+	/**
 	 * Pong2D 게임 플레이어의 생성자입니다.
 	 * 
 	 * @param InWorld - 게임 플레이어가 위치할 월드입니다.
+	 * @param InType - 게임 플레이어의 타입입니다.
+	 * @param InPosition - 게임 플레이어의 화면상 위치입니다.
+	 * @param InWidth - 게임 플레이어의 가로 크기입니다.
+	 * @param InHeight - 게임 플레이어의 세로 크기입니다.
+	 * @param InVelocity - 게임 플레이어의 속도입니다.
+	 * 
 	 */
-	explicit Player(World* InWorld);
+	explicit Player(
+		World* InWorld, 
+		const EType& InType,
+		const Vec2f& InPosition,
+		const float& InWidth,
+		const float& InHeight,
+		const float& InVelocity
+	);
 
 
 	/**
@@ -44,4 +69,19 @@ public:
 	 * @param InGraphics - 게임의 렌더링 처리 인스턴스입니다.
 	 */
 	virtual void Render(Graphics& InGraphics) override;
+
+
+	/**
+	 * 플레이어의 타입을 얻습니다.
+	 * 
+	 * @return 플레이어의 타입을 반환합니다.
+	 */
+	EType GetType() const { return Type_; }
+
+
+private:
+	/**
+	 * 게임 플레이어의 타입입니다.
+	 */
+	EType Type_;
 };
