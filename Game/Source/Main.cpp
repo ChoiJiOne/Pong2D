@@ -63,8 +63,8 @@ public:
 
 		CenterPosition = Vec2i(500, 400);
 
-		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(250.0f, 400.0f), 50.0f, 150.0f, 200.0f);
-		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(750.0f, 400.0f), 50.0f, 150.0f, 200.0f);
+		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(150.0f, 400.0f), 25.0f, 150.0f, 300.0f);
+		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(850.0f, 400.0f), 25.0f, 150.0f, 300.0f);
 		Ground_ = std::make_unique<Ground>(World_.get(), Vec2f(500.0f, 400.0f), 900.0f, 600.0f);
 	}
 
