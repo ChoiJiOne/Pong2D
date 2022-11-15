@@ -1,3 +1,4 @@
+#include "Player.h"
 #include "ToyEngine.h"
 
 
@@ -19,7 +20,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
-
+		Player_.reset();
 	}
 
 
@@ -54,7 +55,11 @@ public:
 
 		Input_ = std::make_unique<Input>();
 
+		World_ = std::make_unique<World>(1000, 800);
+
 		CenterPosition = Vec2i(500, 400);
+
+		Player_ = std::make_unique<Player>(World_.get());
 	}
 
 
@@ -84,7 +89,7 @@ public:
 	 */
 	virtual void Update() override
 	{
-
+		Player_->Update(*Input_, Timer_.GetDeltaSeconds());
 	}
 
 
@@ -96,6 +101,8 @@ public:
 	virtual void Render() override
 	{
 		Graphics_->BeginFrame(ColorUtils::Black);
+
+		Player_->Render(*Graphics_);
 
 		Graphics_->EndFrame();
 	}
@@ -112,6 +119,12 @@ private:
 	 * Pong2D 게임의 중심 지점입니다.
 	 */
 	Vec2i CenterPosition;
+
+
+	/**
+	 * 게임 플레이어입니다.
+	 */
+	std::unique_ptr<Player> Player_ = nullptr;
 };
 
 
