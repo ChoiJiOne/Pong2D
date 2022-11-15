@@ -7,6 +7,7 @@ Ground::Ground(World* InWorld, const Vec2f& InPosition, const float& InWidth, co
 	: GameObject(InWorld)
 {
 	Body_ = std::make_unique<Body>(InPosition, InWidth, InHeight, 0.0f, 0.0f);
+	Body_->SetCanMove(false);
 
 	AddComponent<GroundGraphicsComponent>(TextUtils::GetHash("Graphics"));
 }
