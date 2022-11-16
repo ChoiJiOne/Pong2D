@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "Body.h"
+#include "RigidBody.h"
 #include "PlayerInputComponent.h"
 #include "PlayerPhysicComponent.h"
 #include "PlayerGraphicsComponent.h"
@@ -15,7 +15,13 @@ Player::Player(
 ) : GameObject(InWorld)
 {
 	Type_ = InType;
-	Body_ = std::make_unique<Body>(InPosition, InWidth, InHeight, 0.0f, InVelocity);
+
+	SetCenter(InPosition);
+	SetWidth(InWidth);
+	SetHeight(InHeight);
+	SetRotate(0.0f);
+	SetVelocity(InVelocity);
+	SetCanMove(false);
 
 	AddComponent<PlayerInputComponent>(TextUtils::GetHash("Input"));
 	AddComponent<PlayerPhysicComponent>(TextUtils::GetHash("Physic"));

@@ -1,5 +1,6 @@
-#include "Body.h"
+#include "RigidBody.h"
 #include "Button.h"
+#include "Camera.h"
 #include "ColorUtils.h"
 #include "CommandLineUtils.h"
 #include "ContentUtils.h"

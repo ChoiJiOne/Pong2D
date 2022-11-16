@@ -2,19 +2,17 @@
 #include "GameObject.h"
 #include "MathUtils.h"
 #include "World.h"
-#include "Body.h"
+#include "RigidBody.h"
 
 void PlayerPhysicComponent::Tick(World& InWorld, float InDeltaSeconds)
 {
-	Body& ObjectBody = Object_->GetBody();
-
-	if (ObjectBody.CanMove())
+	if (Object_->CanMove())
 	{
-		Vec2f Position = ObjectBody.GetCenter();
+		Vec2f Position = Object_->GetCenter();
 
-		Position.y += InDeltaSeconds * ObjectBody.GetVelocity() * static_cast<float>(sin(MathUtils::ToRadian(ObjectBody.GetRotate())));
+		Position.y += InDeltaSeconds * Object_->GetVelocity() * static_cast<float>(sin(MathUtils::ToRadian(Object_->GetRotate())));
 		Position.y = MathUtils::Clamp<float>(Position.y, 0.0f, static_cast<float>(InWorld.GetHeight()));
 
-		ObjectBody.SetCenter(Position);
+		Object_->SetCenter(Position);
 	}
 }

@@ -1,5 +1,5 @@
 #include "PlayerInputComponent.h"
-#include "Body.h"
+#include "RigidBody.h"
 #include "Player.h"
 #include "GameObject.h"
 #include "Input.h"
@@ -8,8 +8,7 @@ void PlayerInputComponent::Tick(Input& InInput)
 {
 	Player* CurrentPlayer = reinterpret_cast<Player*>(Object_);
 
-	Body& ObjectBody = Object_->GetBody();
-	float Rotate = ObjectBody.GetRotate();
+	float Rotate = CurrentPlayer->GetRotate();
 
 	EScanCode UpCode, DownCode;
 
@@ -34,15 +33,15 @@ void PlayerInputComponent::Tick(Input& InInput)
 		Rotate = 90.0f;
 	}
 
-	ObjectBody.SetRotate(Rotate);
+	CurrentPlayer->SetRotate(Rotate);
 
 	if (InInput.GetKeyPressState(UpCode) == EPressState::HELD ||
 		InInput.GetKeyPressState(DownCode) == EPressState::HELD)
 	{
-		ObjectBody.SetCanMove(true);
+		CurrentPlayer->SetCanMove(true);
 	}
 	else
 	{
-		ObjectBody.SetCanMove(false);
+		CurrentPlayer->SetCanMove(false);
 	}
 }

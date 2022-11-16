@@ -1,13 +1,17 @@
 #include "Ground.h"
-#include "Body.h"
+#include "RigidBody.h"
 #include "TextUtils.h"
 #include "GroundGraphicsComponent.h"
 
 Ground::Ground(World* InWorld, const Vec2f& InPosition, const float& InWidth, const float& InHeight)
 	: GameObject(InWorld)
 {
-	Body_ = std::make_unique<Body>(InPosition, InWidth, InHeight, 0.0f, 0.0f);
-	Body_->SetCanMove(false);
+	SetCenter(InPosition);
+	SetWidth(InWidth);
+	SetHeight(InHeight);
+	SetRotate(0.0f);
+	SetVelocity(0.0f);
+	SetCanMove(false);
 
 	AddComponent<GroundGraphicsComponent>(TextUtils::GetHash("Graphics"));
 }
