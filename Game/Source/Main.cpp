@@ -65,8 +65,8 @@ public:
 		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f);
 
 		Ground_ = std::make_unique<Ground>(World_.get(), Vec2f(0.0f, 0.0f), 900.0f, 450.0f);
-		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(-350.0f, 0.0f), 25.0f, 150.0f, 300.0f);
-		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(+350.0f, 0.0f), 25.0f, 150.0f, 300.0f);
+		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(-350.0f, 0.0f), 25.0f, 150.0f, 350.0f);
+		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(+350.0f, 0.0f), 25.0f, 150.0f, 350.0f);
 	}
 
 
@@ -100,6 +100,20 @@ public:
 		for (auto Object : Objects)
 		{
 			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+		}
+
+		const std::array<GameObject*, 2> Players = { Player1_.get(), Player2_.get() };
+		for (auto player : Players)
+		{
+			if (!Ground_->IsInclude(*player))
+			{
+				Vec2f Position = player->GetCenter();
+				float Distance = Ground_->GetHeight() / 2.0f - player->GetHeight() / 2.0f;
+
+				Position.y = (Position.y > 0.0f) ? Distance : -Distance;
+
+				player->SetCenter(Position);
+			}
 		}
 	}
 
