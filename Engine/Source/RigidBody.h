@@ -9,14 +9,14 @@
  * 오브젝트의 바디입니다.
  * 이때, 오브젝트 바디는 AABB 기반으로 회전하지 않습니다.
  */
-class Body
+class RigidBody
 {
 public:
 	/**
 	 * 오브젝트 바디의 기본 생성자입니다.
 	 * 이때, 디폴트 생성자에서 초기화를 수행하지 않으므로, 사용하기 전에 적절한 초기화를 수행해야 합니다.
 	 */
-	Body() = default;
+	RigidBody() = default;
 
 
 	/**
@@ -29,7 +29,7 @@ public:
 	 * @param InVelocity - 오브젝트 바디의 속력입니다.
 	 * @param bCanMove - 오브젝트 바디의 이동 여부입니다.
 	 */
-	explicit Body(
+	explicit RigidBody(
 		const Vec2f& InCenter, 
 		const float& InWidth, 
 		const float& InHeight,
@@ -44,7 +44,7 @@ public:
 	 *
 	 * @param InInstance - 복사할 객체입니다.
 	 */
-	Body(Body&& InInstance) noexcept;
+	RigidBody(RigidBody&& InInstance) noexcept;
 
 
 	/**
@@ -52,13 +52,13 @@ public:
 	 *
 	 * @param InInstance - 복사할 객체입니다.
 	 */
-	Body(const Body& InInstance) noexcept;
+	RigidBody(const RigidBody& InInstance) noexcept;
 
 
 	/**
 	 * 오브젝트 바디의 가상 소멸자입니다.
 	 */
-	virtual ~Body();
+	virtual ~RigidBody();
 
 
 	/**
@@ -68,7 +68,7 @@ public:
 	 *
 	 * @return 복사한 객체의 참조자를 반환합니다.
 	 */
-	Body& operator=(Body&& InInstance) noexcept;
+	RigidBody& operator=(RigidBody&& InInstance) noexcept;
 
 
 	/**
@@ -78,7 +78,7 @@ public:
 	 *
 	 * @return 복사한 객체의 참조자를 반환합니다.
 	 */
-	Body& operator=(const Body& InInstance) noexcept;
+	RigidBody& operator=(const RigidBody& InInstance) noexcept;
 
 
 	/**
@@ -190,21 +190,21 @@ public:
 	/**
 	 * 다른 오브젝트 바디와 충돌하는지 검사합니다.
 	 * 
-	 * @param InBody - 검사를 수행할 다른 오브젝트의 몸체입니다.
+	 * @param InRigidBody - 검사를 수행할 다른 오브젝트의 몸체입니다.
 	 * 
 	 * @return 다른 오브젝트와 충돌한다면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	bool IsCollision(const Body& InBody);
+	bool IsCollision(const RigidBody& InRigidBody);
 
 
 	/**
 	 * 다른 오브젝트 바디를 포함하는지 검사합니다.
 	 * 
-	 * @param InBody - 검사를 수행할 다른 오브젝트의 몸체입니다.
+	 * @param InRigidBody - 검사를 수행할 다른 오브젝트의 몸체입니다.
 	 * 
 	 * @return 다른 오브젝트를 포함한다면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	bool IsInclude(const Body& InBody);
+	bool IsInclude(const RigidBody& InRigidBody);
 
 
 private:

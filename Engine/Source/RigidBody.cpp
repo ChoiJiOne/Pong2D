@@ -1,8 +1,8 @@
-#include "Body.h"
+#include "RigidBody.h"
 #include "MathUtils.h"
 #include "Macro.h"
 
-Body::Body(
+RigidBody::RigidBody(
 	const Vec2f& InCenter,
 	const float& InWidth,
 	const float& InHeight,
@@ -21,7 +21,7 @@ Body::Body(
 	BoundingPositions_ = MathUtils::CalculateBoundingPositions(Center_, Width_, Height_);
 }
 
-Body::Body(Body&& InInstance) noexcept
+RigidBody::RigidBody(RigidBody&& InInstance) noexcept
 {
 	Center_ = InInstance.Center_;
 	bCanMove_ = InInstance.bCanMove_;
@@ -32,7 +32,7 @@ Body::Body(Body&& InInstance) noexcept
 	BoundingPositions_ = InInstance.BoundingPositions_;
 }
 
-Body::Body(const Body& InInstance) noexcept
+RigidBody::RigidBody(const RigidBody& InInstance) noexcept
 {
 	Center_ = InInstance.Center_;
 	bCanMove_ = InInstance.bCanMove_;
@@ -43,11 +43,11 @@ Body::Body(const Body& InInstance) noexcept
 	BoundingPositions_ = InInstance.BoundingPositions_;
 }
 
-Body::~Body()
+RigidBody::~RigidBody()
 {
 }
 
-Body& Body::operator=(Body&& InInstance) noexcept
+RigidBody& RigidBody::operator=(RigidBody&& InInstance) noexcept
 {
 	if (this == &InInstance) return *this;
 
@@ -62,7 +62,7 @@ Body& Body::operator=(Body&& InInstance) noexcept
 	return *this;
 }
 
-Body& Body::operator=(const Body& InInstance) noexcept
+RigidBody& RigidBody::operator=(const RigidBody& InInstance) noexcept
 {
 	if (this == &InInstance) return *this;
 
@@ -77,31 +77,31 @@ Body& Body::operator=(const Body& InInstance) noexcept
 	return *this;
 }
 
-void Body::SetCenter(const Vec2f& InCenter)
+void RigidBody::SetCenter(const Vec2f& InCenter)
 {
 	Center_ = InCenter;
 	BoundingPositions_ = MathUtils::CalculateBoundingPositions(Center_, Width_, Height_);
 }
 
-void Body::SetWidth(const float& InWidth)
+void RigidBody::SetWidth(const float& InWidth)
 {
 	Width_ = InWidth;
 	BoundingPositions_ = MathUtils::CalculateBoundingPositions(Center_, Width_, Height_);
 }
 
-void Body::SetHeight(const float& InHeight)
+void RigidBody::SetHeight(const float& InHeight)
 {
 	Height_ = InHeight;
 	BoundingPositions_ = MathUtils::CalculateBoundingPositions(Center_, Width_, Height_);
 }
 
-bool Body::IsCollision(const Body& InBody)
+bool RigidBody::IsCollision(const RigidBody& InRigidBody)
 {
 	Vec2f MinPosition = BoundingPositions_[0];
 	Vec2f MaxPosition = BoundingPositions_[2];
 
-	Vec2f OtherMinPosition = InBody.BoundingPositions_[0];
-	Vec2f OtherMaxPosition = InBody.BoundingPositions_[2];
+	Vec2f OtherMinPosition = InRigidBody.BoundingPositions_[0];
+	Vec2f OtherMaxPosition = InRigidBody.BoundingPositions_[2];
 
 	if (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x)
 	{
@@ -116,9 +116,9 @@ bool Body::IsCollision(const Body& InBody)
 	return true;
 }
 
-bool Body::IsInclude(const Body& InBody)
+bool RigidBody::IsInclude(const RigidBody& InRigidBody)
 {
-	const std::array<Vec2f, 4>& BoundingPositions = InBody.GetBoundingPositions();
+	const std::array<Vec2f, 4>& BoundingPositions = InRigidBody.GetBoundingPositions();
 
 	for (const auto& BoundingPosition : BoundingPositions)
 	{
@@ -131,7 +131,7 @@ bool Body::IsInclude(const Body& InBody)
 	return true;
 }
 
-bool Body::IsIncludePositionInBoundingPositions(const Vec2f& InPosition)
+bool RigidBody::IsIncludePositionInBoundingPositions(const Vec2f& InPosition)
 {
 	Vec2f MinPosition = BoundingPositions_[0];
 	Vec2f MaxPosition = BoundingPositions_[2];
