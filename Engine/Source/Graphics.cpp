@@ -1,7 +1,8 @@
 #include "Graphics.h"
-#include "Body.h"
+#include "RigidBody.h"
 #include "Window.h"
 #include "Texture.h"
+#include "MathUtils.h"
 #include "Font.h"
 
 // @third party code - BEGIN SDL2
@@ -181,15 +182,15 @@ void Graphics::DrawText2D(Font& InFont, const std::wstring& InText, const Vec2i&
 	}
 }
 
-void Graphics::DrawBodyOutline(Body& InBody, const LinearColor& InColor)
+void Graphics::DrawRigidBodyOutline(RigidBody& InBody, const LinearColor& InColor)
 {
 	const std::array<Vec2f, 4>& Positions = InBody.GetBoundingPositions();
 
 	for (std::size_t Index = 0; Index < Positions.size(); ++Index)
 	{
 		DrawLine2D(
-			Vec2i(static_cast<int32_t>(Positions[Index].x + 0.5f), static_cast<int32_t>(Positions[Index].y + 0.5f)),
-			Vec2i(static_cast<int32_t>(Positions[(Index + 1) % Positions.size()].x + 0.5f), static_cast<int32_t>(Positions[(Index + 1) % Positions.size()].y + 0.5f)),
+			MathUtils::ConvertPixelCoordinate(Positions[Index]),
+			MathUtils::ConvertPixelCoordinate(Positions[(Index + 1) % Positions.size()]),
 			ColorUtils::Black
 		);
 	}
