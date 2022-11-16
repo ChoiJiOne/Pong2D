@@ -65,8 +65,8 @@ public:
 		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f);
 
 		Ground_ = std::make_unique<Ground>(World_.get(), Vec2f(0.0f, 0.0f), 900.0f, 450.0f);
-		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(-50.0f, 0.0f), 25.0f, 150.0f, 300.0f);
-		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(+50.0f, 0.0f), 25.0f, 150.0f, 300.0f);
+		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(-350.0f, 0.0f), 25.0f, 150.0f, 300.0f);
+		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(+350.0f, 0.0f), 25.0f, 150.0f, 300.0f);
 	}
 
 
