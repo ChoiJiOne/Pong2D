@@ -24,7 +24,7 @@ void Ground::Update(Input& InInput, float InDeltaSeconds)
 {
 }
 
-void Ground::Render(Graphics& InGraphics)
+void Ground::Render(Graphics& InGraphics, Camera& InCamera)
 {
-	GetComponent<GroundGraphicsComponent>(TextUtils::GetHash("Graphics"))->Tick(InGraphics);
+	GetComponent<GroundGraphicsComponent>(TextUtils::GetHash("Graphics"))->Tick(InGraphics, InCamera);
 }

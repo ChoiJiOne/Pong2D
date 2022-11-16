@@ -38,7 +38,7 @@ void Player::Update(Input& InInput, float InDeltaSeconds)
 	GetComponent<PlayerPhysicComponent>(TextUtils::GetHash("Physic"))->Tick(*World_, InDeltaSeconds);
 }
 
-void Player::Render(Graphics& InGraphics)
+void Player::Render(Graphics& InGraphics, Camera& InCamera)
 {
-	GetComponent<PlayerGraphicsComponent>(TextUtils::GetHash("Graphics"))->Tick(InGraphics);
+	GetComponent<PlayerGraphicsComponent>(TextUtils::GetHash("Graphics"))->Tick(InGraphics, InCamera);
 }

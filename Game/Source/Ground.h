@@ -44,6 +44,7 @@ public:
 	 * 게임 그라운드를 화면에 그립니다.
 	 *
 	 * @param InGraphics - 게임의 렌더링 처리 인스턴스입니다.
+	 * @param InCamera - 게임의 카메라 인스턴스입니다.
 	 */
-	virtual void Render(Graphics& InGraphics) override;
+	virtual void Render(Graphics& InGraphics, Camera& InCamera) override;
 };
