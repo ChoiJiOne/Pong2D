@@ -3,6 +3,7 @@
 #include "Component.h"
 
 class Graphics;
+class Camera;
 
 
 /**
@@ -28,7 +29,8 @@ public:
 	/**
 	 * 렌더링 처리 컴포넌트를 업데이트합니다.
 	 * 
-	 * @param InInput - 렌더링 처리 클래스의 인스턴스입니다.
+	 * @param InGraphics - 렌더링 처리 클래스의 인스턴스입니다.
+	 * @param InCamera - 카메라 클래스의 인스턴스입니다.
 	 */
-	virtual void Tick(Graphics& InGraphics) = 0;
+	virtual void Tick(Graphics& InGraphics, Camera& InCamera) = 0;
 };
