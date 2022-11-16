@@ -132,4 +132,21 @@ public:
 
 		return BoundingPositions;
 	}
+
+
+	/**
+	 * 2차원 float 좌표를 pixel 좌표로 변환합니다.
+	 * https://www.realtimerendering.com/blog/the-center-of-the-pixel-is-0-50-5/
+	 *
+	 * @param InPosition - float 좌표입니다.
+	 *
+	 * @return 변환된 pixel 좌표를 반환합니다.
+	 */
+	inline static Vec2i ConvertPixelCoordinate(const Vec2f& InPosition)
+	{
+		return Vec2i(
+			static_cast<int32_t>(InPosition.x + 0.5f),
+			static_cast<int32_t>(InPosition.y + 0.5f)
+		);
+	}
 };
