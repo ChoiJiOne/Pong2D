@@ -25,12 +25,12 @@ void PlayerInputComponent::Tick(Input& InInput)
 
 	if (InInput.GetKeyPressState(UpCode) == EPressState::PRESSED)
 	{
-		Rotate = 270.0f;
+		Rotate = 90.0f;
 	}
 
 	if (InInput.GetKeyPressState(DownCode) == EPressState::PRESSED)
 	{
-		Rotate = 90.0f;
+		Rotate = 270.0f;
 	}
 
 	CurrentPlayer->SetRotate(Rotate);
