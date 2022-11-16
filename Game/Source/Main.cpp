@@ -96,7 +96,7 @@ public:
 	 */
 	virtual void Update() override
 	{
-		const std::list<GameObject*> Objects = World_->GetAllObject();
+		const std::list<GameObject*>& Objects = World_->GetAllObject();
 		for (auto Object : Objects)
 		{
 			Object->Update(*Input_, Timer_.GetDeltaSeconds());
@@ -127,7 +127,7 @@ public:
 	{
 		Graphics_->BeginFrame(ColorUtils::Black);
 
-		const std::list<GameObject*> Objects = World_->GetAllObject();
+		const std::list<GameObject*>& Objects = World_->GetAllObject();
 		for (auto Object : Objects)
 		{
 			Object->Render(*Graphics_, *Camera_);
