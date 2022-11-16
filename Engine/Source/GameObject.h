@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RigidBody.h"
 #include "Vector.h"
 #include "Macro.h"
 
@@ -7,7 +8,6 @@
 #include <memory>
 
 class World;
-class Body;
 class Input;
 class Graphics;
 class Component;
@@ -17,7 +17,7 @@ class Component;
  * 게임 오브젝트 클래스입니다.
  * 게임 내의 오브젝트는 이 클래스를 상속받아야 합니다.
  */
-class GameObject
+class GameObject : public RigidBody
 {
 public:
 	/**
@@ -55,22 +55,6 @@ public:
 	 * @param InGraphics - 게임의 렌더링 처리 인스턴스입니다.
 	 */
 	virtual void Render(Graphics& InGraphics) = 0;
-
-
-	/**
-	 * 게임 오브젝트의 바디를 얻습니다.
-	 * 
-	 * @return 게임 오브젝트 바디의 변경 불가능한 참조자를 반환합니다.
-	 */
-	const Body& GetBody() const { return *Body_.get(); }
-
-
-	/**
-	 * 게임 오브젝트의 바디를 얻습니다.
-	 * 
-	 * @return 게임 오브젝트 바디의 변경 가능한 참조자를 반환합니다.
-	 */
-	Body& GetBody() { return *Body_.get(); }
 
 
 	/**
@@ -136,12 +120,6 @@ protected:
 	 * 게임 오브젝트가 위치한 월드입니다.
 	 */
 	World* World_ = nullptr;
-
-
-	/**
-	 * 게임 오브젝트의 바디입니다.
-	 */
-	std::unique_ptr<Body> Body_ = nullptr;
 
 
 	/**

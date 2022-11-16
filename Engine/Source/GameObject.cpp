@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include "Body.h"
+#include "RigidBody.h"
 #include "InputComponent.h"
 #include "GraphicsComponent.h"
 #include "PhysicComponent.h"
@@ -14,8 +14,6 @@ GameObject::GameObject(World* InWorld)
 
 GameObject::~GameObject()
 {
-	if (Body_) Body_.reset();
-
 	for (auto& component : Components_)
 	{
 		component.second.reset();
