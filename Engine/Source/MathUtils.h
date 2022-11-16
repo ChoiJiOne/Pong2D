@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Vector.h"
+
 #include <cmath>
 #include <algorithm>
 #include <chrono>
