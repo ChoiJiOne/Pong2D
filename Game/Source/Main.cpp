@@ -22,6 +22,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Camera_.reset();
 		Ground_.reset();
 		Player1_.reset();
 		Player2_.reset();
@@ -60,6 +61,8 @@ public:
 		Input_ = std::make_unique<Input>();
 
 		World_ = std::make_unique<World>(1000.0f, 800.0f);
+
+		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f);
 
 		Ground_ = std::make_unique<Ground>(World_.get(), Vec2f(500.0f, 400.0f), 900.0f, 450.0f);
 		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(150.0f, 400.0f), 25.0f, 150.0f, 300.0f);
@@ -121,6 +124,12 @@ private:
 	 * 게임 타이머입니다.
 	 */
 	Timer Timer_;
+
+	
+	/**
+	 * 게임 카메라입니다.
+	 */
+	std::unique_ptr<Camera> Camera_ = nullptr;
 
 
 	/**
