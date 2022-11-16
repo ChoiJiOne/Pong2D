@@ -96,9 +96,11 @@ public:
 	 */
 	virtual void Update() override
 	{
-		Player1_->Update(*Input_, Timer_.GetDeltaSeconds());
-		Player2_->Update(*Input_, Timer_.GetDeltaSeconds());
-		Ground_->Update(*Input_, Timer_.GetDeltaSeconds());
+		const std::list<GameObject*> Objects = World_->GetAllObject();
+		for (auto Object : Objects)
+		{
+			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+		}
 	}
 
 
@@ -111,9 +113,11 @@ public:
 	{
 		Graphics_->BeginFrame(ColorUtils::Black);
 
-		Ground_->Render(*Graphics_, *Camera_);
-		Player1_->Render(*Graphics_, *Camera_);
-		Player2_->Render(*Graphics_, *Camera_);
+		const std::list<GameObject*> Objects = World_->GetAllObject();
+		for (auto Object : Objects)
+		{
+			Object->Render(*Graphics_, *Camera_);
+		}
 
 		Graphics_->EndFrame();
 	}
