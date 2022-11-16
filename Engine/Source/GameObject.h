@@ -10,6 +10,7 @@
 class World;
 class Input;
 class Graphics;
+class Camera;
 class Component;
 
 
@@ -53,8 +54,9 @@ public:
 	 * 게임 오브젝트를 화면에 그립니다.
 	 * 
 	 * @param InGraphics - 게임의 렌더링 처리 인스턴스입니다.
+	 * @param InCamera - 게임의 카메라 인스턴스입니다.
 	 */
-	virtual void Render(Graphics& InGraphics) = 0;
+	virtual void Render(Graphics& InGraphics, Camera& InCamera) = 0;
 
 
 	/**
