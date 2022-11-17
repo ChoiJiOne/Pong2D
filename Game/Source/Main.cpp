@@ -49,7 +49,7 @@ public:
 				"Pong2D",
 				200, 200,
 				1000, 800,
-				EWindowFlags::SHOWN
+				EWindowFlags::SHOWN | EWindowFlags::RESIZABLE
 			}
 		);
 
@@ -59,6 +59,8 @@ public:
 		);
 
 		Input_ = std::make_unique<Input>();
+		Input_->RegisterWindowEvent(EWindowEvent::CODE_CLOSE, [&]() { bIsDone_ = true; });
+		Input_->RegisterWindowEvent(EWindowEvent::CODE_RESIZED, [&]() {});
 
 		World_ = std::make_unique<World>(1000.0f, 800.0f);
 
@@ -79,8 +81,9 @@ public:
 	{
 		Timer_.Reset();
 
-		while (!bIsDone_ && !Input_->Tick())
+		while (!bIsDone_)
 		{
+			Input_->Tick();
 			Timer_.Tick();
 
 			Update();
