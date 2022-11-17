@@ -102,7 +102,7 @@ public:
 			Object->Update(*Input_, Timer_.GetDeltaSeconds());
 		}
 
-		const std::array<GameObject*, 2> Players = { Player1_.get(), Player2_.get() };
+		std::array<GameObject*, 2> Players = { Player1_.get(), Player2_.get() };
 		for (auto player : Players)
 		{
 			if (!Ground_->IsInclude(*player))
