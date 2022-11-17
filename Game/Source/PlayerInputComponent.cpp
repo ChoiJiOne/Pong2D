@@ -10,17 +10,17 @@ void PlayerInputComponent::Tick(Input& InInput)
 
 	float Rotate = CurrentPlayer->GetRotate();
 
-	EScanCode UpCode, DownCode;
+	EKeyCode UpCode, DownCode;
 
 	if (CurrentPlayer->GetType() == Player::EType::PLAYER1)
 	{
-		UpCode = EScanCode::CODE_Q;
-		DownCode = EScanCode::CODE_A;
+		UpCode = EKeyCode::CODE_Q;
+		DownCode = EKeyCode::CODE_A;
 	}
 	else // CurrentPlayer->GetType() == Player::EType::PLAYER2
 	{
-		UpCode = EScanCode::CODE_UP;
-		DownCode = EScanCode::CODE_DOWN;
+		UpCode = EKeyCode::CODE_UP;
+		DownCode = EKeyCode::CODE_DOWN;
 	}
 
 	if (InInput.GetKeyPressState(UpCode) == EPressState::PRESSED)
