@@ -66,7 +66,20 @@ public:
 	 * 
 	 * @return 2D 게임 월드의 가로 크기를 반환합니다.
 	 */
-	float GetWidth() const { return Width_; }
+	template <typename T>
+	T GetWidth() const { return static_cast<T>(Width_); }
+
+
+	/**
+	 * 2D 게임 월드의 가로 크기를 설정합니다.
+	 * 
+	 * @param InWidth - 설정할 2D 게임 월드의 가로 크기입니다.
+	 */
+	template <typename T>
+	void SetWidth(const T& InWidth)
+	{
+		Width_ = static_cast<float>(InWidth);
+	}
 
 
 	/**
@@ -74,7 +87,20 @@ public:
 	 * 
 	 * @return 2D 게임 월드의 세로 크기를 반환합니다.
 	 */
-	float GetHeight() const { return Height_; }
+	template <typename T>
+	T GetHeight() const { return static_cast<T>(Height_); }
+
+
+	/**
+	 * 2D 게임 월드의 세로 크기를 설정합니다.
+	 *
+	 * @param InHeight - 설정할 2D 게임 월드의 세로 크기입니다.
+	 */
+	template <typename T>
+	void SetHeight(const T& InHeight)
+	{
+		Height_ = static_cast<float>(InHeight);
+	}
 
 
 	/**
@@ -83,10 +109,25 @@ public:
 	 * @param OutWidth - 2D 게임 월드의 가로 크기입니다.
 	 * @param OutHeight - 2D 게임 월드의 세로 크기입니다.
 	 */
-	void GetSize(float& OutWidth, float& OutHeight) const
+	template <typename T>
+	void GetSize(T& OutWidth, T& OutHeight) const
 	{
-		OutWidth = Width_;
-		OutHeight = Height_;
+		OutWidth = static_cast<T>(Width_);
+		OutHeight = static_cast<T>(Height_);
+	}
+
+
+	/**
+	 * 2D 게임 월드의 가로 세로 크기를 설정합니다.
+	 * 
+	 * @param InWidth - 설정할 2D 게임 월드의 가로 크기입니다.
+	 * @param InHeight - 설정할 2D 게임 월드의 세로 크기입니다.
+	 */
+	template <typename T>
+	void SetSize(const T& InWidth, const T& InHeight) const
+	{
+		Width_ = static_cast<float>(InWidth);
+		Height_ = static_cast<float>(InHeight);
 	}
 
 
