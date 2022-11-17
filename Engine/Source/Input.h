@@ -1,7 +1,10 @@
 #pragma once
 
+#include "Macro.h"
 #include "Vector.h"
 
+#include <unordered_map>
+#include <functional>
 #include <vector>
 
 
@@ -42,7 +45,7 @@ enum class EMouseButton
  * 키보드의 키 스캔 코드입니다.
  * @see https://wiki.libsdl.org/SDL_Scancode
  */
-enum class EScanCode
+enum class EKeyCode
 {
     CODE_UNKNOWN = 0,
     CODE_A = 4,
@@ -296,6 +299,34 @@ enum class EScanCode
 
 
 /**
+ * 윈도우 이벤트 키 값입니다.
+ * https://wiki.libsdl.org/SDL_WindowEventID
+ */
+enum class EWindowEvent
+{
+    CODE_NONE = 0,
+    CODE_SHOWN = 1,
+    CODE_HIDDEN = 2,
+    CODE_EXPOSED = 3,
+    CODE_MOVED = 4,
+    CODE_RESIZED = 5,
+    CODE_SIZE_CHANGED = 6,
+    CODE_MINIMIZED = 7,
+    CODE_MAXIMIZED = 8,
+    CODE_RESTORED = 9,
+    CODE_ENTER = 10,
+    CODE_LEAVE = 11,
+    CODE_FOCUS_GAINED = 12,
+    CODE_FOCUS_LOST = 13,
+    CODE_CLOSE = 14,
+    CODE_TAKE_FOCUS = 15, 
+    CODE_HIT_TEST = 16,
+    CODE_ICCPROF_CHANGED = 17,
+    CODE_DISPLAY_CHANGED = 18
+};
+
+
+/**
  * 입력 처리 클래스입니다.
  */
 class Input
@@ -308,65 +339,49 @@ public:
 
 
     /**
-     * 입력 처리 클래스의 복사 생성자입니다.
-     *
-     * @param InInstance - 복사할 객체입니다.
-     */
-    Input(Input&& InInstance) noexcept;
-
-
-    /**
-     * 입력 처리 클래스의 복사 생성자입니다.
-     *
-     * @param InInstance - 복사할 객체입니다.
-     */
-    Input(const Input& InInstance) noexcept;
-
-
-    /**
      * 입력 클래스의 가상 소멸자입니다.
      */
     virtual ~Input() {}
 
 
     /**
-     * 입력 처리 클래스의 대입 연산자입니다.
-     *
-     * @param InInstance - 복사할 객체입니다.
-     *
-     * @return 복사한 객체의 참조자를 반환합니다.
+     * 복사 생성자와 대입 연산자를 명시적으로 삭제합니다.
      */
-    Input& operator=(Input&& InInstance) noexcept;
-
-
-    /**
-     * 입력 처리 클래스의 대입 연산자입니다.
-     *
-     * @param InInstance - 복사할 객체입니다.
-     *
-     * @return 복사한 객체의 참조자를 반환합니다.
-     */
-    Input& operator=(const Input& InInstance) noexcept;
+    DISALLOW_COPY_AND_ASSIGN(Input);
 
 
     /**
      * 입력 상태를 업데이트합니다.
-     * @note 이때, 이 메서드는 매 프레임 호출되어야 합니다.
-     *
-     * @return QUIT 메시지가 감지될 경우 true, 그렇지 않으면 false를 반환합니다.
-     *
+     * 이때, 이 메서드는 매 프레임 호출되어야 합니다.
      */
-    bool Tick();
+    void Tick();
+
+
+    /**
+     * 윈도우 이벤트를 등록합니다.
+     * 
+     * @param InWindowEvent - 등록할 윈도우 이벤트의 키 값입니다.
+     * @param InCallback - 등록할 윈도우 이벤트 콜백 함수입니다.
+     */
+    void RegisterWindowEvent(const EWindowEvent& InWindowEvent, const std::function<void()>& InCallback);
+
+
+    /**
+     * 윈도우 이벤트 등록을 해제합니다.
+     * 
+     * @param InWindowEvent - 등록 해제할 윈도우 이벤트의 키 값입니다.
+     */
+    void UnregisterWindowEvent(const EWindowEvent& InWindowEvent);
 
 
     /**
 	 * 키의 입력 상태를 반환합니다.
 	 *
-	 * @param InScanCode - 검사를 수행할 키입니다.
+	 * @param InEKeyCode - 검사를 수행할 키입니다.
 	 *
 	 * @return 키의 버튼 상태를 반환합니다.
 	 */
-    EPressState GetKeyPressState(const EScanCode& InScanCode) const;
+    EPressState GetKeyPressState(const EKeyCode& InEKeyCode) const;
 
 
     /**
@@ -400,11 +415,11 @@ private:
 	 * 특정 키가 눌렸는지 확인합니다.
 	 *
 	 * @param InKeyboardState - 검사를 수행할 키보드의 상태입니다.
-	 * @param InScanCode - 검사를 수행할 키입니다.
+	 * @param InEKeyCode - 검사를 수행할 키입니다.
 	 *
 	 * @return 만약 키를 눌렀다면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-    bool IsPressKey(const std::vector<uint8_t>& InKeyboardState, const EScanCode& InScanCode) const;
+    bool IsPressKey(const std::vector<uint8_t>& InKeyboardState, const EKeyCode& InEKeyCode) const;
 
 
     /**
@@ -425,6 +440,14 @@ private:
      * @return 만약 키를 눌렀다면 true, 그렇지 않다면 false를 반환합니다.
      */
     bool IsPressButton(const uint32_t& InButtonState, const EMouseButton& InMouseButton) const;
+
+
+    /**
+     * 윈도우 이벤트를 처리합니다.
+     * 
+     * @param InWindowEvent - 처리할 윈도우 이벤트입니다.
+     */
+    void HandleWindowEvent(const EWindowEvent& InWindowEvent);
 
 
 private:
@@ -462,4 +485,34 @@ private:
      * 업데이트 이후의 마우스 버튼 상태입니다.
      */
     uint32_t CurrButtonState_ = 0;
+
+
+    /**
+     * 마우스 포커스를 가지고 있는지 확인합니다.
+     */
+    bool bHaveMouseFocus_ = false;
+
+
+    /**
+     * 키보드 포커스를 가지고 있는지 확인합니다.
+     */
+    bool bHaveKeyboardFocus_ = false;
+
+
+    /**
+     * 윈도우 창이 최소화 되었는지 확인합니다.
+     */
+    bool bIsMinimized_ = false;
+
+
+    /**
+     * 윈도우 창이 최대화 되었는지 확인합니다.
+     */
+    bool bIsMaximized_ = false;
+
+
+    /**
+     * 윈도우 이벤트 키 값에 대응하는 이벤트입니다.
+     */
+    std::unordered_map<EWindowEvent, std::function<void()>> WindowEvents_;
 };
