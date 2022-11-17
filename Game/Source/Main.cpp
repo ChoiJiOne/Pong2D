@@ -60,7 +60,17 @@ public:
 
 		Input_ = std::make_unique<Input>();
 		Input_->RegisterWindowEvent(EWindowEvent::CODE_CLOSE, [&]() { bIsDone_ = true; });
-		Input_->RegisterWindowEvent(EWindowEvent::CODE_RESIZED, [&]() {});
+		Input_->RegisterWindowEvent(
+			EWindowEvent::CODE_RESIZED, 
+			[&]() {
+				int32_t Width = 0, Height = 0;
+
+				Window_->GetSize(Width, Height);
+				World_->SetSize<int32_t>(Width, Height);
+				Camera_->SetWidth(static_cast<float>(Width));
+				Camera_->SetHeight(static_cast<float>(Height));
+			}
+		);
 
 		World_ = std::make_unique<World>(1000.0f, 800.0f);
 
