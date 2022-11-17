@@ -49,7 +49,7 @@ public:
 				"Pong2D",
 				200, 200,
 				1000, 800,
-				EWindowFlags::SHOWN | EWindowFlags::RESIZABLE
+				EWindowFlags::SHOWN | EWindowFlags::FULLSCREEN_DESKTOP
 			}
 		);
 
