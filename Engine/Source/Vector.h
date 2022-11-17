@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <cstdint>
 #include <algorithm>
 
@@ -810,6 +811,68 @@ struct Vec2f
 	const Type& operator[](int32_t&& InIndex) const
 	{
 		return Element_[InIndex];
+	}
+
+	
+	/**
+	 * 벡터 크기의 제곱을 얻습니다.
+	 * 
+	 * @return 벡터 크기의 제곱을 얻습니다.
+	 */
+	Type LengthSq() const
+	{
+		Type Result = static_cast<Type>(0);
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			Result += Element_[Index] * Element_[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 벡터의 크기를 얻습니다.
+	 * 
+	 * @return 벡터의 크기값을 반환합니다.
+	 */
+	Type Length() const
+	{
+		return std::sqrt(LengthSq());
+	}
+
+
+	/**
+	 * 현재 벡터를 정규화 (Normalize) 합니다.
+	 */
+	void Normalize()
+	{
+		Type VectorLength = Length();
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			Element_[Index] /= VectorLength;
+		}
+	}
+
+
+	/**
+	 * 현재 벡터에서 정규화된 벡터를 얻습니다.
+	 * 
+	 * @return 정규화된 벡터를 반환합니다.
+	 */
+	Vec2f Normalize() const
+	{
+		Vec2f NormalizeVector;
+		Type VectorLength = Length();
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			NormalizeVector[Index] = Element_[Index] / VectorLength;
+		}
+
+		return NormalizeVector;
 	}
 
 
@@ -1648,6 +1711,68 @@ struct Vec3f
 	const Type& operator[](int32_t&& InIndex) const
 	{
 		return Element_[InIndex];
+	}
+
+
+	/**
+	 * 벡터 크기의 제곱을 얻습니다.
+	 *
+	 * @return 벡터 크기의 제곱을 얻습니다.
+	 */
+	Type LengthSq() const
+	{
+		Type Result = static_cast<Type>(0);
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			Result += Element_[Index] * Element_[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 벡터의 크기를 얻습니다.
+	 *
+	 * @return 벡터의 크기값을 반환합니다.
+	 */
+	Type Length() const
+	{
+		return std::sqrt(LengthSq());
+	}
+
+
+	/**
+	 * 현재 벡터를 정규화 (Normalize) 합니다.
+	 */
+	void Normalize()
+	{
+		Type VectorLength = Length();
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			Element_[Index] /= VectorLength;
+		}
+	}
+
+
+	/**
+	 * 현재 벡터에서 정규화된 벡터를 얻습니다.
+	 *
+	 * @return 정규화된 벡터를 반환합니다.
+	 */
+	Vec2f Normalize() const
+	{
+		Vec2f NormalizeVector;
+		Type VectorLength = Length();
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			NormalizeVector[Index] = Element_[Index] / VectorLength;
+		}
+
+		return NormalizeVector;
 	}
 
 
@@ -2503,6 +2628,68 @@ struct Vec4f
 	const Type& operator[](int32_t&& InIndex) const
 	{
 		return Element_[InIndex];
+	}
+
+
+	/**
+	 * 벡터 크기의 제곱을 얻습니다.
+	 *
+	 * @return 벡터 크기의 제곱을 얻습니다.
+	 */
+	Type LengthSq() const
+	{
+		Type Result = static_cast<Type>(0);
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			Result += Element_[Index] * Element_[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 벡터의 크기를 얻습니다.
+	 *
+	 * @return 벡터의 크기값을 반환합니다.
+	 */
+	Type Length() const
+	{
+		return std::sqrt(LengthSq());
+	}
+
+
+	/**
+	 * 현재 벡터를 정규화 (Normalize) 합니다.
+	 */
+	void Normalize()
+	{
+		Type VectorLength = Length();
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			Element_[Index] /= VectorLength;
+		}
+	}
+
+
+	/**
+	 * 현재 벡터에서 정규화된 벡터를 얻습니다.
+	 *
+	 * @return 정규화된 벡터를 반환합니다.
+	 */
+	Vec2f Normalize() const
+	{
+		Vec2f NormalizeVector;
+		Type VectorLength = Length();
+
+		for (int32_t Index = 0; Index < SIZE; ++Index)
+		{
+			NormalizeVector[Index] = Element_[Index] / VectorLength;
+		}
+
+		return NormalizeVector;
 	}
 
 
