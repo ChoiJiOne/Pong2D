@@ -124,7 +124,7 @@ public:
 	 * @param InHeight - 설정할 2D 게임 월드의 세로 크기입니다.
 	 */
 	template <typename T>
-	void SetSize(const T& InWidth, const T& InHeight) const
+	void SetSize(const T& InWidth, const T& InHeight)
 	{
 		Width_ = static_cast<float>(InWidth);
 		Height_ = static_cast<float>(InHeight);
