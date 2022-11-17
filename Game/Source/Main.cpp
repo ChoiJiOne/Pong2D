@@ -109,6 +109,11 @@ public:
 	 */
 	virtual void Update() override
 	{
+		if (Input_->GetKeyPressState(EKeyCode::CODE_ESCAPE) == EPressState::PRESSED)
+		{
+			bIsDone_ = true;
+		}
+
 		const std::list<GameObject*>& Objects = World_->GetAllObject();
 		for (auto Object : Objects)
 		{
