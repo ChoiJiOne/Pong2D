@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Macro.h"
+
 class GameObject;
 
 
@@ -22,6 +24,12 @@ public:
 	 * 오브젝트가 소유하는 컴포넌트의 가상 소멸자입니다.
 	 */
 	virtual ~Component() {}
+
+
+	/**
+	 * 컴포넌트의 복사 생성자 및 대입연산자를 삭제합니다.
+	 */
+	DISALLOW_COPY_AND_ASSIGN(Component);
 
 
 protected:
