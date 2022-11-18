@@ -26,6 +26,12 @@ public:
 
 
 	/**
+	 * 입력 처리 컴포넌트의 복사 생성자 및 대입연산자를 삭제합니다.
+	 */
+	DISALLOW_COPY_AND_ASSIGN(InputComponent);
+
+
+	/**
 	 * 입력 처리 컴포넌트를 업데이트합니다.
 	 * 
 	 * @param InInput - 입력 처리 클래스의 인스턴스입니다.

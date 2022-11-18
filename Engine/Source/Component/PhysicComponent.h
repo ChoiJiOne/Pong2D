@@ -26,6 +26,12 @@ public:
 
 
 	/**
+	 * 물리 처리 컴포넌트의 복사 생성자 및 대입연산자를 삭제합니다.
+	 */
+	DISALLOW_COPY_AND_ASSIGN(PhysicComponent);
+
+
+	/**
 	 * 물리 처리 컴포넌트를 업데이트합니다.
 	 * 
 	 * @param InWorld - 2D 게임 월드입니다.

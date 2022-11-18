@@ -2,83 +2,28 @@
 
 #include <array>
 
-#include "Vector.h"
+#include "Component.h"
+#include "Misc/Vector.h"
 
 
 /**
  * 오브젝트의 바디입니다.
  * 이때, 오브젝트 바디는 AABB 기반으로 회전하지 않습니다.
  */
-class RigidBody
+class RigidBodyComponent : public Component
 {
 public:
 	/**
 	 * 오브젝트 바디의 기본 생성자입니다.
 	 * 이때, 디폴트 생성자에서 초기화를 수행하지 않으므로, 사용하기 전에 적절한 초기화를 수행해야 합니다.
 	 */
-	RigidBody() = default;
+	RigidBodyComponent() = default;
 
-
-	/**
-	 * 오브젝트의 바디의 생성자입니다.
-	 * 
-	 * @param InCenter - 오브젝트 바디의 중심 좌표입니다.
-	 * @param InWidth - 오브젝트 바디의 가로 크기입니다.
-	 * @param InHeight - 오브젝트 바디 세로 크기입니다.
-	 * @param InRotate - 오브젝트 바디의 이동 방향 각도입니다.
-	 * @param InVelocity - 오브젝트 바디의 속력입니다.
-	 * @param bCanMove - 오브젝트 바디의 이동 여부입니다.
-	 */
-	explicit RigidBody(
-		const Vec2f& InCenter, 
-		const float& InWidth, 
-		const float& InHeight,
-		const float& InRotate = 0.0f,
-		const float& InVelocity = 0.0f,
-		bool bCanMove = false
-	);
 	
-	
-	/**
-	 * 오브젝트 바디의 복사 생성자입니다.
-	 *
-	 * @param InInstance - 복사할 객체입니다.
-	 */
-	RigidBody(RigidBody&& InInstance) noexcept;
-
-
-	/**
-	 * 오브젝트 바디의 복사 생성자입니다.
-	 *
-	 * @param InInstance - 복사할 객체입니다.
-	 */
-	RigidBody(const RigidBody& InInstance) noexcept;
-
-
 	/**
 	 * 오브젝트 바디의 가상 소멸자입니다.
 	 */
-	virtual ~RigidBody();
-
-
-	/**
-	 * 오브젝트 바디의 대입 연산자입니다.
-	 *
-	 * @param InInstance - 복사할 객체입니다.
-	 *
-	 * @return 복사한 객체의 참조자를 반환합니다.
-	 */
-	RigidBody& operator=(RigidBody&& InInstance) noexcept;
-
-
-	/**
-	 * 오브젝트 바디의 대입 연산자입니다.
-	 *
-	 * @param InInstance - 복사할 객체입니다.
-	 *
-	 * @return 복사한 객체의 참조자를 반환합니다.
-	 */
-	RigidBody& operator=(const RigidBody& InInstance) noexcept;
+	virtual ~RigidBodyComponent();
 
 
 	/**
@@ -194,7 +139,7 @@ public:
 	 * 
 	 * @return 다른 오브젝트와 충돌한다면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	bool IsCollision(const RigidBody& InRigidBody);
+	bool IsCollision(const RigidBodyComponent& InRigidBody);
 
 
 	/**
@@ -204,7 +149,7 @@ public:
 	 * 
 	 * @return 다른 오브젝트를 포함한다면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	bool IsInclude(const RigidBody& InRigidBody);
+	bool IsInclude(const RigidBodyComponent& InRigidBody);
 
 
 private:
