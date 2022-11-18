@@ -1,6 +1,3 @@
-#include "Player.h"
-#include "Ground.h"
-
 #include "ToyEngine.h"
 
 
@@ -22,10 +19,6 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
-		Camera_.reset();
-		Ground_.reset();
-		Player1_.reset();
-		Player2_.reset();
 	}
 
 
@@ -53,9 +46,9 @@ public:
 			}
 		);
 
-		Graphics_ = std::make_unique<Graphics>(
+		Renderer_ = std::make_unique<Renderer>(
 			*Window_, 
-			EGraphicsFlags::ACCELERATED | EGraphicsFlags::PRESENTVSYNC
+			ERendererFlags::ACCELERATED | ERendererFlags::PRESENTVSYNC
 		);
 
 		Input_ = std::make_unique<Input>();
@@ -67,18 +60,10 @@ public:
 
 				Window_->GetSize(Width, Height);
 				World_->SetSize<int32_t>(Width, Height);
-				Camera_->SetWidth(static_cast<float>(Width));
-				Camera_->SetHeight(static_cast<float>(Height));
 			}
 		);
 
 		World_ = std::make_unique<World>(1000.0f, 800.0f);
-
-		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f);
-
-		Ground_ = std::make_unique<Ground>(World_.get(), Vec2f(0.0f, 0.0f), 900.0f, 450.0f);
-		Player1_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER1, Vec2f(-350.0f, 0.0f), 25.0f, 150.0f, 350.0f);
-		Player2_ = std::make_unique<Player>(World_.get(), Player::EType::PLAYER2, Vec2f(+350.0f, 0.0f), 25.0f, 150.0f, 350.0f);
 	}
 
 
@@ -113,26 +98,6 @@ public:
 		{
 			bIsDone_ = true;
 		}
-
-		const std::list<GameObject*>& Objects = World_->GetAllObject();
-		for (auto Object : Objects)
-		{
-			Object->Update(*Input_, Timer_.GetDeltaSeconds());
-		}
-
-		std::array<GameObject*, 2> Players = { Player1_.get(), Player2_.get() };
-		for (auto player : Players)
-		{
-			if (!Ground_->IsInclude(*player))
-			{
-				Vec2f Position = player->GetCenter();
-				float Distance = Ground_->GetHeight() / 2.0f - player->GetHeight() / 2.0f;
-
-				Position.y = (Position.y > 0.0f) ? Distance : -Distance;
-
-				player->SetCenter(Position);
-			}
-		}
 	}
 
 
@@ -143,15 +108,8 @@ public:
 	 */
 	virtual void Render() override
 	{
-		Graphics_->BeginFrame(ColorUtils::Black);
-
-		const std::list<GameObject*>& Objects = World_->GetAllObject();
-		for (auto Object : Objects)
-		{
-			Object->Render(*Graphics_, *Camera_);
-		}
-
-		Graphics_->EndFrame();
+		Renderer_->BeginFrame(ColorUtils::Black);
+		Renderer_->EndFrame();
 	}
 
 
@@ -160,30 +118,6 @@ private:
 	 * 게임 타이머입니다.
 	 */
 	Timer Timer_;
-
-	
-	/**
-	 * 게임 카메라입니다.
-	 */
-	std::unique_ptr<Camera> Camera_ = nullptr;
-
-
-	/**
-	 * 게임 플레이어1입니다.
-	 */
-	std::unique_ptr<Player> Player1_ = nullptr;
-
-
-	/**
-	 * 게임 플레이어2입니다.
-	 */
-	std::unique_ptr<Player> Player2_ = nullptr;
-
-
-	/**
-	 * 게임 그라운드입니다.
-	 */
-	std::unique_ptr<Ground> Ground_ = nullptr;
 };
 
 
