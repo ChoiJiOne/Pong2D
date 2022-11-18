@@ -3,7 +3,7 @@
 #include <json/json.hpp>
 using Json = nlohmann::json;
 
-class Graphics;
+class Renderer;
 class Texture;
 class Font;
 class Music;
@@ -32,7 +32,7 @@ public:
 	 * 텍스처를 추가합니다.
 	 * 
 	 * @param InKey - 텍스처의 해쉬 키값입니다.
-	 * @param InGraphics - 텍스처를 생성할 때 사용할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 텍스처를 생성할 때 사용할 렌더러입니다.
 	 * @param InPath - 텍스처의 경로 입니다. 이때, Content 폴더를 기준으로 인자를 전달해야 합니다.
 	 * 
 	 * @throws 
@@ -41,7 +41,7 @@ public:
 	 * 
 	 * @return 추가한 텍스처의 참조자를 반환합니다.
 	 */
-	static Texture& LoadTexture(const std::size_t& InKey, Graphics& InGraphics, const std::string& InPath);
+	static Texture& LoadTexture(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath);
 
 
 	/**
@@ -78,7 +78,7 @@ public:
 	 * 트루 타입 폰트를 추가합니다.
 	 *
 	 * @param InKey - 폰트의 해쉬 키값입니다.
-	 * @param InGraphics - 폰트를 생성할 때 사용할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 폰트를 생성할 때 사용할 렌더러입니다.
 	 * @param InPath - 폰트의 경로 입니다. 이때, Content 폴더를 기준으로 인자를 전달해야 합니다.
 	 * @param InBeginCodePoint - 문자 텍스처 아틀라스의 코드 포인트 시작점입니다.
 	 * @param InEndCodePoint - 문자 텍스처 아틀라스의 코드 포인트 끝점입니다.
@@ -92,7 +92,7 @@ public:
 	 */
 	static Font& LoadFont(
 		const std::size_t& InKey, 
-		Graphics& InGraphics, 
+		Renderer& InRenderer, 
 		const std::string& InPath, 
 		int32_t InBeginCodePoint,
 		int32_t InEndCodePoint,

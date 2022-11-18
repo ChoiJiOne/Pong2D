@@ -1,18 +1,22 @@
-#include "ContentUtils.h"
-#include "CommandLineUtils.h"
-#include "Texture.h"
-#include "Font.h"
-#include "Music.h"
-#include "Sound.h"
+#include "Misc/ContentUtils.h"
+#include "Misc/CommandLineUtils.h"
+
+#include "Core/Renderer.h"
+
+#include "Resource/Texture.h"
+#include "Resource/Font.h"
+#include "Resource/Music.h"
+#include "Resource/Sound.h"
 
 #include <fstream>
 
 std::string ContentUtils::ContentPath_;
+
 std::unordered_map<std::size_t, std::unique_ptr<Texture>> ContentUtils::Textures_;
-std::unordered_map<std::size_t, std::unique_ptr<Font>> ContentUtils::Fonts_;
-std::unordered_map<std::size_t, Json> ContentUtils::Jsons_;
-std::unordered_map<std::size_t, std::unique_ptr<Music>> ContentUtils::Musics_;
-std::unordered_map<std::size_t, std::unique_ptr<Sound>> ContentUtils::Sounds_;
+std::unordered_map<std::size_t, std::unique_ptr<Font>>    ContentUtils::Fonts_;
+std::unordered_map<std::size_t, Json>                     ContentUtils::Jsons_;
+std::unordered_map<std::size_t, std::unique_ptr<Music>>   ContentUtils::Musics_;
+std::unordered_map<std::size_t, std::unique_ptr<Sound>>   ContentUtils::Sounds_;
 
 void ContentUtils::Init()
 {
@@ -42,11 +46,11 @@ void ContentUtils::Quit()
 	}
 }
 
-Texture& ContentUtils::LoadTexture(const std::size_t& InKey, Graphics& InGraphics, const std::string& InPath)
+Texture& ContentUtils::LoadTexture(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath)
 {
 	CHECK(!HaveTexture(InKey), "collision texture key or already load texture resource");
 
-	std::unique_ptr<Texture> NewTexture = std::make_unique<Texture>(InGraphics, ContentPath_ + InPath);
+	std::unique_ptr<Texture> NewTexture = std::make_unique<Texture>(InRenderer, ContentPath_ + InPath);
 	Textures_.insert({ InKey, std::move(NewTexture) });
 
 	return *Textures_.at(InKey);
@@ -69,11 +73,11 @@ Texture& ContentUtils::GetTexture(const std::size_t& InKey)
 	return *Textures_.at(InKey);
 }
 
-Font& ContentUtils::LoadFont(const std::size_t& InKey, Graphics& InGraphics, const std::string& InPath, int32_t InBeginCodePoint, int32_t InEndCodePoint, float InFontSize)
+Font& ContentUtils::LoadFont(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath, int32_t InBeginCodePoint, int32_t InEndCodePoint, float InFontSize)
 {
 	CHECK(!HaveFont(InKey), "collision font key or already load font resource");
 
-	std::unique_ptr<Font> NewFont = std::make_unique<Font>(InGraphics, ContentPath_ + InPath, InBeginCodePoint, InEndCodePoint, InFontSize);
+	std::unique_ptr<Font> NewFont = std::make_unique<Font>(InRenderer, ContentPath_ + InPath, InBeginCodePoint, InEndCodePoint, InFontSize);
 	Fonts_.insert({ InKey, std::move(NewFont) });
 
 	return *Fonts_.at(InKey);

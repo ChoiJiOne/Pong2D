@@ -22,7 +22,7 @@ public:
 	 * 
 	 * @return 전체 커맨드 라인 문자열을 반환합니다.
 	 */
-	static std::string GetCommanLine() { return CommandLine_; }
+	static const std::string& GetCommanLine() { return CommandLine_; }
 
 
 	/**
