@@ -1,19 +1,20 @@
-#include "Texture.h"
-#include "Graphics.h"
+#include "Resource/Texture.h"
+
+#include "Core/Renderer.h"
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>
 #include <stb/stb_image.h>
 // @third party code - END
 
-Texture::Texture(Graphics& InGraphics, const std::string& InPath)
+Texture::Texture(Renderer& InRenderer, const std::string& InPath)
 {
 	std::vector<uint8_t> Buffer;
 	int32_t Format = 0, Width = 0, Height = 0;
 
 	CHECK((LoadTextureFromFile(InPath, Buffer, Format, Width, Height)), "failed to load texture file");
 
-	Texture_ = CreateTextureResource(InGraphics, Buffer, Format, Width, Height);
+	Texture_ = CreateTextureResource(InRenderer, Buffer, Format, Width, Height);
 	CHECK((Texture_ != nullptr), "failed to create texture resource");
 
 	CHECK((SDL_SetTextureBlendMode(Texture_, SDL_BLENDMODE_BLEND) == 0), "failed to set blend mode in texture");
@@ -55,7 +56,7 @@ bool Texture::LoadTextureFromFile(const std::string& InPath, std::vector<uint8_t
 	return true;
 }
 
-SDL_Texture* Texture::CreateTextureResource(Graphics& InGraphics, const std::vector<uint8_t>& InBuffer, const int32_t& InFormat, const int32_t& InWidth, const int32_t& InHeight)
+SDL_Texture* Texture::CreateTextureResource(Renderer& InRenderer, const std::vector<uint8_t>& InBuffer, const int32_t& InFormat, const int32_t& InWidth, const int32_t& InHeight)
 {
 	int32_t Pitch = InWidth * InFormat;
 
@@ -79,7 +80,7 @@ SDL_Texture* Texture::CreateTextureResource(Graphics& InGraphics, const std::vec
 		break;
 	}
 
-	SDL_Texture* Texture = SDL_CreateTexture(InGraphics.GetRenderer(), Format, SDL_TEXTUREACCESS_STATIC, InWidth, InHeight);
+	SDL_Texture* Texture = SDL_CreateTexture(InRenderer.GetRenderer(), Format, SDL_TEXTUREACCESS_STATIC, InWidth, InHeight);
 	CHECK((Texture != nullptr), "failed to SDL_CreateTexture");
 
 	CHECK((SDL_UpdateTexture(Texture, nullptr, reinterpret_cast<const void*>(&InBuffer[0]), Pitch) == 0), "failed to contain texture buffer");

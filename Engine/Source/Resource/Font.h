@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Macro.h"
-#include "Vector.h"
+#include "Misc/MacroUtils.h"
+#include "Misc/Vector.h"
 
 #include <vector>
 #include <string>
 
-class Graphics;
+class Renderer;
 struct SDL_Texture;
 
 
@@ -36,7 +36,7 @@ public:
 	/**
 	 * 문자 텍스처 아틀라스 클래스의 생성자입니다.
 	 *
-	 * @param InGraphics - 텍스처 리소스를 생성할 때 사용할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 텍스처 리소스를 생성할 때 사용할 렌더러입니다.
 	 * @param InPath - 로딩할 폰트 리소스의 경로입니다.
 	 * @param InBeginCodePoint - 문자 텍스처 아틀라스의 코드 포인트 시작점입니다.
 	 * @param InEndCodePoint - 문자 텍스처 아틀라스의 코드 포인트 끝점입니다.
@@ -45,7 +45,7 @@ public:
 	 * @throws 텍스처 아틀라스 생성에 실패하면 C++ 표준 예외를 던집니다.
 	 */
 	Font(
-		Graphics& InGraphics,
+		Renderer& InRenderer,
 		const std::string& InPath,
 		int32_t InBeginCodePoint,
 		int32_t InEndCodePoint,
@@ -144,7 +144,7 @@ private:
 	/**
 	 * 텍스처 아틀라스 비트맵으로 부터 텍스처 리소스를 생성합니다.
 	 *
-	 * @param InGraphics - 텍스처 리소스를 생성할 때 사용할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 텍스처 리소스를 생성할 때 사용할 렌더러입니다.
 	 * @param InBitmap - 텍스처 아틀라스 비트맵입니다.
 	 * @param InSize - 텍스처 아틀라스 비트맵의 가로 세로 크기입니다
 	 *
@@ -153,7 +153,7 @@ private:
 	 * @return 텍스처 아틀라스를 반환합니다.
 	 */
 	static SDL_Texture* CreateTextureAtlasFromBitmap(
-		Graphics& InGraphics,
+		Renderer& InRenderer,
 		const std::shared_ptr<uint8_t[]>& InBitmap,
 		const int32_t InSize
 	);

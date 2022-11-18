@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Macro.h"
+#include "Misc/MacroUtils.h"
 
 #include <vector>
 #include <string>
 
-class Graphics;
+class Renderer;
 struct SDL_Texture;
 
 
@@ -18,14 +18,14 @@ public:
 	/**
 	 * 텍스처 클래스의 생성자입니다.
 	 *
-	 * @param InGraphics - 텍스처 리소스를 생성할 때 사용할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 텍스처 리소스를 생성할 때 사용할 렌더러입니다.
 	 * @param InPath - 로딩할 텍스처 리소스의 경로입니다.
 	 *
 	 * @throws
 	 * - 텍스처 파일 로딩에 실패하면 C++ 표준 예외를 던집니다.
 	 * - 텍스처 리소스 생성에 실패하면 C++ 표준 예외를 던집니다.
 	 */
-	explicit Texture(Graphics& InGraphics, const std::string& InPath);
+	explicit Texture(Renderer& InRenderer, const std::string& InPath);
 
 
 	/**
@@ -92,7 +92,7 @@ private:
 	/**
 	 * 텍스처 리소스를 생성합니다.
 	 *
-	 * @param InGraphics - 텍스처 리소스를 생성할 때 사용할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 텍스처 리소스를 생성할 때 사용할 렌더러입니다.
 	 * @param InBuffer - 텍스처 리소스의 버퍼입니다.
 	 * @param InFormat - 텍스처 리소스의 포멧입니다.
 	 * @param InWidth - 텍스처 리소스의 가로 크기입니다.
@@ -103,7 +103,7 @@ private:
 	 * @return SDL 텍스처 리소스의 포인터를 반환합니다.
 	 */
 	static SDL_Texture* CreateTextureResource(
-		Graphics& InGraphics,
+		Renderer& InRenderer,
 		const std::vector<uint8_t>& InBuffer,
 		const int32_t& InFormat,
 		const int32_t& InWidth,

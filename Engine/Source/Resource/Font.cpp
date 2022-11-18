@@ -1,5 +1,6 @@
-#include "Font.h"
-#include "Graphics.h"
+#include "Resource/Font.h"
+
+#include "Core/Renderer.h"
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>
@@ -8,7 +9,7 @@
 // @third party code - END
 
 Font::Font(
-	Graphics& InGraphics,
+	Renderer& InRenderer,
 	const std::string& InPath,
 	int32_t InBeginCodePoint,
 	int32_t InEndCodePoint,
@@ -29,7 +30,7 @@ Font::Font(
 	int32_t BitmapSize = 0;
 	std::shared_ptr<uint8_t[]> Bitmap = GenerateTextureAtlasBitmap(Buffer, BeginCodePoint_, EndCodePoint_, InFontSize, CharacterInfos_, BitmapSize);
 
-	TextureAtlas_ = CreateTextureAtlasFromBitmap(InGraphics, Bitmap, BitmapSize);
+	TextureAtlas_ = CreateTextureAtlasFromBitmap(InRenderer, Bitmap, BitmapSize);
 }
 
 Font::~Font()
@@ -156,11 +157,11 @@ std::shared_ptr<uint8_t[]> Font::GenerateTextureAtlasBitmap(
 	return Bitmap;
 }
 
-SDL_Texture* Font::CreateTextureAtlasFromBitmap(Graphics& InGraphics, const std::shared_ptr<uint8_t[]>& InBitmap, const int32_t InSize)
+SDL_Texture* Font::CreateTextureAtlasFromBitmap(Renderer& InRenderer, const std::shared_ptr<uint8_t[]>& InBitmap, const int32_t InSize)
 {
 	auto Pixels = std::make_unique<uint32_t[]>(InSize * InSize);
 
-	SDL_Texture* TextureAtlas = SDL_CreateTexture(InGraphics.GetRenderer(), SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STATIC, InSize, InSize);
+	SDL_Texture* TextureAtlas = SDL_CreateTexture(InRenderer.GetRenderer(), SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STATIC, InSize, InSize);
 	CHECK((TextureAtlas != nullptr), "failed to create texture altas");
 
 	CHECK((SDL_SetTextureBlendMode(TextureAtlas, SDL_BLENDMODE_BLEND) == 0), "failed to set blend mode in texture atlas");
