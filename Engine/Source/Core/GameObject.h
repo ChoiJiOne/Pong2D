@@ -63,13 +63,14 @@ public:
 	 * 이때, 키 값에 대응하는 컴포넌트가 존재한다면 아무런 동작도 수행하지 않습니다.
 	 * 
 	 * @param InKey - 추가할 컴포넌트의 키값입니다.
+	 * @param InArgs - 컴포넌트에 필요한 가변 인자입니다.
 	 */
-	template<typename T>
-	void AddComponent(const std::size_t& InKey)
+	template<typename T, typename... Types>
+	void AddComponent(const std::size_t& InKey, Types... InArgs)
 	{
 		if (HaveComponent(InKey)) return;
 
-		std::unique_ptr<T> NewComponent = std::make_unique<T>(this);
+		std::unique_ptr<T> NewComponent = std::make_unique<T>(this, InArgs...);
 		Components_.insert({ InKey, std::move(NewComponent) });
 	}
 
