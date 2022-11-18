@@ -1,8 +1,10 @@
-#include "Button.h"
-#include "ContentUtils.h"
-#include "Input.h"
-#include "Graphics.h"
-#include "MathUtils.h"
+#include "UI/Button.h"
+
+#include "Misc/ContentUtils.h"
+#include "Misc/MathUtils.h"
+
+#include "Core/Input.h"
+#include "Core/Renderer.h"
 
 Button::Button(
 	const Vec2f& InCenter, 
@@ -122,7 +124,7 @@ void Button::Update(Input& InInput)
 	}
 }
 
-void Button::Render(Graphics& InGraphics)
+void Button::Render(Renderer& InRenderer)
 {
 	LinearColor CurrentColor = bIsEnable_ ? EnableColor_ : UnableColor_;
 
@@ -140,8 +142,8 @@ void Button::Render(Graphics& InGraphics)
 		Height = static_cast<int32_t>(Height_);
 	}
 
-	InGraphics.DrawRect2D(Position, Width, Height, CurrentColor);
-	InGraphics.DrawText2D(ContentUtils::GetFont(FontKey_), Text_, Position, CurrentColor);
+	InRenderer.DrawRect2D(Position, Width, Height, CurrentColor);
+	InRenderer.DrawText2D(ContentUtils::GetFont(FontKey_), Text_, Position, CurrentColor);
 }
 
 bool Button::IsDetectMouseCursor(const Input& InInput)

@@ -4,11 +4,11 @@
 #include <string>
 #include <functional>
 
-#include "Vector.h"
-#include "ColorUtils.h"
+#include "Misc/Vector.h"
+#include "Misc/ColorUtils.h"
 
 class Input;
-class Graphics;
+class Renderer;
 
 
 /**
@@ -96,9 +96,9 @@ public:
 	/**
 	 * 버튼을 화면에 그립니다.
 	 * 
-	 * @param InGraphics - 버튼을 화면에 그릴 때 참조할 그래픽스 인스턴스입니다.
+	 * @param InRenderer - 버튼을 화면에 그릴 때 참조할 렌더러입니다.
 	 */
-	void Render(Graphics& InGraphics);
+	void Render(Renderer& InRenderer);
 
 
 private:
