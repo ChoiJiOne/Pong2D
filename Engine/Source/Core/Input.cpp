@@ -1,7 +1,6 @@
-#include "Input.h"
-#include "Macro.h"
+#include "Core/Input.h"
 
-#include <iostream>
+#include "Misc/MacroUtils.h"
 
 // @third party code - BEGIN SDL2
 #include <SDL2/SDL.h>

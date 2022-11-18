@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Macro.h"
+#include "Misc/MacroUtils.h"
 
 class World;
 class Window;
 class Input;
-class Graphics;
+class Renderer;
 
 
 /**
@@ -94,7 +94,7 @@ protected:
 
 
 	/**
-	 * 게임 내에 그래픽 처리를 수행합니다.
+	 * 게임 내에 렌더링 처리를 수행합니다.
 	 */
-	std::unique_ptr<Graphics> Graphics_ = nullptr;
+	std::unique_ptr<Renderer> Renderer_ = nullptr;
 };

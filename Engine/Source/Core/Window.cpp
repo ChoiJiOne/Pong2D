@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "Core/Window.h"
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>

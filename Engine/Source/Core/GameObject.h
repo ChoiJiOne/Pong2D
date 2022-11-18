@@ -1,16 +1,15 @@
 #pragma once
 
-#include "RigidBody.h"
-#include "Vector.h"
-#include "Macro.h"
+#include "Misc/Vector.h"
+#include "Misc/MacroUtils.h"
 
 #include <unordered_map>
 #include <memory>
 
 class World;
 class Input;
-class Graphics;
 class Camera;
+class Renderer;
 class Component;
 
 
@@ -18,7 +17,7 @@ class Component;
  * 게임 오브젝트 클래스입니다.
  * 게임 내의 오브젝트는 이 클래스를 상속받아야 합니다.
  */
-class GameObject : public RigidBody
+class GameObject
 {
 public:
 	/**
@@ -44,7 +43,7 @@ public:
 	/**
 	 * 게임 오브젝트를 업데이트합니다.
 	 *
-	 * @param InInput - 게임의 입력 처리 인스턴스입니다.
+	 * @param InInput - 게임의 입력 처리를 위한 입력입니다.
 	 * @param InDeltaTime - 초단위 델타 시값값 입니다.
 	 */
 	virtual void Update(Input& InInput, float InDeltaSeconds) = 0;
@@ -53,10 +52,10 @@ public:
 	/**
 	 * 게임 오브젝트를 화면에 그립니다.
 	 * 
-	 * @param InGraphics - 게임의 렌더링 처리 인스턴스입니다.
-	 * @param InCamera - 게임의 카메라 인스턴스입니다.
+	 * @param InGraphics - 게임의 렌더링 처리를 위한 렌더러입니다.
+	 * @param InCamera - 게임의 시야 처리를 위한 카메라입니다.
 	 */
-	virtual void Render(Graphics& InGraphics, Camera& InCamera) = 0;
+	virtual void Render(Renderer& InRenderer, Camera& InCamera) = 0;
 
 
 	/**

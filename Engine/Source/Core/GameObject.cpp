@@ -1,10 +1,7 @@
-#include "GameObject.h"
-#include "RigidBody.h"
-#include "InputComponent.h"
-#include "GraphicsComponent.h"
-#include "PhysicComponent.h"
-#include "AudioComponent.h"
-#include "World.h"
+#include "Core/GameObject.h"
+#include "Core/World.h"
+
+#include "Component/Component.h"
 
 GameObject::GameObject(World* InWorld)
 {

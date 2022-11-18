@@ -1,5 +1,5 @@
-#include "World.h"
-#include "GameObject.h"
+#include "Core/World.h"
+#include "Core/GameObject.h"
 
 World::World(const float& InWidth, const float& InHeight)
 {
