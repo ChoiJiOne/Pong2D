@@ -33,7 +33,12 @@ workspace "Pong2D"
 
         files {
             "%{engine}/Source/*",
-
+            "%{engine}/Source/Component/*",
+            "%{engine}/Source/Core/*",
+            "%{engine}/Source/Misc/*",
+            "%{engine}/Source/Resource/*",
+            "%{engine}/Source/UI/*",
+            
             "%{thirdparty}/Include/json/*",
 
             "%{thirdparty}/Include/SDL2/*",
