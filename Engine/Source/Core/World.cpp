@@ -1,12 +1,6 @@
 #include "Core/World.h"
 #include "Core/GameObject.h"
 
-World::World(const float& InWidth, const float& InHeight)
-{
-	Width_ = InWidth;
-	Height_ = InHeight;
-}
-
 World::~World()
 {
 }
