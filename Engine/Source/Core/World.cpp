@@ -5,29 +5,21 @@ World::~World()
 {
 }
 
-void World::AddOjbect(GameObject* InObject)
+void World::AddOjbect(GameObject* InObject, const std::size_t& InKey)
 {
-	if (IsExistObject(InObject)) return;
+	if (IsExistObject(InKey)) return;
 
-	GameObjects_.push_back(InObject);
+	GameObjects_.insert({ InKey, InObject });
 }
 
-bool World::IsExistObject(GameObject* InObject)
+bool World::IsExistObject(const std::size_t& InKey)
 {
-	for (const auto& Object : GameObjects_)
-	{
-		if (Object == InObject)
-		{
-			return true;
-		}
-	}
-
-	return false;
+	return GameObjects_.find(InKey) != GameObjects_.end();
 }
 
-void World::RemoveObject(GameObject* InObject)
+void World::RemoveObject(const std::size_t& InKey)
 {
-	if (!IsExistObject(InObject)) return;
+	if (!IsExistObject(InKey)) return;
 
-	GameObjects_.remove(InObject);
+	GameObjects_.erase(InKey);
 }
