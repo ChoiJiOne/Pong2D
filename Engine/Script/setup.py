@@ -97,10 +97,6 @@ def create_premake5_script(project_name):
 
         files {
             "%{engine}/Source/*",
-            "%{engine}/Source/Core/*",
-            "%{engine}/Source/Misc/*",
-            "%{engine}/Source/Resource/*",
-            "%{engine}/Source/UI/*",
 
             "%{thirdparty}/Include/json/*",
 
