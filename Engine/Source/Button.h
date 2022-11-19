@@ -6,7 +6,7 @@
 
 #include "Vector.h"
 #include "MathUtils.h"
-#include "ColorUtils.h"
+#include "Color.h"
 
 class Input;
 class Renderer;

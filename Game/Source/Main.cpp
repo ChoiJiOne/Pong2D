@@ -107,7 +107,7 @@ public:
 	 */
 	virtual void Render() override
 	{
-		Renderer_->BeginFrame(ColorUtils::Black);
+		Renderer_->BeginFrame(Color::Black);
 		Renderer_->EndFrame();
 	}
 

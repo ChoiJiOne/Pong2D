@@ -151,7 +151,7 @@ void Renderer::DrawText2D(Font& InFont, const std::wstring& InText, const Vec2i&
 	);
 
 	uint8_t R = 0, G = 0, B = 0, A = 0;
-	ColorUtils::ToR8G8B8A8(InColor, R, G, B, A);
+	Color::ToR8G8B8A8(InColor, R, G, B, A);
 
 	for (auto& Unicode : InText)
 	{
@@ -186,7 +186,7 @@ void Renderer::DrawText2D(Font& InFont, const std::wstring& InText, const Vec2i&
 void Renderer::SetDrawColor(const LinearColor& InColor)
 {
 	uint8_t R = 0, G = 0, B = 0, A = 0;
-	ColorUtils::ToR8G8B8A8(InColor, R, G, B, A);
+	Color::ToR8G8B8A8(InColor, R, G, B, A);
 	SetDrawColor(R, G, B, A);
 }
 

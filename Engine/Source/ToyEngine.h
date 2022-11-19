@@ -11,7 +11,7 @@
 #include "Timer.h"
 #include "Window.h"
 #include "World.h"
-#include "ColorUtils.h"
+#include "Color.h"
 #include "CommandLineUtils.h"
 #include "ContentUtils.h"
 #include "DebugUtils.h"
