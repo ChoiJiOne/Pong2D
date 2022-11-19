@@ -1,5 +1,5 @@
-#include "Color.h"
-#include "MathUtils.h"
+#include <Color.h>
+#include <Math.hpp>
 
 #include <algorithm>
 

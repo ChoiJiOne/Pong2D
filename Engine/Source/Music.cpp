@@ -1,4 +1,4 @@
-#include "Music.h"
+#include <Music.h>
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>

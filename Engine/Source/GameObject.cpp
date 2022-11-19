@@ -1,6 +1,6 @@
-#include "GameObject.h"
-#include "World.h"
-#include "Component.h"
+#include <GameObject.h>
+#include <World.h>
+#include <Component.h>
 
 GameObject::GameObject(World* InWorld, const std::size_t& InSignature)
 {

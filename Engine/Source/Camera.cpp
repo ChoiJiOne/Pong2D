@@ -1,3 +1,2 @@
-#include "Camera.h"
-
-#include "MathUtils.h"
+#include <Camera.h>
+#include <Math.hpp>

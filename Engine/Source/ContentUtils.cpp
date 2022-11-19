@@ -1,12 +1,10 @@
-#include "ContentUtils.h"
-#include "CommandLineUtils.h"
-
-#include "Renderer.h"
-
-#include "Texture.h"
-#include "Font.h"
-#include "Music.h"
-#include "Sound.h"
+#include <ContentUtils.h>
+#include <CommandLineUtils.h>
+#include <Renderer.h>
+#include <Texture.h>
+#include <Font.h>
+#include <Music.h>
+#include <Sound.h>
 
 #include <fstream>
 

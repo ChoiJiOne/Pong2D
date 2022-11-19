@@ -1,5 +1,5 @@
-#include "CommandLineUtils.h"
-#include "TextUtils.h"
+#include <CommandLineUtils.h>
+#include <TextUtils.h>
 
 #include <Windows.h>
 

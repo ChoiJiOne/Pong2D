@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Macro.h"
-#include "Vector.h"
+#include <Macro.h>
+#include <Vector.h>
 
 #include <vector>
 #include <string>
