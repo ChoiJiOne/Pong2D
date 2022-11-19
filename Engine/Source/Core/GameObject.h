@@ -24,8 +24,11 @@ public:
 	 * 게임 오브젝트의 생성자입니다.
 	 * 
 	 * @param InWorld - 게임 오브젝트가 위치할 월드입니다.
+	 * @param InSignature - 게임 오브젝트의 고유 키 값입니다.
+	 * 
+	 * @throws 키 값에 대응하는 오브젝트가 이미 존재하면 C++ 표준 예외를 던집니다.
 	 */
-	explicit GameObject(World* InWorld);
+	explicit GameObject(World* InWorld, const std::size_t& InSignature);
 
 
 	/**
@@ -106,7 +109,6 @@ public:
 	}
 
 
-private:
 	/**
 	 * 키 값에 대응하는 컴포넌트가 존재하는지 검사합니다.
 	 * 
@@ -114,7 +116,10 @@ private:
 	 * 
 	 * @return 키 값에 대응하는 컴포넌트가 존재하면 true, 그렇지 않으면 false를 반환합니다.
 	 */
-	bool HaveComponent(const std::size_t& InKey);
+	bool HaveComponent(const std::size_t& InKey)
+	{
+		return Components_.find(InKey) != Components_.end();
+	}
 
 
 protected:
@@ -122,6 +127,12 @@ protected:
 	 * 게임 오브젝트가 위치한 월드입니다.
 	 */
 	World* World_ = nullptr;
+
+
+	/**
+	 * 게임 오브젝트의 고유한 키 값입니다.
+	 */
+	std::size_t Signature_ = 0;
 
 
 	/**

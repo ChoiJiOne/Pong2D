@@ -1,12 +1,13 @@
 #include "Core/GameObject.h"
 #include "Core/World.h"
+#include "Core/Component.h"
 
-#include "Component/Component.h"
-
-GameObject::GameObject(World* InWorld)
+GameObject::GameObject(World* InWorld, const std::size_t& InSignature)
 {
 	World_ = InWorld;
-	World_->AddOjbect(this);
+	Signature_ = InSignature;
+
+	World_->AddOjbect(this, Signature_);
 }
 
 GameObject::~GameObject()
@@ -16,10 +17,5 @@ GameObject::~GameObject()
 		component.second.reset();
 	}
 
-	World_->RemoveObject(this);
-}
-
-bool GameObject::HaveComponent(const std::size_t& InKey)
-{
-	return Components_.find(InKey) != Components_.end();
+	World_->RemoveObject(Signature_);
 }
