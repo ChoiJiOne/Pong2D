@@ -42,7 +42,7 @@ public:
 				"Pong2D",
 				200, 200,
 				1000, 800,
-				EWindowFlags::SHOWN | EWindowFlags::FULLSCREEN_DESKTOP
+				EWindowFlags::SHOWN | EWindowFlags::RESIZABLE
 			}
 		);
 
@@ -59,11 +59,10 @@ public:
 				int32_t Width = 0, Height = 0;
 
 				Window_->GetSize(Width, Height);
-				World_->SetSize<int32_t>(Width, Height);
 			}
 		);
 
-		World_ = std::make_unique<World>(1000.0f, 800.0f);
+		World_ = std::make_unique<World>();
 	}
 
 
