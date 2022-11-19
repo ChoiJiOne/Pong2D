@@ -3,6 +3,7 @@
 #include "Misc/Vector.h"
 
 #include <cmath>
+#include <limits>
 #include <algorithm>
 #include <chrono>
 #include <random>
@@ -10,15 +11,57 @@
 
 
 /**
- * 파이(π) 값입니다.
+ * float 타입의 파이(π) 값입니다.
  */
-const double PI = 3.1415926535897931;
+const float PI_F = 3.1415926535F;
 
 
 /**
- * 엡실론(ε) 값입니다.
+ * double 타입의 파이(π) 값입니다.
  */
-const double EPSILON = 4.94065645841247E-324;
+const double PI_D = 3.1415926535897931;
+
+
+/**
+ * float 타입의 타입의 엡실론(ε) 값입니다.
+ */
+const float EPSILON_F = std::numeric_limits<float>::epsilon();
+
+
+/**
+ * double 타입의 엡실론(ε) 값입니다.
+ */
+const double EPSILON_D = std::numeric_limits<double>::epsilon();
+
+
+/**
+ * float 타입의 무한대 값입니다.
+ */
+const float INFINITY_F = std::numeric_limits<float>::infinity();
+
+
+/**
+ * double 타입의 무한대 값입니다.
+ */
+const double INFINITY_D = std::numeric_limits<double>::infinity();
+
+
+/**
+ * float 타입의 음의 무한대 값입니다.
+ */
+const float NINFINITY_F = -std::numeric_limits<float>::infinity();
+
+
+/**
+ * double 타입의 음의 무한대 값입니다.
+ */
+const double NINFINITY_D = -std::numeric_limits<double>::infinity();
+
+
+/**
+ * 경계 상자입니다.
+ */
+using BoundingBox = std::array<Vec2f, 4>;
 
 
 /**
@@ -29,6 +72,19 @@ class MathUtils
 public:
 	/**
 	 * 라디안 각을 육십분법 각으로 변환합니다.
+	 *
+	 * @param InRadian - 변환할 라디안 각입니다.
+	 *
+	 * @return 변환된 육십분법 각입니다.
+	 */
+	inline static float ToDegree(float InRadian)
+	{
+		return (InRadian * 180.0f) / PI_F;
+	}
+
+
+	/**
+	 * 라디안 각을 육십분법 각으로 변환합니다.
 	 * 
 	 * @param InRadian - 변환할 라디안 각입니다.
 	 * 
@@ -36,7 +92,20 @@ public:
 	 */
 	inline static double ToDegree(double InRadian)
 	{
-		return (InRadian * 180.0) / PI;
+		return (InRadian * 180.0) / PI_D;
+	}
+
+
+	/**
+	 * 육십분법 각을 라디안 각으로 변환합니다.
+	 *
+	 * @param InDegree - 변환할 육십분법 각입니다.
+	 *
+	 * @return 변환된 라디안 각입니다.
+	 */
+	inline static double ToRadian(float InDegree)
+	{
+		return (InDegree * PI_F) / 180.0f;
 	}
 
 
@@ -49,7 +118,19 @@ public:
 	 */
 	inline static double ToRadian(double InDegree)
 	{
-		return (InDegree * PI) / 180.0;
+		return (InDegree * PI_D) / 180.0;
+	}
+
+
+	/**
+	 * 0에 한없이 가까운 값인지 확인합니다.
+	 * 
+	 * @param InValue - 0에 한없이 가까운지 확인할 값입니다.
+	 * @param InEpsilon - 엡실론 값입니다.
+	 */
+	inline static bool IsNearZero(const float& InValue, const float InEpsilon = EPSILON_F)
+	{
+		return (fabs(InValue) <= InEpsilon);
 	}
 
 
@@ -114,18 +195,18 @@ public:
 
 
 	/**
-	 * 경계 영역 점들을 계산합니다.
+	 * 경계 상자를 계산합니다.
 	 *
 	 * @param InCenter - 경계 영역의 중심 좌표입니다.
 	 * @param InWidth - 경계 영역의 가로 크기입니다.
 	 * @param InHeight - 경계 영역의 세로 크기입니다.
 	 */
-	static std::array<Vec2f, 4> CalculateBoundingPositions(const Vec2f& InCenter, const float& InWidth, const float& InHeight)
+	static BoundingBox CalculateBoundingBox(const Vec2f& InCenter, const float& InWidth, const float& InHeight)
 	{
 		float HalfOfWidth = InWidth / 2.0f;
 		float HalfOfHeight = InHeight / 2.0f;
 
-		std::array<Vec2f, 4> BoundingPositions = {
+		BoundingBox BoundingPositions = {
 			Vec2f(-HalfOfWidth, -HalfOfHeight) + InCenter,
 			Vec2f(+HalfOfWidth, -HalfOfHeight) + InCenter,
 			Vec2f(+HalfOfWidth, +HalfOfHeight) + InCenter,
@@ -133,6 +214,24 @@ public:
 		};
 
 		return BoundingPositions;
+	}
+
+
+	/**
+	 * 점이 경계 상자 내에 존재하는지 검사합니다.
+	 * 
+	 * @param InPosition - 검사를 수행할 점입니다.
+	 * @param InBoundingBox - 검사를 수행할 경계 상자 입니다.
+	 * 
+	 * @return - 점이 경계 상자 영역 내에 존재하면 true, 그렇지 않으면 false를 반환합니다.
+	 */
+	static bool IsPositionInsideBoundingBox(const Vec2f& InPosition, const BoundingBox& InBoundingBox)
+	{
+		Vec2f MinPosition = InBoundingBox[0];
+		Vec2f MaxPosition = InBoundingBox[2];
+
+		return (MinPosition.x <= InPosition.x && InPosition.x <= MaxPosition.x)
+			&& (MinPosition.y <= InPosition.y && InPosition.y <= MaxPosition.y);
 	}
 
 
