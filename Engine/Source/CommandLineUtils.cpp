@@ -1,5 +1,5 @@
 #include <CommandLineUtils.h>
-#include <TextUtils.h>
+#include <Text.hpp>
 
 #include <Windows.h>
 
@@ -10,13 +10,13 @@ std::unordered_map<std::string, std::string> CommandLineUtils::Options_;
 void CommandLineUtils::Init()
 {
 	CommandLine_ = GetCommandLineA();
-	Arguments_ = TextUtils::Split(CommandLine_, " ");
+	Arguments_ = Text::Split(CommandLine_, " ");
 
 	for (const auto& Argument : Arguments_)
 	{
 		if (Argument.find("=") != std::string::npos)
 		{
-			std::vector<std::string> Tokens = TextUtils::Split(Argument, "=");
+			std::vector<std::string> Tokens = Text::Split(Argument, "=");
 			Options_.insert({ Tokens.front(), Tokens.back() });
 		}
 	}

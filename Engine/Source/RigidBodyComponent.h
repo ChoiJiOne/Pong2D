@@ -3,7 +3,7 @@
 #include <Component.h>
 
 #include <Math.hpp>
-#include <Vector.h>
+#include <Vector.hpp>
 
 
 /**

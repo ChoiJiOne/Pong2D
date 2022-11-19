@@ -17,8 +17,8 @@
 #include <DebugUtils.h>
 #include <Macro.h>
 #include <Math.hpp>
-#include <TextUtils.h>
-#include <Vector.h>
+#include <Text.hpp>
+#include <Vector.hpp>
 #include <Font.h>
 #include <Music.h>
 #include <Sound.h>

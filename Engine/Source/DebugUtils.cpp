@@ -1,5 +1,5 @@
 #include <DebugUtils.h>
-#include <TextUtils.h>
+#include <Text.hpp>
 #include <CommandLineUtils.h>
 
 #include <chrono>
@@ -22,7 +22,7 @@ void DebugUtils::CreateDumpFile(_EXCEPTION_POINTERS* InExceptionInfo)
 	time_t CurrentTime = time(nullptr);
 	tm* CurrentLocalTime = localtime(&CurrentTime);
 
-	std::string DumpFile = TextUtils::Format(
+	std::string DumpFile = Text::Format(
 		"%s%d-%d-%d-%d-%d-%d.dmp",
 		CommandLineUtils::GetValue("-Dump").c_str(),
 		CurrentLocalTime->tm_year + 1900,

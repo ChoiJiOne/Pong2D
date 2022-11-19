@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 
-#include <Vector.h>
+#include <Vector.hpp>
 #include <Math.hpp>
 #include <Color.h>
 
