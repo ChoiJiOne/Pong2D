@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Misc/Vector.h"
-#include "Misc/MacroUtils.h"
+#include "Vector.h"
+#include "Macro.h"
 
 #include <unordered_map>
 #include <memory>

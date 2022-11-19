@@ -1,5 +1,5 @@
-#include "Core/World.h"
-#include "Core/GameObject.h"
+#include "World.h"
+#include "GameObject.h"
 
 World::~World()
 {

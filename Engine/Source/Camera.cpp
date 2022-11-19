@@ -1,3 +1,3 @@
-#include "Core/Camera.h"
+#include "Camera.h"
 
-#include "Misc/MathUtils.h"
+#include "MathUtils.h"

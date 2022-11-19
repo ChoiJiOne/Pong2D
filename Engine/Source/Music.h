@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Misc/MacroUtils.h"
+#include "Macro.h"
 
 typedef struct _Mix_Music Mix_Music;
 

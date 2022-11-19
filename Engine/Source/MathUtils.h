@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Misc/Vector.h"
+#include "Vector.h"
 
 #include <cmath>
 #include <limits>

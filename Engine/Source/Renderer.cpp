@@ -1,10 +1,10 @@
-#include "Core/Renderer.h"
-#include "Core/Window.h"
+#include "Renderer.h"
+#include "Window.h"
 
-#include "Resource/Texture.h"
-#include "Resource/Font.h"
+#include "Texture.h"
+#include "Font.h"
 
-#include "Misc/MathUtils.h"
+#include "MathUtils.h"
 
 // @third party code - BEGIN SDL2
 #include <SDL2/SDL.h>

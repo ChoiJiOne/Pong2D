@@ -1,9 +1,9 @@
-#include "UI/Button.h"
+#include "Button.h"
 
-#include "Misc/ContentUtils.h"
+#include "ContentUtils.h"
 
-#include "Core/Input.h"
-#include "Core/Renderer.h"
+#include "Input.h"
+#include "Renderer.h"
 
 Button::Button(
 	const Vec2f& InCenter, 

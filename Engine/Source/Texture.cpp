@@ -1,6 +1,6 @@
-#include "Resource/Texture.h"
+#include "Texture.h"
 
-#include "Core/Renderer.h"
+#include "Renderer.h"
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>

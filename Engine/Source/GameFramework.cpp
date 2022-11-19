@@ -1,8 +1,8 @@
-#include "Core/GameFramework.h"
-#include "Core/World.h"
-#include "Core/Input.h"
-#include "Core/Renderer.h"
-#include "Core/Window.h"
+#include "GameFramework.h"
+#include "World.h"
+#include "Input.h"
+#include "Renderer.h"
+#include "Window.h"
 
 #include "ToyEngine.h"
 

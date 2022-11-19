@@ -1,6 +1,6 @@
-#include "Misc/DebugUtils.h"
-#include "Misc/TextUtils.h"
-#include "Misc/CommandLineUtils.h"
+#include "DebugUtils.h"
+#include "TextUtils.h"
+#include "CommandLineUtils.h"
 
 #include <chrono>
 #include <ctime>

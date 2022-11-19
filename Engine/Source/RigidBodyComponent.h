@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Core/Component.h"
+#include "Component.h"
 
-#include "Misc/MathUtils.h"
-#include "Misc/Vector.h"
+#include "MathUtils.h"
+#include "Vector.h"
 
 
 /**

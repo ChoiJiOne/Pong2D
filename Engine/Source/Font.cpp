@@ -1,6 +1,6 @@
-#include "Resource/Font.h"
+#include "Font.h"
 
-#include "Core/Renderer.h"
+#include "Renderer.h"
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>

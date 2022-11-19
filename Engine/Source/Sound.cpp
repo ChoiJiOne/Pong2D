@@ -1,4 +1,4 @@
-#include "Resource/Sound.h"
+#include "Sound.h"
 
 // @third party code - BEGIN
 #include <SDL2/SDL.h>

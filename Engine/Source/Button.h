@@ -4,9 +4,9 @@
 #include <string>
 #include <functional>
 
-#include "Misc/Vector.h"
-#include "Misc/MathUtils.h"
-#include "Misc/ColorUtils.h"
+#include "Vector.h"
+#include "MathUtils.h"
+#include "ColorUtils.h"
 
 class Input;
 class Renderer;
