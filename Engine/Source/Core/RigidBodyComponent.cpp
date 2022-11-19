@@ -93,11 +93,5 @@ void RigidBodyComponent::SetHeight(const float& InHeight)
 
 RigidBodyComponent::ERelation RigidBodyComponent::GetRelation(const RigidBodyComponent& InRigidBody)
 {
-	if (Type_ == EType::NONE && InRigidBody.GetType() == EType::NONE)
-	{
-
-	}
-
-
-	return ERelation();
+	return ERelation::NONE;
 }
