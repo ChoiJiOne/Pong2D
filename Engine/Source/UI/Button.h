@@ -5,6 +5,7 @@
 #include <functional>
 
 #include "Misc/Vector.h"
+#include "Misc/MathUtils.h"
 #include "Misc/ColorUtils.h"
 
 class Input;
@@ -181,7 +182,7 @@ private:
 
 
 	/**
-	 * 버튼의 직사각형 영역입니다.
+	 * 버튼의 경계 영역입니다.
 	 */
-	std::array<Vec2f, 4> BoundingPositions_;
+	BoundingBox BoundingBox_;
 };

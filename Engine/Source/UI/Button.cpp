@@ -1,7 +1,6 @@
 #include "UI/Button.h"
 
 #include "Misc/ContentUtils.h"
-#include "Misc/MathUtils.h"
 
 #include "Core/Input.h"
 #include "Core/Renderer.h"
@@ -27,7 +26,7 @@ Button::Button(
 	UnableColor_ = InUnableColor;
 	ClickEvent_ = InClickEvent;
 	ReduceRate_ = InReduceRate;
-	BoundingPositions_ = MathUtils::CalculateBoundingPositions(Center_, Width_, Height_);
+	BoundingBox_ = MathUtils::CalculateBoundingBox(Center_, Width_, Height_);
 }
 
 Button::Button(Button&& InInstance) noexcept
@@ -43,7 +42,7 @@ Button::Button(Button&& InInstance) noexcept
 	UnableColor_ = InInstance.UnableColor_;
 	ClickEvent_ = InInstance.ClickEvent_;
 	ReduceRate_ = InInstance.ReduceRate_;
-	BoundingPositions_ = InInstance.BoundingPositions_;
+	BoundingBox_ = InInstance.BoundingBox_;
 }
 
 Button::Button(const Button& InInstance) noexcept
@@ -59,7 +58,7 @@ Button::Button(const Button& InInstance) noexcept
 	UnableColor_ = InInstance.UnableColor_;
 	ClickEvent_ = InInstance.ClickEvent_;
 	ReduceRate_ = InInstance.ReduceRate_;
-	BoundingPositions_ = InInstance.BoundingPositions_;
+	BoundingBox_ = InInstance.BoundingBox_;
 }
 
 Button& Button::operator=(Button&& InInstance) noexcept
@@ -77,7 +76,7 @@ Button& Button::operator=(Button&& InInstance) noexcept
 	UnableColor_ = InInstance.UnableColor_;
 	ClickEvent_ = InInstance.ClickEvent_;
 	ReduceRate_ = InInstance.ReduceRate_;
-	BoundingPositions_ = InInstance.BoundingPositions_;
+	BoundingBox_ = InInstance.BoundingBox_;
 
 	return *this;
 }
@@ -97,7 +96,7 @@ Button& Button::operator=(const Button& InInstance) noexcept
 	UnableColor_ = InInstance.UnableColor_;
 	ClickEvent_ = InInstance.ClickEvent_;
 	ReduceRate_ = InInstance.ReduceRate_;
-	BoundingPositions_ = InInstance.BoundingPositions_;
+	BoundingBox_ = InInstance.BoundingBox_;
 
 	return *this;
 }
@@ -150,9 +149,5 @@ bool Button::IsDetectMouseCursor(const Input& InInput)
 {
 	Vec2f CurrentMousePosition = InInput.GetCurrCursorPosition();
 
-	Vec2f MinPosition = BoundingPositions_[0];
-	Vec2f MaxPosition = BoundingPositions_[2];
-
-	return (MinPosition.x <= CurrentMousePosition.x && CurrentMousePosition.x <= MaxPosition.x) 
-		&& (MinPosition.y <= CurrentMousePosition.y && CurrentMousePosition.y <= MaxPosition.y);
+	return MathUtils::IsPositionInsideBoundingBox(CurrentMousePosition, BoundingBox_);
 }
