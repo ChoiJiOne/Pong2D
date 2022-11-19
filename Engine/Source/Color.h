@@ -18,7 +18,7 @@ using LinearColor = Vec4f;
 /**
  * 색상 관련 기능을 제공하는 클래스입니다.
  */
-class ColorUtils
+class Color
 {
 public:
 	/**
