@@ -1,6 +1,5 @@
 #include <Renderer.h>
 #include <Window.h>
-
 #include <Texture.h>
 #include <Font.h>
 
