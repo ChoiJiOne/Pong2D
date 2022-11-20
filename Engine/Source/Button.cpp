@@ -1,7 +1,5 @@
 #include <Button.h>
-
-#include <ContentUtils.h>
-
+#include <ContentTracker.h>
 #include <Input.h>
 #include <Renderer.h>
 
@@ -142,7 +140,7 @@ void Button::Render(Renderer& InRenderer)
 	}
 
 	InRenderer.DrawRect2D(Position, Width, Height, CurrentColor);
-	InRenderer.DrawText2D(ContentUtils::GetFont(FontKey_), Text_, Position, CurrentColor);
+	InRenderer.DrawText2D(ContentTracker::GetFont(FontKey_), Text_, Position, CurrentColor);
 }
 
 bool Button::IsDetectMouseCursor(const Input& InInput)

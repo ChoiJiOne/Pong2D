@@ -13,7 +13,7 @@ class Sound;
 /**
  * 컨텐츠(ex. 텍스처, 폰트, json 파일 등등)를 추가, 삭제, 검색 등의 관리를 수행하는 클래스입니다.
  */
-class ContentUtils
+class ContentTracker
 {
 public:
 	/**
@@ -273,31 +273,31 @@ private:
 
 
 	/**
-	 * ContentUtils이 관리하는 텍스처입니다.
+	 * ContentTracker이 관리하는 텍스처입니다.
 	 */
 	static std::unordered_map<std::size_t, std::unique_ptr<Texture>> Textures_;
 
 
 	/**
-	 * ContentUtils이 관리하는 폰트입니다.
+	 * ContentTracker이 관리하는 폰트입니다.
 	 */
 	static std::unordered_map<std::size_t, std::unique_ptr<Font>> Fonts_;
 
 
 	/**
-	 * ContentUtils이 관리하는 Json 파일입니다.
+	 * ContentTracker이 관리하는 Json 파일입니다.
 	 */
 	static std::unordered_map<std::size_t, Json> Jsons_;
 
 
 	/**
-	 * ContentUtils이 관리하는 뮤직입니다.
+	 * ContentTracker이 관리하는 뮤직입니다.
 	 */
 	static std::unordered_map<std::size_t, std::unique_ptr<Music>> Musics_;
 
 
 	/**
-	 * ContentUtils이 관리하는 사운드입니다.
+	 * ContentTracker이 관리하는 사운드입니다.
 	 */
 	static std::unordered_map<std::size_t, std::unique_ptr<Sound>> Sounds_;
 };

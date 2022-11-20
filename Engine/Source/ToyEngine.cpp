@@ -5,7 +5,7 @@ void ToyEngine::Init()
 	SetUnhandledExceptionFilter(UnhandledExceptionHandler);
 
 	CommandLineUtils::Init();
-	ContentUtils::Init();
+	ContentTracker::Init();
 
 	int32_t SDLFlags = SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_EVENTS;
 	int32_t SoundFlags = MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID | MIX_INIT_OPUS;
@@ -22,7 +22,7 @@ void ToyEngine::Init()
 
 void ToyEngine::Quit()
 {
-	ContentUtils::Quit();
+	ContentTracker::Quit();
 
 	SDLNet_Quit();
 	Mix_Quit();
