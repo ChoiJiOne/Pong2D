@@ -113,7 +113,8 @@ public:
 			Text::GetHash("Ball"),
 			Vec2f(0.0f, 0.0f),
 			20.0f,
-			0.0f
+			0.0f,
+			100.0f
 		);
 	}
 
@@ -150,9 +151,11 @@ public:
 			bIsDone_ = true;
 		}
 
-		Player1_->Update(*Input_, Timer_.GetDeltaSeconds());
-		Player2_->Update(*Input_, Timer_.GetDeltaSeconds());
-		Ball_->Update(*Input_, Timer_.GetDeltaSeconds());
+		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		for (auto Object : Objects)
+		{
+			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+		}
 	}
 
 
@@ -175,10 +178,11 @@ public:
 			ScreenHeight
 		);
 
-		Ground_->Render(*Renderer_, *Camera_);
-		Player1_->Render(*Renderer_, *Camera_);
-		Player2_->Render(*Renderer_, *Camera_);
-		Ball_->Render(*Renderer_, *Camera_);
+		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		for (auto Object : Objects)
+		{
+			Object->Render(*Renderer_, *Camera_);
+		}
 
 		Renderer_->EndFrame();
 	}
