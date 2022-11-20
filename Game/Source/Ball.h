@@ -16,14 +16,15 @@ public:
 	 * @param InSignature - 게임 공의 시그니처 해쉬 값입니다.
 	 * @param InPosition - 게임 공의 화면상 위치입니다.
 	 * @param InRadius - 게임 공의 반지름 크기입니다.
+	 * @param InRotate - 게임 공의 이동 방향 각입니다.
 	 * @param InVelocity - 게임 공의 속도입니다.
-	 *
 	 */
 	explicit Ball(
 		World* InWorld,
 		const std::size_t& InSignature,
 		const Vec2f& InPosition,
 		const float& InRadius,
+		const float& InRotate,
 		const float& InVelocity
 	);
 

@@ -8,11 +8,12 @@ Ball::Ball(
 	World* InWorld, 
 	const std::size_t& InSignature, 
 	const Vec2f& InPosition, 
-	const float& InRadius, 
+	const float& InRadius,
+	const float& InRotate,
 	const float& InVelocity
 ) : GameObject(InWorld, InSignature)
 {
-	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InRadius, 0.0f, InVelocity, false);
+	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InRadius, InRotate, InVelocity, false);
 	AddComponent<SpriteRenderComponent>(Text::GetHash("Render"), Text::GetHash("Ball"));
 }
 
