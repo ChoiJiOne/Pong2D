@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "BallPhysicComponent.h"
 #include "SpriteRenderComponent.h"
 
 #include <Text.hpp>
@@ -13,7 +14,8 @@ Ball::Ball(
 	const float& InVelocity
 ) : GameObject(InWorld, InSignature)
 {
-	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InRadius, InRotate, InVelocity, false);
+	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InRadius, InRotate, InVelocity, true);
+	AddComponent<BallPhysicComponent>(Text::GetHash("Physic"));
 	AddComponent<SpriteRenderComponent>(Text::GetHash("Render"), Text::GetHash("Ball"));
 }
 
@@ -23,6 +25,7 @@ Ball::~Ball()
 
 void Ball::Update(Input& InInput, float InDeltaSeconds)
 {
+	GetComponent<BallPhysicComponent>(Text::GetHash("Physic"))->Tick(*World_, InDeltaSeconds);
 }
 
 void Ball::Render(Renderer& InRenderer, Camera& InCamera)
