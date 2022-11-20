@@ -24,7 +24,7 @@ Button::Button(
 	UnableColor_ = InUnableColor;
 	ClickEvent_ = InClickEvent;
 	ReduceRate_ = InReduceRate;
-	BoundingBox_ = MathUtils::CalculateBoundingBox(Center_, Width_, Height_);
+	BoundingBox_ = Math::CalculateBoundingBox(Center_, Width_, Height_);
 }
 
 Button::Button(Button&& InInstance) noexcept
@@ -147,5 +147,5 @@ bool Button::IsDetectMouseCursor(const Input& InInput)
 {
 	Vec2f CurrentMousePosition = InInput.GetCurrCursorPosition();
 
-	return MathUtils::IsPositionInsideBoundingBox(CurrentMousePosition, BoundingBox_);
+	return Math::IsPositionInsideBoundingBox(CurrentMousePosition, BoundingBox_);
 }

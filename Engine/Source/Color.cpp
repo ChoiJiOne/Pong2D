@@ -28,10 +28,10 @@ RGBA32 Color::ToRGBA32(const LinearColor& InColor)
 LinearColor Color::ToLinearColor(uint8_t InRed, uint8_t InGreen, uint8_t InBlue, uint8_t InAlpha)
 {
 	return LinearColor(
-		MathUtils::Clamp<float>(static_cast<float>(InRed)   / 255.0f, 0.0f, 1.0f),
-		MathUtils::Clamp<float>(static_cast<float>(InGreen) / 255.0f, 0.0f, 1.0f),
-		MathUtils::Clamp<float>(static_cast<float>(InBlue)  / 255.0f, 0.0f, 1.0f),
-		MathUtils::Clamp<float>(static_cast<float>(InAlpha) / 255.0f, 0.0f, 1.0f)
+		Math::Clamp<float>(static_cast<float>(InRed)   / 255.0f, 0.0f, 1.0f),
+		Math::Clamp<float>(static_cast<float>(InGreen) / 255.0f, 0.0f, 1.0f),
+		Math::Clamp<float>(static_cast<float>(InBlue)  / 255.0f, 0.0f, 1.0f),
+		Math::Clamp<float>(static_cast<float>(InAlpha) / 255.0f, 0.0f, 1.0f)
 	);
 }
 
@@ -52,8 +52,8 @@ void Color::ToR8G8B8A8(const RGBA32& InRGBA32, uint8_t& OutRed, uint8_t& OutGree
 
 void Color::ToR8G8B8A8(const LinearColor& InColor, uint8_t& OutRed, uint8_t& OutGreen, uint8_t& OutBlue, uint8_t& OutAlpha)
 {
-	OutRed   = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.x, 0.0f, 1.0f) * 255.0f);
-	OutGreen = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.y, 0.0f, 1.0f) * 255.0f);
-	OutBlue  = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.z, 0.0f, 1.0f) * 255.0f);
-	OutAlpha = static_cast<uint8_t>(MathUtils::Clamp<float>(InColor.w, 0.0f, 1.0f) * 255.0f);
+	OutRed   = static_cast<uint8_t>(Math::Clamp<float>(InColor.x, 0.0f, 1.0f) * 255.0f);
+	OutGreen = static_cast<uint8_t>(Math::Clamp<float>(InColor.y, 0.0f, 1.0f) * 255.0f);
+	OutBlue  = static_cast<uint8_t>(Math::Clamp<float>(InColor.z, 0.0f, 1.0f) * 255.0f);
+	OutAlpha = static_cast<uint8_t>(Math::Clamp<float>(InColor.w, 0.0f, 1.0f) * 255.0f);
 }

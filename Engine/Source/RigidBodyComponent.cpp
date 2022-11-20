@@ -17,7 +17,7 @@ RigidBodyComponent::RigidBodyComponent(
 	Rotate_ = InRotate;
 	Velocity_ = InVelocity;
 	bCanMove_ = bCanMove;
-	BoundingBox_ = MathUtils::CalculateBoundingBox(Position_, Width_, Height_);
+	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
 RigidBodyComponent::RigidBodyComponent(
@@ -36,13 +36,13 @@ RigidBodyComponent::RigidBodyComponent(
 	Rotate_ = InRotate;
 	Velocity_ = InVelocity;
 	bCanMove_ = bCanMove;
-	BoundingBox_ = MathUtils::CalculateBoundingBox(Position_, Width_, Height_);
+	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
 void RigidBodyComponent::SetPosition(const Vec2f& InPosition)
 {
 	Position_ = InPosition;
-	BoundingBox_ = MathUtils::CalculateBoundingBox(Position_, Width_, Height_);
+	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
 void RigidBodyComponent::SetWidth(const float& InWidth)
@@ -65,7 +65,7 @@ void RigidBodyComponent::SetWidth(const float& InWidth)
 		ENFORCE_THROW_EXCEPTION("undefined rigid body type");
 	}
 
-	BoundingBox_ = MathUtils::CalculateBoundingBox(Position_, Width_, Height_);
+	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
 void RigidBodyComponent::SetHeight(const float& InHeight)
@@ -88,7 +88,7 @@ void RigidBodyComponent::SetHeight(const float& InHeight)
 		ENFORCE_THROW_EXCEPTION("undefined rigid body type");
 	}
 
-	BoundingBox_ = MathUtils::CalculateBoundingBox(Position_, Width_, Height_);
+	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
 RigidBodyComponent::ERelation RigidBodyComponent::GetRelation(const RigidBodyComponent& InRigidBody)

@@ -67,7 +67,7 @@ using BoundingBox = std::array<Vec2f, 4>;
 /**
  * 수학 관련 기능을 제공하는 클래스입니다.
  */
-class MathUtils
+class Math
 {
 public:
 	/**
