@@ -1,7 +1,7 @@
 #include <Button.h>
-#include <ContentTracker.h>
-#include <Input.h>
+#include <ContentManager.h>
 #include <Renderer.h>
+#include <Input.h>
 
 Button::Button(
 	const Vec2f& InCenter, 
@@ -140,7 +140,7 @@ void Button::Render(Renderer& InRenderer)
 	}
 
 	InRenderer.DrawRect2D(Position, Width, Height, CurrentColor);
-	InRenderer.DrawText2D(ContentTracker::GetFont(FontKey_), Text_, Position, CurrentColor);
+	InRenderer.DrawText2D(ContentManager::Get().GetFont(FontKey_), Text_, Position, CurrentColor);
 }
 
 bool Button::IsDetectMouseCursor(const Input& InInput)
