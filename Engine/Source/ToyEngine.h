@@ -12,8 +12,8 @@
 #include <Window.h>
 #include <World.h>
 #include <Color.h>
-#include <CommandLineUtils.h>
-#include <ContentTracker.h>
+#include <CommandLineManager.h>
+#include <ContentManager.h>
 #include <Debug.h>
 #include <Macro.h>
 #include <Math.hpp>
