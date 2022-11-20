@@ -1,5 +1,5 @@
-#include <ContentTracker.h>
-#include <CommandLineUtils.h>
+#include <ContentManager.h>
+#include <CommandLineManager.h>
 #include <Renderer.h>
 #include <Texture.h>
 #include <Font.h>
@@ -8,20 +8,14 @@
 
 #include <fstream>
 
-std::string ContentTracker::ContentPath_;
+ContentManager ContentManager::ContentManager_;
 
-std::unordered_map<std::size_t, std::unique_ptr<Texture>> ContentTracker::Textures_;
-std::unordered_map<std::size_t, std::unique_ptr<Font>>    ContentTracker::Fonts_;
-std::unordered_map<std::size_t, Json>                     ContentTracker::Jsons_;
-std::unordered_map<std::size_t, std::unique_ptr<Music>>   ContentTracker::Musics_;
-std::unordered_map<std::size_t, std::unique_ptr<Sound>>   ContentTracker::Sounds_;
-
-void ContentTracker::Init()
+void ContentManager::Init()
 {
-	ContentPath_ = CommandLineUtils::GetValue("-Content");
+	ContentPath_ = CommandLineManager::Get().GetValue("-Content");
 }
 
-void ContentTracker::Quit()
+void ContentManager::Quit()
 {
 	for (auto& sound : Sounds_)
 	{
@@ -44,7 +38,7 @@ void ContentTracker::Quit()
 	}
 }
 
-Texture& ContentTracker::LoadTexture(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath)
+Texture& ContentManager::LoadTexture(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath)
 {
 	CHECK(!HaveTexture(InKey), "collision texture key or already load texture resource");
 
@@ -54,24 +48,24 @@ Texture& ContentTracker::LoadTexture(const std::size_t& InKey, Renderer& InRende
 	return *Textures_.at(InKey);
 }
 
-void ContentTracker::RemoveTexture(const std::size_t& InKey)
+void ContentManager::RemoveTexture(const std::size_t& InKey)
 {
 	if (!HaveTexture(InKey)) return;
 	Textures_.erase(InKey);
 }
 
-bool ContentTracker::HaveTexture(const std::size_t& InKey)
+bool ContentManager::HaveTexture(const std::size_t& InKey)
 {
 	return Textures_.find(InKey) != Textures_.end();
 }
 
-Texture& ContentTracker::GetTexture(const std::size_t& InKey)
+Texture& ContentManager::GetTexture(const std::size_t& InKey)
 {
 	CHECK(HaveTexture(InKey), "can't find texture resource");
 	return *Textures_.at(InKey);
 }
 
-Font& ContentTracker::LoadFont(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath, int32_t InBeginCodePoint, int32_t InEndCodePoint, float InFontSize)
+Font& ContentManager::LoadFont(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath, int32_t InBeginCodePoint, int32_t InEndCodePoint, float InFontSize)
 {
 	CHECK(!HaveFont(InKey), "collision font key or already load font resource");
 
@@ -81,24 +75,24 @@ Font& ContentTracker::LoadFont(const std::size_t& InKey, Renderer& InRenderer, c
 	return *Fonts_.at(InKey);
 }
 
-void ContentTracker::RemoveFont(const std::size_t& InKey)
+void ContentManager::RemoveFont(const std::size_t& InKey)
 {
 	if (!HaveFont(InKey)) return;
 	Fonts_.erase(InKey);
 }
 
-bool ContentTracker::HaveFont(const std::size_t& InKey)
+bool ContentManager::HaveFont(const std::size_t& InKey)
 {
 	return Fonts_.find(InKey) != Fonts_.end();
 }
 
-Font& ContentTracker::GetFont(const std::size_t& InKey)
+Font& ContentManager::GetFont(const std::size_t& InKey)
 {
 	CHECK(HaveFont(InKey), "can't find font resource");
 	return *Fonts_.at(InKey);
 }
 
-Json& ContentTracker::LoadJson(const std::size_t& InKey, const std::string& InPath)
+Json& ContentManager::LoadJson(const std::size_t& InKey, const std::string& InPath)
 {
 	CHECK(!HaveJson(InKey), "collision Json key or already load json resource");
 
@@ -110,24 +104,24 @@ Json& ContentTracker::LoadJson(const std::size_t& InKey, const std::string& InPa
 	return Jsons_.at(InKey);
 }
 
-void ContentTracker::RemoveJson(const std::size_t& InKey)
+void ContentManager::RemoveJson(const std::size_t& InKey)
 {
 	if (!HaveJson(InKey)) return;
 	Jsons_.erase(InKey);
 }
 
-bool ContentTracker::HaveJson(const std::size_t& InKey)
+bool ContentManager::HaveJson(const std::size_t& InKey)
 {
 	return Jsons_.find(InKey) != Jsons_.end();
 }
 
-Json& ContentTracker::GetJson(const std::size_t& InKey)
+Json& ContentManager::GetJson(const std::size_t& InKey)
 {
 	CHECK(HaveJson(InKey), "can't find json resource");
 	return Jsons_.at(InKey);
 }
 
-Music& ContentTracker::LoadMusic(const std::size_t& InKey, const std::string& InPath)
+Music& ContentManager::LoadMusic(const std::size_t& InKey, const std::string& InPath)
 {
 	CHECK(!HaveMusic(InKey), "collision music key or already load music resource");
 
@@ -137,24 +131,24 @@ Music& ContentTracker::LoadMusic(const std::size_t& InKey, const std::string& In
 	return *Musics_.at(InKey);
 }
 
-void ContentTracker::RemoveMusic(const std::size_t& InKey)
+void ContentManager::RemoveMusic(const std::size_t& InKey)
 {
 	if (!HaveMusic(InKey)) return;
 	Musics_.erase(InKey);
 }
 
-bool ContentTracker::HaveMusic(const std::size_t& InKey)
+bool ContentManager::HaveMusic(const std::size_t& InKey)
 {
 	return Musics_.find(InKey) != Musics_.end();
 }
 
-Music& ContentTracker::GetMusic(const std::size_t& InKey)
+Music& ContentManager::GetMusic(const std::size_t& InKey)
 {
 	CHECK(HaveMusic(InKey), "can't find music resource");
 	return *Musics_.at(InKey);
 }
 
-Sound& ContentTracker::LoadSound(const std::size_t& InKey, const std::string& InPath)
+Sound& ContentManager::LoadSound(const std::size_t& InKey, const std::string& InPath)
 {
 	CHECK(!HaveSound(InKey), "collision sound key or already load sound resource");
 
@@ -164,18 +158,18 @@ Sound& ContentTracker::LoadSound(const std::size_t& InKey, const std::string& In
 	return *Sounds_.at(InKey);
 }
 
-void ContentTracker::RemoveSound(const std::size_t& InKey)
+void ContentManager::RemoveSound(const std::size_t& InKey)
 {
 	if (!HaveSound(InKey)) return;
 	Sounds_.erase(InKey);
 }
 
-bool ContentTracker::HaveSound(const std::size_t& InKey)
+bool ContentManager::HaveSound(const std::size_t& InKey)
 {
 	return Sounds_.find(InKey) != Sounds_.end();
 }
 
-Sound& ContentTracker::GetSound(const std::size_t& InKey)
+Sound& ContentManager::GetSound(const std::size_t& InKey)
 {
 	CHECK(HaveSound(InKey), "can't find sound resource");
 	return *Sounds_.at(InKey);

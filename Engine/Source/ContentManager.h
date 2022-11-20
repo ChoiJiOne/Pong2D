@@ -13,19 +13,15 @@ class Sound;
 /**
  * 컨텐츠(ex. 텍스처, 폰트, json 파일 등등)를 추가, 삭제, 검색 등의 관리를 수행하는 클래스입니다.
  */
-class ContentTracker
+class ContentManager
 {
 public:
 	/**
-	 * 컨텐츠를 관리하는 클래스를 초기화합니다.
+	 * ContentManager의 인스턴스를 얻습니다.
+	 * 
+	 * @return ContentManager 인스턴스의 참조자를 반환합니다.
 	 */
-	static void Init();
-
-
-	/**
-	 * 컨텐츠를 관리하는 클래스의 리소스를 정리합니다.
-	 */
-	static void Quit();
+	static ContentManager& Get() { return ContentManager_; }
 
 
 	/**
@@ -41,7 +37,7 @@ public:
 	 * 
 	 * @return 추가한 텍스처의 참조자를 반환합니다.
 	 */
-	static Texture& LoadTexture(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath);
+	Texture& LoadTexture(const std::size_t& InKey, Renderer& InRenderer, const std::string& InPath);
 
 
 	/**
@@ -49,7 +45,7 @@ public:
 	 * 
 	 * @param InKey - 삭제할 텍스처의 해쉬 키 값입니다.
 	 */
-	static void RemoveTexture(const std::size_t& InKey);
+	void RemoveTexture(const std::size_t& InKey);
 
 
 	/**
@@ -59,7 +55,7 @@ public:
 	 * 
 	 * @return 키 값이 관리 중인 텍스처의 키 값 이라면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	static bool HaveTexture(const std::size_t& InKey);
+	bool HaveTexture(const std::size_t& InKey);
 
 
 	/**
@@ -71,7 +67,7 @@ public:
 	 * 
 	 * @return 키 값에 대응하는 텍스처의 참조자를 반환합니다.
 	 */
-	static Texture& GetTexture(const std::size_t& InKey);
+	Texture& GetTexture(const std::size_t& InKey);
 
 
 	/**
@@ -90,7 +86,7 @@ public:
 	 *
 	 * @return 추가한 폰트의 참조자를 반환합니다.
 	 */
-	static Font& LoadFont(
+	Font& LoadFont(
 		const std::size_t& InKey, 
 		Renderer& InRenderer, 
 		const std::string& InPath, 
@@ -105,7 +101,7 @@ public:
 	 *
 	 * @param InKey - 삭제할 폰트의 해쉬 키 값입니다.
 	 */
-	static void RemoveFont(const std::size_t& InKey);
+	void RemoveFont(const std::size_t& InKey);
 
 
 	/**
@@ -115,7 +111,7 @@ public:
 	 *
 	 * @return 키 값이 관리 중인 폰트의 키 값 이라면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	static bool HaveFont(const std::size_t& InKey);
+	bool HaveFont(const std::size_t& InKey);
 
 
 	/**
@@ -127,7 +123,7 @@ public:
 	 * 
 	 * @return 키 값에 대응하는 폰트의 참조자를 반환합니다.
 	 */
-	static Font& GetFont(const std::size_t& InKey);
+	Font& GetFont(const std::size_t& InKey);
 
 
 	/**
@@ -142,7 +138,7 @@ public:
 	 *
 	 * @return 추가한 Json 객체의 참조자를 반환합니다.
 	 */
-	static Json& LoadJson(const std::size_t& InKey, const std::string& InPath);
+	Json& LoadJson(const std::size_t& InKey, const std::string& InPath);
 
 
 	/**
@@ -150,7 +146,7 @@ public:
 	 *
 	 * @param InKey - 삭제할 Json 객체의 해쉬 키 값입니다.
 	 */
-	static void RemoveJson(const std::size_t& InKey);
+	void RemoveJson(const std::size_t& InKey);
 
 
 	/**
@@ -160,7 +156,7 @@ public:
 	 *
 	 * @return 키 값이 관리 중인 Json 객체의 키 값 이라면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	static bool HaveJson(const std::size_t& InKey);
+	bool HaveJson(const std::size_t& InKey);
 
 
 	/**
@@ -172,7 +168,7 @@ public:
 	 *
 	 * @return 키 값에 대응하는 Json 객체의 참조자를 반환합니다.
 	 */
-	static Json& GetJson(const std::size_t& InKey);
+	Json& GetJson(const std::size_t& InKey);
 
 
 	/**
@@ -187,7 +183,7 @@ public:
 	 *
 	 * @return 추가한 뮤직의 참조자를 반환합니다.
 	 */
-	static Music& LoadMusic(const std::size_t& InKey, const std::string& InPath);
+	Music& LoadMusic(const std::size_t& InKey, const std::string& InPath);
 
 
 	/**
@@ -195,7 +191,7 @@ public:
 	 *
 	 * @param InKey - 삭제할 뮤직의 해쉬 키 값입니다.
 	 */
-	static void RemoveMusic(const std::size_t& InKey);
+	void RemoveMusic(const std::size_t& InKey);
 
 
 	/**
@@ -205,7 +201,7 @@ public:
 	 *
 	 * @return 키 값이 관리 중인 뮤직의 키 값 이라면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	static bool HaveMusic(const std::size_t& InKey);
+	bool HaveMusic(const std::size_t& InKey);
 
 
 	/**
@@ -217,7 +213,7 @@ public:
 	 *
 	 * @return 키 값에 대응하는 뮤직의 참조자를 반환합니다.
 	 */
-	static Music& GetMusic(const std::size_t& InKey);
+	Music& GetMusic(const std::size_t& InKey);
 
 
 	/**
@@ -232,7 +228,7 @@ public:
 	 *
 	 * @return 추가한 사운드의 참조자를 반환합니다.
 	 */
-	static Sound& LoadSound(const std::size_t& InKey, const std::string& InPath);
+	Sound& LoadSound(const std::size_t& InKey, const std::string& InPath);
 
 
 	/**
@@ -240,7 +236,7 @@ public:
 	 *
 	 * @param InKey - 삭제할 사운드의 해쉬 키 값입니다.
 	 */
-	static void RemoveSound(const std::size_t& InKey);
+	void RemoveSound(const std::size_t& InKey);
 
 
 	/**
@@ -250,7 +246,7 @@ public:
 	 *
 	 * @return 키 값이 관리 중인 사운드의 키 값 이라면 true, 그렇지 않다면 false를 반환합니다.
 	 */
-	static bool HaveSound(const std::size_t& InKey);
+	bool HaveSound(const std::size_t& InKey);
 
 
 	/**
@@ -262,42 +258,84 @@ public:
 	 *
 	 * @return 키 값에 대응하는 사운드의 참조자를 반환합니다.
 	 */
-	static Sound& GetSound(const std::size_t& InKey);
+	Sound& GetSound(const std::size_t& InKey);
+
 
 
 private:
 	/**
+	 * ToyEngine 클래스는 ContentManager의 private 필드에 접근할 수 있도록 합니다.
+	 */
+	friend class ToyEngine;
+
+
+	/**
+	 * ContentManager의 생성자입니다.
+	 * 이때, ContentManager의 생성자는 아무런 동작도 수행하지 않습니다.
+	 */
+	ContentManager() {}
+
+
+	/**
+	 * ContentManager의 가상 소멸자입니다.
+	 */
+	virtual ~ContentManager() {}
+
+
+	/**
+	 * 컨텐츠를 관리하는 클래스를 초기화합니다.
+	 * 이때, ToyEngine 내부에서 반드시 호출해야 합니다.
+	 */
+	void Init();
+
+
+	/**
+	 * 컨텐츠를 관리하는 클래스의 리소스를 정리합니다.
+	 * 이때, ToyEngine 내부에서 반드시 호출해야 합니다.
+	 */
+	void Quit();
+
+
+private:
+	/**
+	 * ContentManager의 인스턴스입니다.
+	 * 이 인스턴스는 단 하나만 존재합니다.
+	 */
+	static ContentManager ContentManager_;
+
+
+	/**
 	 * 컨텐츠 리소스의 폴더 경로입니다.
 	 */
-	static std::string ContentPath_;
+	std::string ContentPath_;
 
 
 	/**
-	 * ContentTracker이 관리하는 텍스처입니다.
+	 * ContentManager이 관리하는 텍스처입니다.
 	 */
-	static std::unordered_map<std::size_t, std::unique_ptr<Texture>> Textures_;
+	std::unordered_map<std::size_t, std::unique_ptr<Texture>> Textures_;
 
 
 	/**
-	 * ContentTracker이 관리하는 폰트입니다.
+	 * ContentManager이 관리하는 폰트입니다.
 	 */
-	static std::unordered_map<std::size_t, std::unique_ptr<Font>> Fonts_;
+	std::unordered_map<std::size_t, std::unique_ptr<Font>> Fonts_;
 
 
 	/**
-	 * ContentTracker이 관리하는 Json 파일입니다.
+	 * ContentManager이 관리하는 Json 파일입니다.
 	 */
-	static std::unordered_map<std::size_t, Json> Jsons_;
+	std::unordered_map<std::size_t, Json> Jsons_;
 
 
 	/**
-	 * ContentTracker이 관리하는 뮤직입니다.
+	 * ContentManager이 관리하는 뮤직입니다.
 	 */
-	static std::unordered_map<std::size_t, std::unique_ptr<Music>> Musics_;
+	std::unordered_map<std::size_t, std::unique_ptr<Music>> Musics_;
 
 
 	/**
-	 * ContentTracker이 관리하는 사운드입니다.
+	 * ContentManager이 관리하는 사운드입니다.
 	 */
-	static std::unordered_map<std::size_t, std::unique_ptr<Sound>> Sounds_;
+	std::unordered_map<std::size_t, std::unique_ptr<Sound>> Sounds_;
 };
