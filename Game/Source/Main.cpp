@@ -1,5 +1,6 @@
 #include <ToyEngine.h>
 
+#include "Player.h"
 
 /**
  * Pong2D 게임입니다.
@@ -19,6 +20,9 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Player1_.reset();
+		Player2_.reset();
+		Camera_.reset();
 	}
 
 
@@ -59,12 +63,36 @@ public:
 				int32_t Width = 0, Height = 0;
 
 				Window_->GetSize(Width, Height);
+				Camera_->SetSize(static_cast<float>(Width), static_cast<float>(Height));
 			}
 		);
 
+		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
+		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.png");
+		ContentManager::Get().LoadTexture(Text::GetHash("PaddleBlue"), *Renderer_, "texture\\PaddleBlue.png");
+
 		World_ = std::make_unique<World>();
 
-		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
+		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f);
+
+		Player1_ = std::make_unique<Player>(
+			World_.get(), Text::GetHash("Player1"), 
+			Player::EType::PLAYER1, 
+			Vec2f(-350.0f, 0.0f), 
+			25.0f, 
+			150.0f, 
+			350.0f
+		);
+
+		Player2_ = std::make_unique<Player>(
+			World_.get(), 
+			Text::GetHash("Player2"), 
+			Player::EType::PLAYER2, 
+			Vec2f(+350.0f, 0.0f), 
+			25.0f, 
+			150.0f, 
+			350.0f
+		);
 	}
 
 
@@ -99,6 +127,9 @@ public:
 		{
 			bIsDone_ = true;
 		}
+
+		Player1_->Update(*Input_, Timer_.GetDeltaSeconds());
+		Player2_->Update(*Input_, Timer_.GetDeltaSeconds());
 	}
 
 
@@ -121,6 +152,9 @@ public:
 			ScreenHeight
 		);
 
+		Player1_->Render(*Renderer_, *Camera_);
+		Player2_->Render(*Renderer_, *Camera_);
+
 		Renderer_->EndFrame();
 	}
 
@@ -130,6 +164,24 @@ private:
 	 * 게임 타이머입니다.
 	 */
 	Timer Timer_;
+
+
+	/**
+	 * 게임 카메라입니다.
+	 */
+	std::unique_ptr<Camera> Camera_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어1입니다.
+	 */
+	std::unique_ptr<Player> Player1_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어2입니다.
+	 */
+	std::unique_ptr<Player> Player2_ = nullptr;
 };
 
 
