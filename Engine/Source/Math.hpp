@@ -103,7 +103,7 @@ public:
 	 *
 	 * @return 변환된 라디안 각입니다.
 	 */
-	inline static double ToRadian(float InDegree)
+	inline static float ToRadian(float InDegree)
 	{
 		return (InDegree * PI_F) / 180.0f;
 	}
