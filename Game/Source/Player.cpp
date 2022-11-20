@@ -18,8 +18,7 @@ Player::Player(
 {
 	Type_ = InType;
 
-	float Rotate = (Type_ == EType::PLAYER1) ? 0.0f : 180.0f;
-	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InWidth, InHeight, Rotate, InVelocity, false);
+	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InWidth, InHeight, 0.0f, InVelocity, false);
 
 	std::size_t SpriteKey = (Type_ == EType::PLAYER1) ? Text::GetHash("PaddleRed") : Text::GetHash("PaddleBlue");
 	AddComponent<SpriteRenderComponent>(Text::GetHash("Render"), SpriteKey);
