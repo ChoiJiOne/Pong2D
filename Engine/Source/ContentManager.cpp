@@ -1,10 +1,6 @@
 #include <ContentManager.h>
 #include <CommandLineManager.h>
 #include <Renderer.h>
-#include <Texture.h>
-#include <Font.h>
-#include <Music.h>
-#include <Sound.h>
 
 #include <fstream>
 

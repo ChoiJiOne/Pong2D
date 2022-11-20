@@ -4,10 +4,11 @@
 using Json = nlohmann::json;
 
 class Renderer;
-class Texture;
-class Font;
-class Music;
-class Sound;
+
+#include <Texture.h>
+#include <Font.h>
+#include <Music.h>
+#include <Sound.h>
 
 
 /**
@@ -259,7 +260,6 @@ public:
 	 * @return 키 값에 대응하는 사운드의 참조자를 반환합니다.
 	 */
 	Sound& GetSound(const std::size_t& InKey);
-
 
 
 private:
