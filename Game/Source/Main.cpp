@@ -63,6 +63,8 @@ public:
 		);
 
 		World_ = std::make_unique<World>();
+
+		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 	}
 
 
@@ -108,6 +110,17 @@ public:
 	virtual void Render() override
 	{
 		Renderer_->BeginFrame(Color::Black);
+
+		int32_t ScreenWidth = 0, ScreenHeight = 0;
+		Window_->GetSize(ScreenWidth, ScreenHeight);
+
+		Renderer_->DrawTexture2D(
+			ContentManager::Get().GetTexture(Text::GetHash("Space")),
+			Vec2i(ScreenWidth / 2, ScreenHeight / 2),
+			ScreenWidth, 
+			ScreenHeight
+		);
+
 		Renderer_->EndFrame();
 	}
 
