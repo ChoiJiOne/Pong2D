@@ -1,13 +1,11 @@
-#include <CommandLineUtils.h>
+#include <CommandLineManager.h>
 #include <Text.hpp>
 
 #include <Windows.h>
 
-std::string CommandLineUtils::CommandLine_;
-std::vector<std::string> CommandLineUtils::Arguments_;
-std::unordered_map<std::string, std::string> CommandLineUtils::Options_;
+CommandLineManager CommandLineManager::CommandLineManager_;
 
-void CommandLineUtils::Init()
+void CommandLineManager::Init()
 {
 	CommandLine_ = GetCommandLineA();
 	Arguments_ = Text::Split(CommandLine_, " ");
@@ -22,12 +20,12 @@ void CommandLineUtils::Init()
 	}
 }
 
-bool CommandLineUtils::HaveOption(const std::string& InOption)
+bool CommandLineManager::HaveOption(const std::string& InOption)
 {
 	return Options_.find(InOption) != Options_.end();
 }
 
-std::string CommandLineUtils::GetValue(const std::string& InOption)
+std::string CommandLineManager::GetValue(const std::string& InOption)
 {
 	if (!HaveOption(InOption)) return "";
 
