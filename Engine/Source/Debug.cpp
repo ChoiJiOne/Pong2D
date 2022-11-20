@@ -1,6 +1,6 @@
 #include <Debug.h>
 #include <Text.hpp>
-#include <CommandLineUtils.h>
+#include <CommandLineManager.h>
 
 #include <chrono>
 #include <ctime>
@@ -13,7 +13,7 @@ void CreateDumpFileFromException(_EXCEPTION_POINTERS* InExceptionInfo)
 
 	std::string DumpFile = Text::Format(
 		"%s%d-%d-%d-%d-%d-%d.dmp",
-		CommandLineUtils::GetValue("-Dump").c_str(),
+		CommandLineManager::Get().GetValue("-Dump").c_str(),
 		CurrentLocalTime->tm_year + 1900,
 		CurrentLocalTime->tm_mon + 1,
 		CurrentLocalTime->tm_mday,
