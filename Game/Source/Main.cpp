@@ -1,5 +1,6 @@
 #include <ToyEngine.h>
 
+#include "Ball.h"
 #include "Player.h"
 #include "Ground.h"
 
@@ -21,6 +22,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Ball_.reset();
 		Ground_.reset();
 		Player1_.reset();
 		Player2_.reset();
@@ -72,6 +74,7 @@ public:
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.bmp");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleBlue"), *Renderer_, "texture\\PaddleBlue.bmp");
+		ContentManager::Get().LoadTexture(Text::GetHash("Ball"), *Renderer_, "texture\\Ball.png");
 
 		World_ = std::make_unique<World>();
 
@@ -103,6 +106,14 @@ public:
 			Vec2f(0.0f, 0.0f),
 			900.0f, 
 			450.0f
+		);
+
+		Ball_ = std::make_unique<Ball>(
+			World_.get(),
+			Text::GetHash("Ball"),
+			Vec2f(0.0f, 0.0f),
+			20.0f,
+			0.0f
 		);
 	}
 
@@ -141,6 +152,7 @@ public:
 
 		Player1_->Update(*Input_, Timer_.GetDeltaSeconds());
 		Player2_->Update(*Input_, Timer_.GetDeltaSeconds());
+		Ball_->Update(*Input_, Timer_.GetDeltaSeconds());
 	}
 
 
@@ -166,6 +178,7 @@ public:
 		Ground_->Render(*Renderer_, *Camera_);
 		Player1_->Render(*Renderer_, *Camera_);
 		Player2_->Render(*Renderer_, *Camera_);
+		Ball_->Render(*Renderer_, *Camera_);
 
 		Renderer_->EndFrame();
 	}
@@ -200,6 +213,12 @@ private:
 	 * 게임 그라운드입니다.
 	 */
 	std::unique_ptr<Ground> Ground_ = nullptr;
+
+
+	/**
+	 * 게임 공입니다.
+	 */
+	std::unique_ptr<Ball> Ball_ = nullptr;
 };
 
 
