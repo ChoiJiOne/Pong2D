@@ -17,6 +17,13 @@ bool World::IsExistObject(const std::size_t& InKey)
 	return GameObjects_.find(InKey) != GameObjects_.end();
 }
 
+GameObject* World::GetObject(const std::size_t& InKey)
+{
+	if (!IsExistObject(InKey)) return nullptr;
+
+	return GameObjects_.at(InKey);
+}
+
 void World::RemoveObject(const std::size_t& InKey)
 {
 	if (!IsExistObject(InKey)) return;
