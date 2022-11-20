@@ -9,7 +9,7 @@
 
 void SpriteRenderComponent::Tick(Renderer& InRenderer, Camera& InCamera)
 {
-	RigidBodyComponent* RigidBody = GetGameObject()->GetComponent<RigidBodyComponent>(Text::GetHash("body"));
+	RigidBodyComponent* RigidBody = GetGameObject()->GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
 	Texture& SpriteTexture = ContentManager::Get().GetTexture(SpriteKey_);
 
 	InRenderer.DrawTexture2D(
