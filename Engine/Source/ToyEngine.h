@@ -14,7 +14,7 @@
 #include <Color.h>
 #include <CommandLineUtils.h>
 #include <ContentUtils.h>
-#include <DebugUtils.h>
+#include <Debug.h>
 #include <Macro.h>
 #include <Math.hpp>
 #include <Text.hpp>

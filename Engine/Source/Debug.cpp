@@ -1,4 +1,4 @@
-#include <DebugUtils.h>
+#include <Debug.h>
 #include <Text.hpp>
 #include <CommandLineUtils.h>
 
@@ -6,18 +6,7 @@
 #include <ctime>
 #include <string>
 
-void DebugUtils::Init()
-{
-	SetUnhandledExceptionFilter(UnhandledExceptionHandler);
-}
-
-LONG __stdcall DebugUtils::UnhandledExceptionHandler(_EXCEPTION_POINTERS* InExceptionInfo)
-{
-	CreateDumpFile(InExceptionInfo);
-	return EXCEPTION_CONTINUE_SEARCH;
-}
-
-void DebugUtils::CreateDumpFile(_EXCEPTION_POINTERS* InExceptionInfo)
+void CreateDumpFileFromException(_EXCEPTION_POINTERS* InExceptionInfo)
 {
 	time_t CurrentTime = time(nullptr);
 	tm* CurrentLocalTime = localtime(&CurrentTime);
@@ -32,14 +21,14 @@ void DebugUtils::CreateDumpFile(_EXCEPTION_POINTERS* InExceptionInfo)
 		CurrentLocalTime->tm_min,
 		CurrentLocalTime->tm_sec
 	);
-	
+
 	HANDLE  FileHandler = CreateFileA(
 		DumpFile.c_str(),
-		GENERIC_WRITE, 
-		FILE_SHARE_WRITE, 
-		NULL, 
+		GENERIC_WRITE,
+		FILE_SHARE_WRITE,
+		NULL,
 		CREATE_ALWAYS,
-		FILE_ATTRIBUTE_NORMAL, 
+		FILE_ATTRIBUTE_NORMAL,
 		NULL
 	);
 
@@ -50,4 +39,10 @@ void DebugUtils::CreateDumpFile(_EXCEPTION_POINTERS* InExceptionInfo)
 
 	MiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), FileHandler, MiniDumpNormal, &ExceptionInfo, NULL, NULL);
 	CloseHandle(FileHandler);
+}
+
+LONG __stdcall UnhandledExceptionHandler(_EXCEPTION_POINTERS* InExceptionInfo)
+{
+	CreateDumpFileFromException(InExceptionInfo);
+	return EXCEPTION_CONTINUE_SEARCH;
 }

@@ -2,8 +2,9 @@
 
 void ToyEngine::Init()
 {
+	SetUnhandledExceptionFilter(UnhandledExceptionHandler);
+
 	CommandLineUtils::Init();
-	DebugUtils::Init();
 	ContentUtils::Init();
 
 	int32_t SDLFlags = SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_EVENTS;
