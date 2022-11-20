@@ -1,6 +1,7 @@
 #include <ToyEngine.h>
 
 #include "Player.h"
+#include "Ground.h"
 
 /**
  * Pong2D 게임입니다.
@@ -20,6 +21,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Ground_.reset();
 		Player1_.reset();
 		Player2_.reset();
 		Camera_.reset();
@@ -73,10 +75,11 @@ public:
 
 		World_ = std::make_unique<World>();
 
-		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f);
+		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f, 0.0f, 100.0f);
 
 		Player1_ = std::make_unique<Player>(
-			World_.get(), Text::GetHash("Player1"), 
+			World_.get(), 
+			Text::GetHash("Player1"), 
 			Player::EType::PLAYER1, 
 			Vec2f(-350.0f, 0.0f), 
 			25.0f, 
@@ -92,6 +95,14 @@ public:
 			25.0f, 
 			150.0f, 
 			350.0f
+		);
+
+		Ground_ = std::make_unique<Ground>(
+			World_.get(),
+			Text::GetHash("Ground"),
+			Vec2f(0.0f, 0.0f),
+			900.0f, 
+			450.0f
 		);
 	}
 
@@ -152,6 +163,7 @@ public:
 			ScreenHeight
 		);
 
+		Ground_->Render(*Renderer_, *Camera_);
 		Player1_->Render(*Renderer_, *Camera_);
 		Player2_->Render(*Renderer_, *Camera_);
 
@@ -182,6 +194,12 @@ private:
 	 * 게임 플레이어2입니다.
 	 */
 	std::unique_ptr<Player> Player2_ = nullptr;
+
+
+	/**
+	 * 게임 그라운드입니다.
+	 */
+	std::unique_ptr<Ground> Ground_ = nullptr;
 };
 
 
