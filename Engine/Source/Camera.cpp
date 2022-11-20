@@ -76,6 +76,13 @@ void Camera::SetHeight(const float& InHeight)
 	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
+void Camera::SetSize(const float& InWidth, const float& InHeight)
+{
+	Width_ = InWidth;
+	Height_ = InHeight;
+	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
+}
+
 void Camera::Move(float InDeltaSeconds)
 {
 	float CosTheta = cosf(Math::ToRadian(Rotate_));

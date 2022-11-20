@@ -118,6 +118,28 @@ public:
 
 
 	/**
+	 * 2D World 내의 카메라 가로, 세로 크기를 얻습니다.
+	 *
+	 * @param OutWidth - 2D World 내의 카메라 가로 크기입니다.
+	 * @param OutHeight - 2D World 내의 카메라 세로 크기입니다.
+	 */
+	void GetSize(float& OutWidth, float& OutHeight)
+	{
+		OutWidth = Width_;
+		OutHeight = Height_;
+	}
+
+
+	 /**
+	  * 2D World 내의 카메라 가로, 세로 크기를 설정합니다.
+	  *
+	  * @parma InWidth - 설정할 카메라의 가로 크기입니다.
+	  * @param InHeight - 설정할 카메라의 세로 크기입니다.
+	  */
+	void SetSize(const float& InWidth, const float& InHeight);
+
+
+	/**
 	 * 2D World 내의 카메라 뱡향 각도를 얻습니다.
 	 * 
 	 * @return 2D World 내의 카메라 방향 각도를 반환합니다.
