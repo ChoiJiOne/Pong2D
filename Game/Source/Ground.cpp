@@ -23,7 +23,7 @@ Ground::Ground(
 	AddComponent<RigidBodyComponent>(Text::GetHash("LeftWall"), LeftWallPosition, InWallSize, InHeight, 0.0f, 0.0f, false);
 
 	Vec2f RightWallPosition(+(InWidth + InWallSize) / 2.0f, InPosition.y);
-	AddComponent<RigidBodyComponent>(Text::GetHash("LeftWall"), RightWallPosition, InWallSize, InHeight, 180.0f, 0.0f, false);
+	AddComponent<RigidBodyComponent>(Text::GetHash("RightWall"), RightWallPosition, InWallSize, InHeight, 180.0f, 0.0f, false);
 
 	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InWidth, InHeight, 0.0f, 0.0f, false);
 	AddComponent<GroundRenderComponent>(Text::GetHash("Render"), Color::White);
