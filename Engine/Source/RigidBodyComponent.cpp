@@ -38,37 +38,25 @@ void RigidBodyComponent::SetHeight(const float& InHeight)
 	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
 }
 
-bool RigidBodyComponent::IsInner(RigidBodyComponent* InRigidBody)
-{
-	if (Type_ == EType::NONE || InRigidBody->Type_ == EType::NONE) return false;
-
-	Vec2f MinPosition = BoundingBox_[0];
-	Vec2f MaxPosition = BoundingBox_[2];
-
-	Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
-	Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
-
-	return (MinPosition.x < OtherMinPosition.x && OtherMaxPosition.x < MaxPosition.x)
-		&& (MinPosition.y < OtherMinPosition.y && OtherMaxPosition.y < MaxPosition.y);
-}
-
-bool RigidBodyComponent::IsOutter(RigidBodyComponent* InRigidBody)
-{
-	if (Type_ == EType::NONE || InRigidBody->Type_ == EType::NONE) return false;
-
-	Vec2f MinPosition = BoundingBox_[0];
-	Vec2f MaxPosition = BoundingBox_[2];
-
-	Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
-	Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
-
-	return (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x) 
-		&& (MinPosition.y > OtherMaxPosition.y || MaxPosition.y < OtherMinPosition.y);
-}
-
 bool RigidBodyComponent::IsCollision(RigidBodyComponent* InRigidBody)
 {
 	if (Type_ == EType::NONE || InRigidBody->Type_ == EType::NONE) return false;
 
-	return !IsInner(InRigidBody) && !IsOutter(InRigidBody);
+	Vec2f MinPosition = BoundingBox_[0];
+	Vec2f MaxPosition = BoundingBox_[2];
+
+	Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
+	Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
+
+	if (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x)
+	{
+		return false;
+	}
+
+	if (MinPosition.y > OtherMaxPosition.y || MaxPosition.y < OtherMinPosition.y)
+	{
+		return false;
+	}
+
+	return true;
 }
