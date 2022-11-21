@@ -82,6 +82,14 @@ public:
 	EType GetType() const { return Type_; }
 
 
+	/**
+	 * 플레이어의 Normal 벡터를 얻습니다.
+	 * 
+	 * @return 플레이어의 Normal 벡터를 반환합니다.
+	 */
+	Vec2f GetNormal() const { return Normal; }
+
+
 private:
 	/**
 	 * 게임 플레이어의 타입입니다.
