@@ -117,7 +117,7 @@ public:
 			Vec2f(0.0f, 0.0f),
 			15.0f,
 			0.0f,
-			0.0f
+			300.0f
 		);
 
 		Background_ = std::make_unique<Background>(
