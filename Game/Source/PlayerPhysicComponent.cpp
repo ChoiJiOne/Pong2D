@@ -17,4 +17,15 @@ void PlayerPhysicComponent::Tick(World& InWorld, float InDeltaSeconds)
 
 		RigidBody->SetPosition(Position);
 	}
+
+	RigidBodyComponent* GroundRigidBody = InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
+	if (!GroundRigidBody->IsInner(RigidBody))
+	{
+		Vec2f Position = RigidBody->GetPosition();
+
+		float Length = GroundRigidBody->GetHeight() / 2.0f - RigidBody->GetHeight() / 2.0f;
+		Position.y = Position.y > 0 ? Length : -Length;
+
+		RigidBody->SetPosition(Position);
+	}
 }
