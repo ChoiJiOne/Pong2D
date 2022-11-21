@@ -19,7 +19,8 @@ void PlayerPhysicComponent::Tick(World& InWorld, float InDeltaSeconds)
 	}
 
 	RigidBodyComponent* GroundRigidBody = InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
-	if (!GroundRigidBody->IsInner(RigidBody))
+//	if (GroundRigidBody->IsCollision(RigidBody))
+	if (!RigidBody->IsOutter(GroundRigidBody))
 	{
 		Vec2f Position = RigidBody->GetPosition();
 
