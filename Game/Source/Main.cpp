@@ -115,7 +115,7 @@ public:
 			World_.get(),
 			Text::GetHash("Ball"),
 			Vec2f(0.0f, 0.0f),
-			20.0f,
+			15.0f,
 			0.0f,
 			0.0f
 		);
