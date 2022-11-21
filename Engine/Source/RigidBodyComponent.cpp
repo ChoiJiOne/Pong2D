@@ -97,34 +97,91 @@ bool RigidBodyComponent::IsInner(RigidBodyComponent* InRigidBody)
 {
 	if (Type_ == EType::NONE || InRigidBody->Type_ == EType::NONE) return false;
 
-	Vec2f MinPosition = BoundingBox_[0];
-	Vec2f MaxPosition = BoundingBox_[2];
+	bool bIsInner = false;
 
-	Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
-	Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
+	if (Type_ == EType::AABB)
+	{
+		if (InRigidBody->Type_ == EType::AABB)
+		{
+			Vec2f MinPosition = BoundingBox_[0];
+			Vec2f MaxPosition = BoundingBox_[2];
 
-	return (MinPosition.x < OtherMinPosition.x && OtherMaxPosition.x < MaxPosition.x) 
-		&& (MinPosition.y < OtherMinPosition.y && OtherMaxPosition.y < MaxPosition.y);
+			Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
+			Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
+
+			bIsInner = (MinPosition.x < OtherMinPosition.x && OtherMaxPosition.x < MaxPosition.x)
+				&& (MinPosition.y < OtherMinPosition.y && OtherMaxPosition.y < MaxPosition.y);
+		}
+		else // InRigidBody->Type_ == EType::CIRCLE
+		{
+
+
+
+
+
+		}
+	}
+	else // Type_ == EType::CIRCLE
+	{
+		if (InRigidBody->Type_ == EType::AABB)
+		{
+
+
+
+		}
+		else // InRigidBody->Type_ == EType::CIRCLE
+		{
+
+
+
+		}
+	}
+
+	return bIsInner;
 }
 
 bool RigidBodyComponent::IsOutter(RigidBodyComponent* InRigidBody)
 {
 	if (Type_ == EType::NONE || InRigidBody->Type_ == EType::NONE) return false;
 
-	Vec2f MinPosition = BoundingBox_[0];
-	Vec2f MaxPosition = BoundingBox_[2];
+	bool bIsOutter = false;
 
-	Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
-	Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
-
-	if (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x)
+	if (Type_ == EType::AABB)
 	{
-		return true;
+		if (InRigidBody->Type_ == EType::AABB)
+		{
+			Vec2f MinPosition = BoundingBox_[0];
+			Vec2f MaxPosition = BoundingBox_[2];
+
+			Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
+			Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
+
+			bIsOutter = (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x)
+				&& (MinPosition.y > OtherMaxPosition.y || MaxPosition.y < OtherMinPosition.y);
+		}
+		else // InRigidBody->Type_ == EType::CIRCLE
+		{
+
+
+
+
+
+		}
 	}
-
-	if (MinPosition.y > OtherMaxPosition.y || MaxPosition.y < OtherMinPosition.y)
+	else // Type_ == EType::CIRCLE
 	{
-		return true;
+		if (InRigidBody->Type_ == EType::AABB)
+		{
+
+
+
+		}
+		else // InRigidBody->Type_ == EType::CIRCLE
+		{
+
+
+
+		}
 	}
 
 	return false;
