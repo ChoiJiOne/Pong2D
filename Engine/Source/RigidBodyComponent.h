@@ -18,8 +18,7 @@ public:
 	enum class EType : int32_t
 	{
 		NONE   = 0,
-		AABB   = 1,
-		CIRCLE = 2
+		AABB   = 1
 	};
 
 
@@ -41,28 +40,6 @@ public:
 		const Vec2f& InPosition,
 		const float& InWidth,
 		const float& InHeight,
-		const float& InRotate = 0.0f,
-		const float& InVelocity = 0.0f,
-		bool bCanMove = false
-	);
-
-
-	/**
-	 * 게임 오브젝트의 리지드 바디 컴포넌트의 생성자입니다.
-	 * 이때, 이 생성자를 호출하면 바디의 타입은 CIRCLE로 설정됩니다.
-	 *
-	 * @param InObject - 이 컴포넌트를 소유한 게임 오브젝트입니다.
-	 * @param InPosition - 오브젝트 바디의 중심 좌표입니다.
-	 * @param InWidth - 오브젝트 바디의 가로 크기입니다.
-	 * @param InHeight - 오브젝트 바디 세로 크기입니다.
-	 * @param InRotate - 오브젝트 바디의 이동 방향 각도입니다.
-	 * @param InVelocity - 오브젝트 바디의 속력입니다.
-	 * @param bCanMove - 오브젝트 바디의 이동 여부입니다.
-	 */
-	explicit RigidBodyComponent(
-		GameObject* InObject,
-		const Vec2f& InPosition,
-		const float& InRadius,
 		const float& InRotate = 0.0f,
 		const float& InVelocity = 0.0f,
 		bool bCanMove = false
