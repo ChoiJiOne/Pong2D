@@ -10,6 +10,20 @@ class Ground : public GameObject
 {
 public:
 	/**
+	 * 그라운드의 Normal 벡터의 타입입니다.
+	 */
+	enum class ENormal
+	{
+		NONE   = 0,
+		TOP    = 1,
+		BOTTOM = 2,
+		LEFT   = 3,
+		RIGHT  = 4
+	};
+
+
+public:
+	/**
 	 * Pong2D 게임 그라운드의 생성자입니다.
 	 *
 	 * @param InWorld - 게임 그라운드가 위치할 월드입니다.
@@ -55,4 +69,21 @@ public:
 	 * @param InCamera - 게임의 시야 처리를 위한 카메라입니다.
 	 */
 	virtual void Render(Renderer& InRenderer, Camera& InCamera) override;
+
+
+	/**
+	 * 게임 그라운드의 Normal 벡터를 얻습니다.
+	 * 
+	 * @parma InType - 그라운드 Normal 벡터의 타입입니다.
+	 * 
+	 * @return 타입에 대응하는 Normal 벡터를 반환합니다.
+	 */
+	Vec2f GetNormal(const ENormal& InType) const;
+
+
+private:
+	/**
+	 * ENormal에 대응하는 Normal 벡터입니다.
+	 */
+	std::unordered_map<ENormal, Vec2f> Normals_;
 };
