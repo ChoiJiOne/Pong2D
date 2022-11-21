@@ -62,8 +62,17 @@ bool RigidBodyComponent::IsOutter(RigidBodyComponent* InRigidBody)
 	Vec2f OtherMinPosition = InRigidBody->BoundingBox_[0];
 	Vec2f OtherMaxPosition = InRigidBody->BoundingBox_[2];
 
-	return (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x)
-		&& (MinPosition.y > OtherMaxPosition.y || MaxPosition.y < OtherMinPosition.y);
+	if (MinPosition.x > OtherMaxPosition.x || MaxPosition.x < OtherMinPosition.x)
+	{
+		return true;
+	}
+
+	if (MinPosition.y > OtherMaxPosition.y || MaxPosition.y < OtherMinPosition.y)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 bool RigidBodyComponent::IsCollision(RigidBodyComponent* InRigidBody)
