@@ -87,7 +87,7 @@ public:
 	 * 
 	 * @return 플레이어의 Normal 벡터를 반환합니다.
 	 */
-	Vec2f GetNormal() const { return Normal; }
+	Vec2f GetNormal() const { return Normal_; }
 
 
 private:
@@ -101,5 +101,5 @@ private:
 	 * 게임 플레이어의 Normal 벡터입니다.
 	 * 이 벡터는 위치 벡터가 아닌 방향 벡터입니다.
 	 */
-	Vec2f Normal;
+	Vec2f Normal_;
 };

@@ -17,7 +17,7 @@ Player::Player(
 ) : GameObject(InWorld, InSignature)
 {
 	Type_ = InType;
-	Normal = (Type_ == EType::PLAYER1) ? Vec2f(1.0f, 0.0f) : Vec2f(-1.0f, 0.0f);
+	Normal_ = (Type_ == EType::PLAYER1) ? Vec2f(1.0f, 0.0f) : Vec2f(-1.0f, 0.0f);
 
 	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InWidth, InHeight, 0.0f, InVelocity, false);
 
