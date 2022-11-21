@@ -17,13 +17,15 @@ public:
 	 * @param InPosition - 게임 그라운드의 화면상 위치입니다.
 	 * @param InWidth - 게임 그라운드의 가로 크기입니다.
 	 * @param InHeight - 게임 그라운드의 세로 크기입니다.
+	 * @param InWallSize - 게임 그라운드를 감싸는 벽의 크기입니다.
 	 */
 	explicit Ground(
 		World* InWorld,
 		const std::size_t& InSignature,
 		const Vec2f& InPosition,
 		const float& InWidth,
-		const float& InHeight
+		const float& InHeight,
+		const float& InWallSize
 	);
 
 

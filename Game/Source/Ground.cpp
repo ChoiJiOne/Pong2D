@@ -9,13 +9,21 @@ Ground::Ground(
 	const std::size_t& InSignature,
 	const Vec2f& InPosition, 
 	const float& InWidth, 
-	const float& InHeight
+	const float& InHeight,
+	const float& InWallSize
 ) : GameObject(InWorld, InSignature)
 {
-	Normals_.insert({ ENormal::TOP,    Vec2f(0.0f, -1.0f) });
-	Normals_.insert({ ENormal::BOTTOM, Vec2f(0.0f, +1.0f) });
-	Normals_.insert({ ENormal::LEFT,   Vec2f(+1.0f, 0.0f) });
-	Normals_.insert({ ENormal::RIGHT,  Vec2f(-1.0f, 0.0f) });
+	Vec2f TopWallPosition(InPosition.x, +(InHeight + InWallSize) / 2.0f);
+	AddComponent<RigidBodyComponent>(Text::GetHash("TopWall"), TopWallPosition, InWidth, InWallSize, 270.0f, 0.0f, false);
+
+	Vec2f BottomWallPosition(InPosition.x, -(InHeight + InWallSize) / 2.0f);
+	AddComponent<RigidBodyComponent>(Text::GetHash("BottomWall"), BottomWallPosition, InWidth, InWallSize, 90.0f, 0.0f, false);
+
+	Vec2f LeftWallPosition(-(InWidth + InWallSize) / 2.0f, InPosition.y);
+	AddComponent<RigidBodyComponent>(Text::GetHash("LeftWall"), LeftWallPosition, InWallSize, InHeight, 0.0f, 0.0f, false);
+
+	Vec2f RightWallPosition(+(InWidth + InWallSize) / 2.0f, InPosition.y);
+	AddComponent<RigidBodyComponent>(Text::GetHash("LeftWall"), RightWallPosition, InWallSize, InHeight, 180.0f, 0.0f, false);
 
 	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InWidth, InHeight, 0.0f, 0.0f, false);
 	AddComponent<GroundRenderComponent>(Text::GetHash("Render"), Color::White);
@@ -32,9 +40,4 @@ void Ground::Update(Input& InInput, float InDeltaSeconds)
 void Ground::Render(Renderer& InRenderer, Camera& InCamera)
 {
 	GetComponent<GroundRenderComponent>(Text::GetHash("Render"))->Tick(InRenderer, InCamera);
-}
-
-Vec2f Ground::GetNormal(const ENormal& InType) const
-{
-	return Normals_.at(InType);
 }
