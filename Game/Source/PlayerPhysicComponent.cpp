@@ -18,8 +18,12 @@ void PlayerPhysicComponent::Tick(World& InWorld, float InDeltaSeconds)
 		RigidBody->SetPosition(Position);
 	}
 
-	RigidBodyComponent* GroundRigidBody = InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
-	if (GroundRigidBody->IsCollision(RigidBody))
+	GameObject* GroundObject = InWorld.GetObject(Text::GetHash("Ground"));
+	RigidBodyComponent* GroundRigidBody = GroundObject->GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
+	RigidBodyComponent* TopWall = GroundObject->GetComponent<RigidBodyComponent>(Text::GetHash("TopWall"));
+	RigidBodyComponent* BottomWall = GroundObject->GetComponent<RigidBodyComponent>(Text::GetHash("BottomWall"));
+
+	if (RigidBody->IsCollision(TopWall) || RigidBody->IsCollision(BottomWall))
 	{
 		Vec2f Position = RigidBody->GetPosition();
 
