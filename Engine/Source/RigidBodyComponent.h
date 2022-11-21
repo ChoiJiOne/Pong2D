@@ -23,18 +23,6 @@ public:
 	};
 
 
-	/**
-	 * 다른 오브젝트의 바디와의 관계입니다.
-	 */
-	enum class ERelation : int32_t
-	{
-		NONE      = 0,
-		OUTER     = 1,
-		COLLISION = 2,
-		INNER     = 3,
-	};
-
-
 public:
 	/**
 	 * 게임 오브젝트의 리지드 바디 컴포넌트의 생성자입니다.
@@ -205,16 +193,6 @@ public:
 	 * @return 오브젝트 바디의 경계 영역을 반환합니다.
 	 */
 	const BoundingBox& GetBoundingBox() const { return BoundingBox_; }
-
-
-	/**
-	 * 다른 오브젝트 바디와의 관계를 얻습니다.
-	 * 
-	 * @param 관계를 확인할 다른 오브젝트의 바디입니다.
-	 * 
-	 * @return 다른 오브젝트와의 관계(ERelation)를 반환합니다.
-	 */
-	ERelation GetRelation(const RigidBodyComponent& InRigidBody);
 
 
 private:

@@ -82,6 +82,8 @@ void RigidBodyComponent::SetHeight(const float& InHeight)
 		break;
 
 	case EType::NONE:
+		Width_ = 0.0f;
+		Height_ = 0.0f;
 		break;
 
 	default:
@@ -89,9 +91,4 @@ void RigidBodyComponent::SetHeight(const float& InHeight)
 	}
 
 	BoundingBox_ = Math::CalculateBoundingBox(Position_, Width_, Height_);
-}
-
-RigidBodyComponent::ERelation RigidBodyComponent::GetRelation(const RigidBodyComponent& InRigidBody)
-{
-	return ERelation::NONE;
 }
