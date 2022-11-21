@@ -195,6 +195,37 @@ public:
 	const BoundingBox& GetBoundingBox() const { return BoundingBox_; }
 
 
+	/**
+	 * 특정 오브젝트의 바디가 내부에 존재하는지 확인합니다.
+	 * 
+	 * @param InRigidBody - 내부에 존재하는지 확인할 오브젝트 바디입니다.
+	 * 
+	 * @return 특정 오브젝트의 바디가 내부에 존재하면 true, 그렇지 않으면 fasle를 반환합니다.
+	 */
+	bool IsInner(RigidBodyComponent* InRigidBody);
+
+
+	/**
+	 * 특정 오브젝트의 바디가 외부에 존재하는지 확인합니다.
+	 * 
+	 * @param InRigidBody - 외부에 존재하는지 확인할 오브젝트 바디입니다.
+	 * 
+	 * @return 특정 오브젝트의 바디가 외부에 존재하면 true, 그렇지 않으면 fasle를 반환합니다.
+	 */
+	bool IsOutter(RigidBodyComponent* InRigidBody);
+
+
+	/**
+	 * 특정 오브젝트의 바디와 충돌하는지 확인합니다.
+	 * 이때, 특정 오브젝트의 바디가 내부에 있는 것은 충돌로 판정하지 않습니다.
+	 * 
+	 * @param InRigidBody - 충돌하는지 확인할 오브젝트 바디입니다.
+	 * 
+	 * @return 특정 오브젝트의 바디와 충돌하면 true, 그렇지 않으면 fasle를 반환합니다.
+	 */
+	bool IsCollision(RigidBodyComponent* InRigidBody);
+
+
 private:
 	/**
 	 * 게임 오브젝트의 형태 타입입니다.
