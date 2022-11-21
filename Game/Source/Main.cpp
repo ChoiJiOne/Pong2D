@@ -3,6 +3,7 @@
 #include "Ball.h"
 #include "Player.h"
 #include "Ground.h"
+#include "Background.h"
 
 /**
  * Pong2D 게임입니다.
@@ -22,6 +23,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Background_.reset();
 		Ball_.reset();
 		Ground_.reset();
 		Player1_.reset();
@@ -65,9 +67,10 @@ public:
 			EWindowEvent::CODE_RESIZED, 
 			[&]() {
 				int32_t Width = 0, Height = 0;
-
 				Window_->GetSize(Width, Height);
+
 				Camera_->SetSize(static_cast<float>(Width), static_cast<float>(Height));
+				Background_->SetSize(static_cast<float>(Width), static_cast<float>(Height));
 			}
 		);
 
@@ -115,6 +118,14 @@ public:
 			20.0f,
 			0.0f,
 			100.0f
+		);
+
+		Background_ = std::make_unique<Background>(
+			World_.get(),
+			Text::GetHash("Background"),
+			Vec2f(0.0f, 0.0f),
+			1000.0f,
+			800.0f
 		);
 	}
 
@@ -168,17 +179,7 @@ public:
 	{
 		Renderer_->BeginFrame(Color::Black);
 
-		int32_t ScreenWidth = 0, ScreenHeight = 0;
-		Window_->GetSize(ScreenWidth, ScreenHeight);
-
-		Renderer_->DrawTexture2D(
-			ContentManager::Get().GetTexture(Text::GetHash("Space")),
-			Vec2i(ScreenWidth / 2, ScreenHeight / 2),
-			ScreenWidth, 
-			ScreenHeight
-		);
-
-		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		std::array<GameObject*, 5> Objects = { Background_.get(), Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
 		for (auto Object : Objects)
 		{
 			Object->Render(*Renderer_, *Camera_);
@@ -223,6 +224,12 @@ private:
 	 * 게임 공입니다.
 	 */
 	std::unique_ptr<Ball> Ball_ = nullptr;
+
+
+	/**
+	 * 게임의 백그라운드입니다.
+	 */
+	std::unique_ptr<Background> Background_ = nullptr;
 };
 
 
