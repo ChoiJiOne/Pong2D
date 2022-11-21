@@ -30,4 +30,29 @@ public:
 	 * @param InDeltaSeconds - 초단위 델타 시간 값입니다.
 	 */
 	virtual void Tick(World& InWorld, float InDeltaSeconds) override;
+
+
+private:
+	/**
+	 * 공이 이동 방향을 기준으로 움직입니다.
+	 * 
+	 * @param InDeltaSeconds - 초단위 델타 시간 값입니다.
+	 */
+	void Move(float InDeltaSeconds);
+
+
+	/**
+	 * 공과 플레이어와의 충돌 검사를 수행합니다.
+	 * 
+	 * @param InWorld - 공과 플레이어가 위치한 2D 월드입니다. 
+	 */
+	void CheckToPlayerCollision(World& InWorld);
+
+
+	/**
+	 * 공과 그라운드의 벽의 충돌 검사를 수행합니다.
+	 * 
+	 * @param InWorld - 공과 벽이 위치한 2D 월드입니다.
+	 */
+	void CheckToWallCollision(World& InWorld);
 };
