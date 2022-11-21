@@ -108,7 +108,8 @@ public:
 			Text::GetHash("Ground"),
 			Vec2f(0.0f, 0.0f),
 			900.0f, 
-			450.0f
+			450.0f,
+			20.0f
 		);
 
 		Ball_ = std::make_unique<Ball>(
@@ -116,7 +117,7 @@ public:
 			Text::GetHash("Ball"),
 			Vec2f(0.0f, 0.0f),
 			15.0f,
-			0.0f,
+			10.0f,
 			300.0f
 		);
 
