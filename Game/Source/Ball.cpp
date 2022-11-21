@@ -14,7 +14,7 @@ Ball::Ball(
 	const float& InVelocity
 ) : GameObject(InWorld, InSignature)
 {
-	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, InRadius, InRotate, InVelocity, true);
+	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, 2.0f * InRadius, 2.0f * InRadius, InRotate, InVelocity, true);
 	AddComponent<BallPhysicComponent>(Text::GetHash("Physic"));
 	AddComponent<SpriteRenderComponent>(Text::GetHash("Render"), Text::GetHash("Ball"));
 }
