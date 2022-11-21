@@ -250,4 +250,25 @@ public:
 			static_cast<int32_t>(InPosition.y + 0.5f)
 		);
 	}
+
+
+	/**
+	 * 입력 받은 Normal 벡터를 기준으로부터 반사 벡터를 얻습니다.
+	 * 이때, Normal 벡터는 반드시 정규화되어 있어야 합니다.
+	 * 
+	 * @param InVector - 반사 벡터를 계산할 벡터입니다.
+	 * @param InNormal - 반사 벡터를 계산할 때 기준이 되는 Normal 벡터입니다.
+	 * 
+	 * @return 입력 받은 Normal 벡터를 기준으로부터 계산된 반사 벡터를 반환합니다.
+	 */
+	inline static Vec2f Reflect(const Vec2f& InVector, const Vec2f& InNormal)
+	{
+		Vec2f Normal = InNormal;
+		float Project = InVector * InNormal;
+
+		Normal.x *= (Project * 2.0f);
+		Normal.y *= (Project * 2.0f);
+
+		return InVector - Normal;
+	}
 };
