@@ -24,10 +24,6 @@ public:
 	virtual ~Pong2D() 
 	{
 		Background_.reset();
-		Ball_.reset();
-		Ground_.reset();
-		Player1_.reset();
-		Player2_.reset();
 		Camera_.reset();
 	}
 
@@ -83,44 +79,6 @@ public:
 
 		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f, 0.0f, 100.0f);
 
-		Player1_ = std::make_unique<Player>(
-			World_.get(), 
-			Text::GetHash("Player1"), 
-			Player::EType::PLAYER1, 
-			Vec2f(-350.0f, 0.0f), 
-			25.0f, 
-			150.0f, 
-			350.0f
-		);
-
-		Player2_ = std::make_unique<Player>(
-			World_.get(), 
-			Text::GetHash("Player2"), 
-			Player::EType::PLAYER2, 
-			Vec2f(+350.0f, 0.0f), 
-			25.0f, 
-			150.0f, 
-			350.0f
-		);
-
-		Ground_ = std::make_unique<Ground>(
-			World_.get(),
-			Text::GetHash("Ground"),
-			Vec2f(0.0f, 0.0f),
-			900.0f, 
-			450.0f,
-			20.0f
-		);
-
-		Ball_ = std::make_unique<Ball>(
-			World_.get(),
-			Text::GetHash("Ball"),
-			Vec2f(0.0f, 0.0f),
-			15.0f,
-			10.0f,
-			300.0f
-		);
-
 		Background_ = std::make_unique<Background>(
 			World_.get(),
 			Text::GetHash("Background"),
@@ -162,12 +120,6 @@ public:
 		{
 			bIsDone_ = true;
 		}
-
-		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
-		for (auto Object : Objects)
-		{
-			Object->Update(*Input_, Timer_.GetDeltaSeconds());
-		}
 	}
 
 
@@ -180,7 +132,7 @@ public:
 	{
 		Renderer_->BeginFrame(Color::Black);
 
-		std::array<GameObject*, 5> Objects = { Background_.get(), Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		std::array<GameObject*, 1> Objects = { Background_.get() };
 		for (auto Object : Objects)
 		{
 			Object->Render(*Renderer_, *Camera_);
@@ -201,30 +153,6 @@ private:
 	 * 게임 카메라입니다.
 	 */
 	std::unique_ptr<Camera> Camera_ = nullptr;
-
-
-	/**
-	 * 게임 플레이어1입니다.
-	 */
-	std::unique_ptr<Player> Player1_ = nullptr;
-
-
-	/**
-	 * 게임 플레이어2입니다.
-	 */
-	std::unique_ptr<Player> Player2_ = nullptr;
-
-
-	/**
-	 * 게임 그라운드입니다.
-	 */
-	std::unique_ptr<Ground> Ground_ = nullptr;
-
-
-	/**
-	 * 게임 공입니다.
-	 */
-	std::unique_ptr<Ball> Ball_ = nullptr;
 
 
 	/**
