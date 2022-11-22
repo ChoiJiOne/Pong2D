@@ -17,6 +17,8 @@ Ball::Ball(
 	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, 2.0f * InRadius, 2.0f * InRadius, InRotate, InVelocity, true);
 	AddComponent<BallPhysicComponent>(Text::GetHash("Physic"));
 	AddComponent<SpriteRenderComponent>(Text::GetHash("Render"), Text::GetHash("Ball"));
+
+	Reset();
 }
 
 Ball::~Ball()
@@ -31,4 +33,25 @@ void Ball::Update(Input& InInput, float InDeltaSeconds)
 void Ball::Render(Renderer& InRenderer, Camera& InCamera)
 {
 	GetComponent<SpriteRenderComponent>(Text::GetHash("Render"))->Tick(InRenderer, InCamera);
+}
+
+void Ball::Reset()
+{
+	RigidBodyComponent* Body = GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
+
+	CurrentState_ = EState::WAIT;
+	
+	Body->SetPosition(Vec2f(0.0f));
+	Body->SetRotate(0.0f);
+	Body->SetCanMove(false);
+}
+
+void Ball::Start()
+{
+	RigidBodyComponent* Body = GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
+
+	CurrentState_ = EState::MOVE;
+
+	Body->SetCanMove(true);
+	Body->SetRotate(Math::GenerateRandomFloat<float>(0.0f, 360.0f));
 }

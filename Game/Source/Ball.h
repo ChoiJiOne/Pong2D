@@ -10,6 +10,18 @@ class Ball : public GameObject
 {
 public:
 	/**
+	 * Ball의 상태입니다.
+	 * WAIT는 공이 움직임 없이 대기 중인 상태이고, MOVE는 공이 움직이고 있는 상태입니다.
+	 */
+	enum class EState : int32_t
+	{
+		WAIT = 0,
+		MOVE = 1
+	};
+
+
+public:
+	/**
 	 * Pong2D 게임 공의 생성자입니다.
 	 *
 	 * @param InWorld - 게임 공이 위치할 월드입니다.
@@ -57,4 +69,39 @@ public:
 	 * @param InCamera - 게임의 시야 처리를 위한 카메라입니다.
 	 */
 	virtual void Render(Renderer& InRenderer, Camera& InCamera) override;
+
+
+	/**
+	 * 현재 공의 상태를 얻습니다.
+	 * 
+	 * @return 현재 공의 상태를 반환합니다.
+	 */
+	EState GetCurrentState() const { return CurrentState_; }
+
+
+	/**
+	 * 현재 공의 상태를 설정합니다.
+	 * 
+	 * @param InState - 설정할 공의 상태입니다.
+	 */
+	void SetCurrentState(const EState& InState) { CurrentState_ = InState; }
+
+
+	/**
+	 * 공의 상태를 초기화합니다.
+	 */
+	void Reset();
+
+
+	/**
+	 * 공을 임의의 방향으로 출발하게 합니다.
+	 */
+	void Start();
+
+
+private:
+	/**
+	 * 공의 현재 상태입니다.
+	 */
+	EState CurrentState_ = EState::WAIT;
 };
