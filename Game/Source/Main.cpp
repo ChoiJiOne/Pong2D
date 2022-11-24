@@ -133,13 +133,7 @@ public:
 	{
 		Renderer_->BeginFrame(Color::Black);
 
-		std::array<GameObject*, 1> Objects = { Background_.get() };
-		for (auto Object : Objects)
-		{
-			Object->Render(*Renderer_, *Camera_);
-		}
-
-		Renderer_->DrawText2D(ContentManager::Get().GetFont(Text::GetHash("Font")), L"PONG 2D", Vec2i(500, 400), Color::White);
+		Background_->Render(*Renderer_, *Camera_);
 
 		Renderer_->EndFrame();
 	}
