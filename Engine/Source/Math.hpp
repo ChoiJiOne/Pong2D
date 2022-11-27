@@ -260,7 +260,7 @@ public:
 	 * 
 	 * @return 두 벡터의 내적 값을 반환합니다.
 	 */
-	int32_t Dot(const Vec2i& InLhs, const Vec2i& InRhs)
+	inline static int32_t Dot(const Vec2i& InLhs, const Vec2i& InRhs)
 	{
 		int32_t Result = 0;
 
@@ -281,7 +281,7 @@ public:
 	 *
 	 * @return 두 벡터의 내적 값을 반환합니다.
 	 */
-	float Dot(const Vec2f& InLhs, const Vec2f& InRhs)
+	inline static float Dot(const Vec2f& InLhs, const Vec2f& InRhs)
 	{
 		float Result = 0;
 
@@ -302,7 +302,7 @@ public:
 	 *
 	 * @return 두 벡터의 내적 값을 반환합니다.
 	 */
-	int32_t Dot(const Vec3i& InLhs, const Vec3i& InRhs)
+	inline static int32_t Dot(const Vec3i& InLhs, const Vec3i& InRhs)
 	{
 		int32_t Result = 0;
 
@@ -323,7 +323,7 @@ public:
 	 *
 	 * @return 두 벡터의 내적 값을 반환합니다.
 	 */
-	float Dot(const Vec3f& InLhs, const Vec3f& InRhs)
+	inline static float Dot(const Vec3f& InLhs, const Vec3f& InRhs)
 	{
 		float Result = 0;
 
@@ -344,7 +344,7 @@ public:
 	 *
 	 * @return 두 벡터의 내적 값을 반환합니다.
 	 */
-	int32_t Dot(const Vec4i& InLhs, const Vec4i& InRhs)
+	inline static int32_t Dot(const Vec4i& InLhs, const Vec4i& InRhs)
 	{
 		int32_t Result = 0;
 
@@ -365,7 +365,7 @@ public:
 	 *
 	 * @return 두 벡터의 내적 값을 반환합니다.
 	 */
-	float Dot(const Vec4f& InLhs, const Vec4f& InRhs)
+	inline static float Dot(const Vec4f& InLhs, const Vec4f& InRhs)
 	{
 		float Result = 0;
 
