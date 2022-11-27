@@ -12,25 +12,6 @@ class Pong2D : public GameFramework
 {
 public:
 	/**
-	 * 현재 게임의 상태입니다.
-	 * 
-	 * START : 게임의 시작 상태입니다.
-	 * SETTING : 게임의 기본적인 설정을 수행하는 상태입니다.
-	 * PLAY : 게임을 플레이하고 있는 상태입니다.
-	 * PAUSE : 게임을 중지한 상태입니다. 
-	 * DONE : 게임이 종료된 상태입니다.
-	 */
-	enum class EGameState : int32_t
-	{
-		START   = 0,
-		SETTING = 1,
-		PLAY    = 2,
-		PAUSE   = 3,
-		DONE    = 4
-	};
-
-public:
-	/**
 	 * Pong2D 게임의 디폴트 생성자입니다.
 	 * 이때, 초기화를 수행하기 위해서는 Init 메서드를 호출해야 합니다.
 	 */
@@ -42,6 +23,10 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Ball_.reset();
+		Player2_.reset();
+		Player1_.reset();
+		Ground_.reset();
 		Background_.reset();
 		Camera_.reset();
 	}
@@ -89,9 +74,6 @@ public:
 			}
 		);
 
-		ContentManager::Get().LoadFont(Text::GetHash("Font128"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
-		ContentManager::Get().LoadFont(Text::GetHash("Font64"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 64.0f);
-		ContentManager::Get().LoadFont(Text::GetHash("Font32"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 32.0f);
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.bmp");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleBlue"), *Renderer_, "texture\\PaddleBlue.bmp");
@@ -107,6 +89,44 @@ public:
 			Vec2f(0.0f, 0.0f),
 			1000.0f,
 			800.0f
+		);
+
+		Player1_ = std::make_unique<Player>(
+			World_.get(),
+			Text::GetHash("Player1"),
+			Player::EType::PLAYER1,
+			Vec2f(-350.0f, 0.0f),
+			25.0f,
+			150.0f,
+			350.0f
+		);
+
+		Player2_ = std::make_unique<Player>(
+			World_.get(),
+			Text::GetHash("Player2"),
+			Player::EType::PLAYER2,
+			Vec2f(+350.0f, 0.0f),
+			25.0f,
+			150.0f,
+			350.0f
+		);
+
+		Ground_ = std::make_unique<Ground>(
+			World_.get(),
+			Text::GetHash("Ground"),
+			Vec2f(0.0f, 0.0f),
+			900.0f,
+			450.0f,
+			20.0f
+		);
+
+		Ball_ = std::make_unique<Ball>(
+			World_.get(),
+			Text::GetHash("Ball"),
+			Vec2f(0.0f, 0.0f),
+			15.0f,
+			10.0f,
+			500.0f
 		);
 	}
 
@@ -142,6 +162,12 @@ public:
 		{
 			bIsDone_ = true;
 		}
+
+		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		for (auto Object : Objects)
+		{
+			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+		}
 	}
 
 
@@ -156,17 +182,17 @@ public:
 
 		Background_->Render(*Renderer_, *Camera_);
 
+		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		for (auto Object : Objects)
+		{
+			Object->Render(*Renderer_, *Camera_);
+		}
+
 		Renderer_->EndFrame();
 	}
 
 
 private:
-	/**
-	 * 현재 게임 상태입니다.
-	 */
-	EGameState CurrentGameState_ = EGameState::START;
-
-
 	/**
 	 * 게임 타이머입니다.
 	 */
@@ -183,6 +209,31 @@ private:
 	 * 게임의 백그라운드입니다.
 	 */
 	std::unique_ptr<Background> Background_ = nullptr;
+
+
+	/**
+	 * 게임 그라운드입니다.
+	 */
+	std::unique_ptr<Ground> Ground_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어1입니다.
+	 */
+	std::unique_ptr<Player> Player1_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어2입니다.
+	 */
+	std::unique_ptr<Player> Player2_ = nullptr;
+
+
+	/**
+	 * 게임 공입니다.
+	 */
+	std::unique_ptr<Ball> Ball_ = nullptr;
+
 };
 
 
