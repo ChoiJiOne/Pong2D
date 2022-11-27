@@ -225,19 +225,19 @@ struct Vec2i
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(const Vector& InInstance) const
+	Vector operator*(const Vector& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -245,19 +245,19 @@ struct Vec2i
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(Vector&& InInstance) const
+	Vector operator*(Vector&& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -639,19 +639,19 @@ struct Vec2f
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(const Vector& InInstance) const
+	Vector operator*(const Vector& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -659,19 +659,19 @@ struct Vec2f
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(Vector&& InInstance) const
+	Vector operator*(Vector&& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -1117,19 +1117,19 @@ struct Vec3i
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(const Vector& InInstance) const
+	Vector operator*(const Vector& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -1137,19 +1137,19 @@ struct Vec3i
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(Vector&& InInstance) const
+	Vector operator*(Vector&& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -1539,19 +1539,19 @@ struct Vec3f
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(const Vector& InInstance) const
+	Vector operator*(const Vector& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -1559,19 +1559,19 @@ struct Vec3f
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(Vector&& InInstance) const
+	Vector operator*(Vector&& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -2025,19 +2025,19 @@ struct Vec4i
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(const Vector& InInstance) const
+	Vector operator*(const Vector& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -2045,19 +2045,19 @@ struct Vec4i
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(Vector&& InInstance) const
+	Vector operator*(Vector&& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -2456,19 +2456,19 @@ struct Vec4f
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(const Vector& InInstance) const
+	Vector operator*(const Vector& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
@@ -2476,19 +2476,19 @@ struct Vec4f
 
 
 	/**
-	 * 두 벡터의 내적 연산(Dot Product)을 수행합니다.
+	 * 두 벡터에 대응하는 원소를 각각 곱합니다.
 	 *
 	 * @param InInstance 벡터의 곱셈을 수행할 피연산자입니다.
 	 *
 	 * @return 두 벡터에 대응하는 원소를 곱한 결과를 반환합니다.
 	 */
-	Type operator*(Vector&& InInstance) const
+	Vector operator*(Vector&& InInstance) const
 	{
-		Type Result = static_cast<Type>(0);
+		Vector Result;
 
 		for (int32_t Index = 0; Index < SIZE; ++Index)
 		{
-			Result += Element_[Index] * InInstance.Element_[Index];
+			Result[Index] = Element_[Index] * InInstance.Element_[Index];
 		}
 
 		return Result;
