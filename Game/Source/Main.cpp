@@ -157,7 +157,7 @@ public:
 
 		std::size_t Font32Key = Text::GetHash("Font32");
 
-		StartButton_ = std::make_unique<Button>(
+		StartButton_ = std::make_unique<UIButton>(
 			Vec2f(500.0f, 400.0f),
 			300.0f,
 			80.0f,
@@ -171,7 +171,7 @@ public:
 			0.95f
 		);
 
-		SettingButton_ = std::make_unique<Button>(
+		SettingButton_ = std::make_unique<UIButton>(
 			Vec2f(500.0f, 500.0f),
 			300.0f,
 			80.0f,
@@ -185,7 +185,7 @@ public:
 			0.95f
 		);
 
-		QuitButton_ = std::make_unique<Button>(
+		QuitButton_ = std::make_unique<UIButton>(
 			Vec2f(500.0f, 600.0f),
 			300.0f,
 			80.0f,
@@ -233,7 +233,7 @@ public:
 			bIsDone_ = true;
 		}
 
-		std::array<Button*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
+		std::array<UIButton*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
 		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
 
 		switch (CurrentGameState_)
@@ -275,12 +275,19 @@ public:
 
 		Background_->Render(*Renderer_, *Camera_);
 
-		std::array<Button*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
+		std::array<UIButton*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
 		std::array<GameObject*, 4> Objects = {  Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
 
 		switch (CurrentGameState_)
 		{
 		case EGameState::START:
+			Renderer_->DrawText2D(
+				ContentManager::Get().GetFont(Text::GetHash("Font128")), 
+				L"PONG2D", 
+				Vec2i(500, 200), 
+				Color::Blue
+			);
+
 			for (auto Object : Buttons)
 			{
 				Object->Render(*Renderer_);
@@ -360,19 +367,19 @@ private:
 	/**
 	 * 게임 시작 버튼입니다.
 	 */
-	std::unique_ptr<Button> StartButton_ = nullptr;
+	std::unique_ptr<UIButton> StartButton_ = nullptr;
 
 
 	/**
 	 * 게임 설정 버튼입니다.
 	 */
-	std::unique_ptr<Button> SettingButton_ = nullptr;
+	std::unique_ptr<UIButton> SettingButton_ = nullptr;
 
 
 	/**
 	 * 게임 종료 버튼입니다.
 	 */
-	std::unique_ptr<Button> QuitButton_ = nullptr;
+	std::unique_ptr<UIButton> QuitButton_ = nullptr;
 };
 
 

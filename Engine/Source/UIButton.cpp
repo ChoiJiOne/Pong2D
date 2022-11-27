@@ -1,9 +1,9 @@
-#include <Button.h>
+#include <UIButton.h>
 #include <ContentManager.h>
 #include <Renderer.h>
 #include <Input.h>
 
-Button::Button(
+UIButton::UIButton(
 	const Vec2f& InCenter, 
 	const float& InWidth, 
 	const float& InHeight, 
@@ -27,7 +27,7 @@ Button::Button(
 	BoundingBox_ = Math::CalculateBoundingBox(Center_, Width_, Height_);
 }
 
-Button::Button(Button&& InInstance) noexcept
+UIButton::UIButton(UIButton&& InInstance) noexcept
 {
 	Center_ = InInstance.Center_;
 	Width_ = InInstance.Width_;
@@ -43,7 +43,7 @@ Button::Button(Button&& InInstance) noexcept
 	BoundingBox_ = InInstance.BoundingBox_;
 }
 
-Button::Button(const Button& InInstance) noexcept
+UIButton::UIButton(const UIButton& InInstance) noexcept
 {
 	Center_ = InInstance.Center_;
 	Width_ = InInstance.Width_;
@@ -59,27 +59,7 @@ Button::Button(const Button& InInstance) noexcept
 	BoundingBox_ = InInstance.BoundingBox_;
 }
 
-Button& Button::operator=(Button&& InInstance) noexcept
-{
-	if (this == &InInstance) return *this;
-
-	Center_ = InInstance.Center_;
-	Width_ = InInstance.Width_;
-	Height_ = InInstance.Height_;
-	Text_ = InInstance.Text_;
-	FontKey_ = InInstance.FontKey_;
-	bIsEnable_ = InInstance.bIsEnable_;
-	bIsPressed_ = InInstance.bIsPressed_;
-	EnableColor_ = InInstance.EnableColor_;
-	UnableColor_ = InInstance.UnableColor_;
-	ClickEvent_ = InInstance.ClickEvent_;
-	ReduceRate_ = InInstance.ReduceRate_;
-	BoundingBox_ = InInstance.BoundingBox_;
-
-	return *this;
-}
-
-Button& Button::operator=(const Button& InInstance) noexcept
+UIButton& UIButton::operator=(UIButton&& InInstance) noexcept
 {
 	if (this == &InInstance) return *this;
 
@@ -99,7 +79,27 @@ Button& Button::operator=(const Button& InInstance) noexcept
 	return *this;
 }
 
-void Button::Update(Input& InInput)
+UIButton& UIButton::operator=(const UIButton& InInstance) noexcept
+{
+	if (this == &InInstance) return *this;
+
+	Center_ = InInstance.Center_;
+	Width_ = InInstance.Width_;
+	Height_ = InInstance.Height_;
+	Text_ = InInstance.Text_;
+	FontKey_ = InInstance.FontKey_;
+	bIsEnable_ = InInstance.bIsEnable_;
+	bIsPressed_ = InInstance.bIsPressed_;
+	EnableColor_ = InInstance.EnableColor_;
+	UnableColor_ = InInstance.UnableColor_;
+	ClickEvent_ = InInstance.ClickEvent_;
+	ReduceRate_ = InInstance.ReduceRate_;
+	BoundingBox_ = InInstance.BoundingBox_;
+
+	return *this;
+}
+
+void UIButton::Update(Input& InInput)
 {
 	bIsEnable_ = IsDetectMouseCursor(InInput);
 
@@ -121,13 +121,11 @@ void Button::Update(Input& InInput)
 	}
 }
 
-void Button::Render(Renderer& InRenderer)
+void UIButton::Render(Renderer& InRenderer)
 {
 	LinearColor CurrentColor = bIsEnable_ ? EnableColor_ : UnableColor_;
 
 	int32_t Width = 0, Height = 0;
-	Vec2i Position(static_cast<int32_t>(Center_.x), static_cast<int32_t>(Center_.y));
-
 	if (bIsPressed_)
 	{
 		Width = static_cast<int32_t>(Width_ * ReduceRate_);
@@ -139,11 +137,13 @@ void Button::Render(Renderer& InRenderer)
 		Height = static_cast<int32_t>(Height_);
 	}
 
+	Vec2i Position = Math::ConvertPixelCoordinate(Center_);
+
 	InRenderer.DrawRect2D(Position, Width, Height, CurrentColor);
 	InRenderer.DrawText2D(ContentManager::Get().GetFont(FontKey_), Text_, Position, CurrentColor);
 }
 
-bool Button::IsDetectMouseCursor(const Input& InInput)
+bool UIButton::IsDetectMouseCursor(const Input& InInput)
 {
 	Vec2f CurrentMousePosition = InInput.GetCurrCursorPosition();
 

@@ -15,7 +15,7 @@ class Renderer;
 /**
  * 게임 내의 버튼입니다.
  */
-class Button
+class UIButton
 {
 public:
 	/**
@@ -31,7 +31,7 @@ public:
 	 * @param InClickEvent - 버튼을 클릭했을 때 실행할 함수입니다.
 	 * @param InReduceRate - 버튼을 클릭했을 때 줄어들 버튼의 크기 비율입니다.
 	 */
-	explicit Button(
+	explicit UIButton(
 		const Vec2f& InCenter,
 		const float& InWidth,
 		const float& InHeight,
@@ -49,7 +49,7 @@ public:
 	 * 
 	 * @param InInstance - 복사할 객체입니다.
 	 */
-	Button(Button&& InInstance) noexcept;
+	UIButton(UIButton&& InInstance) noexcept;
 
 
 	/**
@@ -57,13 +57,13 @@ public:
 	 *
 	 * @param InInstance - 복사할 객체입니다.
 	 */
-	Button(const Button& InInstance) noexcept;
+	UIButton(const UIButton& InInstance) noexcept;
 
 
 	/**
 	 * 버튼의 가상 소멸자입니다.
 	 */
-	virtual ~Button() {}
+	virtual ~UIButton() {}
 
 
 	/**
@@ -73,7 +73,7 @@ public:
 	 *
 	 * @return 복사한 객체의 참조자를 반환합니다.
 	 */
-	Button& operator=(Button&& InInstance) noexcept;
+	UIButton& operator=(UIButton&& InInstance) noexcept;
 
 
 	/**
@@ -83,7 +83,7 @@ public:
 	 *
 	 * @return 복사한 객체의 참조자를 반환합니다.
 	 */
-	Button& operator=(const Button& InInstance) noexcept;
+	UIButton& operator=(const UIButton& InInstance) noexcept;
 
 
 	/**
