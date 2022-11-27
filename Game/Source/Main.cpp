@@ -74,6 +74,7 @@ public:
 			}
 		);
 
+		ContentManager::Get().LoadFont(Text::GetHash("Font128"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.bmp");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleBlue"), *Renderer_, "texture\\PaddleBlue.bmp");
@@ -187,6 +188,13 @@ public:
 		{
 			Object->Render(*Renderer_, *Camera_);
 		}
+
+		Renderer_->DrawText2D(
+			ContentManager::Get().GetFont(Text::GetHash("Font128")),
+			Text::Format(L"%d:%d", Player1_->GetScore(), Player2_->GetScore()),
+			Vec2i(500, 100),
+			Color::Cyan
+		);
 
 		Renderer_->EndFrame();
 	}
