@@ -1,4 +1,5 @@
 #include "BallPhysicComponent.h"
+#include "Ball.h"
 #include "Player.h"
 
 #include <GameObject.h>
@@ -101,9 +102,8 @@ void BallPhysicComponent::CheckToWallCollision(World& InWorld)
 	{
 		if (RigidBody->IsCollision(Wall))
 		{
-			RigidBody->SetCanMove(false);
-			RigidBody->SetRotate(0.0f);
-			RigidBody->SetPosition(Vec2f(0.0f, 0.0f));
+			Ball* BallObject = reinterpret_cast<Ball*>(GetGameObject());
+			BallObject->Reset();
 		}
 	}
 }
