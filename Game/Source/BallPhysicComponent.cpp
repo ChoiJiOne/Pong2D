@@ -51,7 +51,7 @@ void BallPhysicComponent::CheckToPlayerCollision(World& InWorld)
 			Vec2f Normal = PlayerObject->GetNormal();
 			Vec2f Direction(cosf(Math::ToRadian(RigidBody->GetRotate())), sinf(Math::ToRadian(RigidBody->GetRotate())));
 
-			if (Normal * Direction < 0)
+			if (Math::Dot(Normal, Direction) < 0.0f)
 			{
 				Vec2f Reflection = Math::Reflect(Direction, Normal);
 				RigidBody->SetRotate(Math::ToDegree(atan2f(Reflection.y, Reflection.x)));
@@ -73,17 +73,10 @@ void BallPhysicComponent::CheckToWallCollision(World& InWorld)
 	{
 		if (RigidBody->IsCollision(Wall))
 		{
-			Vec2f Normal(
-				cosf(Math::ToRadian(Wall->GetRotate())),
-				sinf(Math::ToRadian(Wall->GetRotate()))
-			);
+			Vec2f Normal(cosf(Math::ToRadian(Wall->GetRotate())), sinf(Math::ToRadian(Wall->GetRotate())));
+			Vec2f Direction(cosf(Math::ToRadian(RigidBody->GetRotate())), sinf(Math::ToRadian(RigidBody->GetRotate())));
 
-			Vec2f Direction(
-				cosf(Math::ToRadian(RigidBody->GetRotate())),
-				sinf(Math::ToRadian(RigidBody->GetRotate()))
-			);
-
-			if (Normal * Direction < 0)
+			if (Math::Dot(Normal, Direction) < 0.0f)
 			{
 				Vec2f Reflection = Math::Reflect(Direction, Normal);
 				RigidBody->SetRotate(Math::ToDegree(atan2f(Reflection.y, Reflection.x)));
