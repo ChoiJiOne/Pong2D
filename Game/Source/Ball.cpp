@@ -55,6 +55,16 @@ void Ball::Start()
 
 	CurrentState_ = EState::MOVE;
 
+	float Rotate = 0.0f;
+	if (Math::GenerateRandomInt<int32_t>(1, 2) == 1)
+	{
+		Rotate = Math::GenerateRandomFloat<float>(-45.0f, 45.0f);
+	}
+	else
+	{
+		Rotate = Math::GenerateRandomFloat<float>(135.0f, 225.0f);
+	}
+
 	Body->SetCanMove(true);
-	Body->SetRotate(Math::GenerateRandomFloat<float>(0.0f, 360.0f));
+	Body->SetRotate(Rotate);
 }
