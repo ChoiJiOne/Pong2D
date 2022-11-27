@@ -253,6 +253,132 @@ public:
 
 
 	/**
+	 * 두 벡터의 내적 (Dot Product)를 수행합니다.
+	 * 
+	 * @param InLhs - 내적을 수행할 벡터의 왼쪽 피연산자입니다.
+	 * @param InRhs - 내적을 수행할 벡터의 오른쪽 피연산자입니다.
+	 * 
+	 * @return 두 벡터의 내적 값을 반환합니다.
+	 */
+	int32_t Dot(const Vec2i& InLhs, const Vec2i& InRhs)
+	{
+		int32_t Result = 0;
+
+		for (int32_t Index = 0; Index < Vec2i::SIZE; ++Index)
+		{
+			Result += InLhs[Index] * InRhs[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 두 벡터의 내적 (Dot Product)를 수행합니다.
+	 *
+	 * @param InLhs - 내적을 수행할 벡터의 왼쪽 피연산자입니다.
+	 * @param InRhs - 내적을 수행할 벡터의 오른쪽 피연산자입니다.
+	 *
+	 * @return 두 벡터의 내적 값을 반환합니다.
+	 */
+	float Dot(const Vec2f& InLhs, const Vec2f& InRhs)
+	{
+		float Result = 0;
+
+		for (int32_t Index = 0; Index < Vec2f::SIZE; ++Index)
+		{
+			Result += InLhs[Index] * InRhs[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 두 벡터의 내적 (Dot Product)를 수행합니다.
+	 *
+	 * @param InLhs - 내적을 수행할 벡터의 왼쪽 피연산자입니다.
+	 * @param InRhs - 내적을 수행할 벡터의 오른쪽 피연산자입니다.
+	 *
+	 * @return 두 벡터의 내적 값을 반환합니다.
+	 */
+	int32_t Dot(const Vec3i& InLhs, const Vec3i& InRhs)
+	{
+		int32_t Result = 0;
+
+		for (int32_t Index = 0; Index < Vec3i::SIZE; ++Index)
+		{
+			Result += InLhs[Index] * InRhs[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 두 벡터의 내적 (Dot Product)를 수행합니다.
+	 *
+	 * @param InLhs - 내적을 수행할 벡터의 왼쪽 피연산자입니다.
+	 * @param InRhs - 내적을 수행할 벡터의 오른쪽 피연산자입니다.
+	 *
+	 * @return 두 벡터의 내적 값을 반환합니다.
+	 */
+	float Dot(const Vec3f& InLhs, const Vec3f& InRhs)
+	{
+		float Result = 0;
+
+		for (int32_t Index = 0; Index < Vec3f::SIZE; ++Index)
+		{
+			Result += InLhs[Index] * InRhs[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 두 벡터의 내적 (Dot Product)를 수행합니다.
+	 *
+	 * @param InLhs - 내적을 수행할 벡터의 왼쪽 피연산자입니다.
+	 * @param InRhs - 내적을 수행할 벡터의 오른쪽 피연산자입니다.
+	 *
+	 * @return 두 벡터의 내적 값을 반환합니다.
+	 */
+	int32_t Dot(const Vec4i& InLhs, const Vec4i& InRhs)
+	{
+		int32_t Result = 0;
+
+		for (int32_t Index = 0; Index < Vec4i::SIZE; ++Index)
+		{
+			Result += InLhs[Index] * InRhs[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
+	 * 두 벡터의 내적 (Dot Product)를 수행합니다.
+	 *
+	 * @param InLhs - 내적을 수행할 벡터의 왼쪽 피연산자입니다.
+	 * @param InRhs - 내적을 수행할 벡터의 오른쪽 피연산자입니다.
+	 *
+	 * @return 두 벡터의 내적 값을 반환합니다.
+	 */
+	float Dot(const Vec4f& InLhs, const Vec4f& InRhs)
+	{
+		float Result = 0;
+
+		for (int32_t Index = 0; Index < Vec4f::SIZE; ++Index)
+		{
+			Result += InLhs[Index] * InRhs[Index];
+		}
+
+		return Result;
+	}
+
+
+	/**
 	 * 입력 받은 Normal 벡터를 기준으로부터 반사 벡터를 얻습니다.
 	 * 이때, Normal 벡터는 반드시 정규화되어 있어야 합니다.
 	 * 
