@@ -1,6 +1,6 @@
 #pragma once
 
-#include "InputComponent.h"
+#include <InputComponent.h>
 
 
 /**
