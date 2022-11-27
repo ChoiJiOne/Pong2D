@@ -42,13 +42,6 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
-		QuitButton_.reset();
-		SettingButton_.reset();
-		StartButton_.reset();
-		Ball_.reset();
-		Player2_.reset();
-		Player1_.reset();
-		Ground_.reset();
 		Background_.reset();
 		Camera_.reset();
 	}
@@ -115,89 +108,6 @@ public:
 			1000.0f,
 			800.0f
 		);
-
-		Player1_ = std::make_unique<Player>(
-			World_.get(),
-			Text::GetHash("Player1"),
-			Player::EType::PLAYER1,
-			Vec2f(-350.0f, 0.0f),
-			25.0f,
-			150.0f,
-			350.0f
-		);
-
-		Player2_ = std::make_unique<Player>(
-			World_.get(),
-			Text::GetHash("Player2"),
-			Player::EType::PLAYER2,
-			Vec2f(+350.0f, 0.0f),
-			25.0f,
-			150.0f,
-			350.0f
-		);
-
-		Ground_ = std::make_unique<Ground>(
-			World_.get(),
-			Text::GetHash("Ground"),
-			Vec2f(0.0f, 0.0f),
-			900.0f,
-			450.0f,
-			20.0f
-		);
-
-		Ball_ = std::make_unique<Ball>(
-			World_.get(),
-			Text::GetHash("Ball"),
-			Vec2f(0.0f, 0.0f),
-			15.0f,
-			10.0f,
-			300.0f
-		);
-
-
-		std::size_t Font32Key = Text::GetHash("Font32");
-
-		StartButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 400.0f),
-			300.0f,
-			80.0f,
-			L"START",
-			Font32Key,
-			Color::Blue,
-			Color::Black,
-			[&]() {
-				CurrentGameState_ = EGameState::PLAY;
-			},
-			0.95f
-		);
-
-		SettingButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 500.0f),
-			300.0f,
-			80.0f,
-			L"SETTING",
-			Font32Key,
-			Color::Blue,
-			Color::Black,
-			[&]() {
-				CurrentGameState_ = EGameState::SETTING;
-			},
-			0.95f
-		);
-
-		QuitButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 600.0f),
-			300.0f,
-			80.0f,
-			L"QUIT",
-			Font32Key,
-			Color::Blue,
-			Color::Black,
-			[&]() {
-				bIsDone_ = true;
-			},
-			0.95f
-		);
 	}
 
 
@@ -232,35 +142,6 @@ public:
 		{
 			bIsDone_ = true;
 		}
-
-		std::array<UIButton*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
-		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
-
-		switch (CurrentGameState_)
-		{
-		case EGameState::START:
-			for (auto Object : Buttons)
-			{
-				Object->Update(*Input_);
-			}
-			break;
-
-		case EGameState::SETTING:
-			break;
-
-		case EGameState::PLAY:
-			for (auto Object : Objects)
-			{
-				Object->Update(*Input_, Timer_.GetDeltaSeconds());
-			}
-			break;
-
-		case EGameState::PAUSE:
-			break;
-
-		case EGameState::DONE:
-			break;
-		}
 	}
 
 
@@ -274,42 +155,6 @@ public:
 		Renderer_->BeginFrame(Color::Black);
 
 		Background_->Render(*Renderer_, *Camera_);
-
-		std::array<UIButton*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
-		std::array<GameObject*, 4> Objects = {  Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
-
-		switch (CurrentGameState_)
-		{
-		case EGameState::START:
-			Renderer_->DrawText2D(
-				ContentManager::Get().GetFont(Text::GetHash("Font128")), 
-				L"PONG2D", 
-				Vec2i(500, 200), 
-				Color::Blue
-			);
-
-			for (auto Object : Buttons)
-			{
-				Object->Render(*Renderer_);
-			}
-			break;
-
-		case EGameState::SETTING:
-			break;
-
-		case EGameState::PLAY:
-			for (auto Object : Objects)
-			{
-				Object->Render(*Renderer_, *Camera_);
-			}
-			break;
-
-		case EGameState::PAUSE:
-			break;
-
-		case EGameState::DONE:
-			break;
-		}
 
 		Renderer_->EndFrame();
 	}
@@ -338,48 +183,6 @@ private:
 	 * 게임의 백그라운드입니다.
 	 */
 	std::unique_ptr<Background> Background_ = nullptr;
-
-
-	/**
-	 * 게임 그라운드입니다.
-	 */
-	std::unique_ptr<Ground> Ground_ = nullptr;
-
-
-	/**
-	 * 게임 플레이어1입니다.
-	 */
-	std::unique_ptr<Player> Player1_ = nullptr;
-
-
-	/**
-	 * 게임 플레이어2입니다.
-	 */
-	std::unique_ptr<Player> Player2_ = nullptr;
-
-
-	/**
-	 * 게임 공입니다.
-	 */
-	std::unique_ptr<Ball> Ball_ = nullptr;
-
-
-	/**
-	 * 게임 시작 버튼입니다.
-	 */
-	std::unique_ptr<UIButton> StartButton_ = nullptr;
-
-
-	/**
-	 * 게임 설정 버튼입니다.
-	 */
-	std::unique_ptr<UIButton> SettingButton_ = nullptr;
-
-
-	/**
-	 * 게임 종료 버튼입니다.
-	 */
-	std::unique_ptr<UIButton> QuitButton_ = nullptr;
 };
 
 
