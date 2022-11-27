@@ -98,12 +98,23 @@ void BallPhysicComponent::CheckToWallCollision(World& InWorld)
 		InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("RightWall"))
 	};
 
-	for (auto Wall : HorizonWalls)
+	RigidBodyComponent* LeftWall = InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("LeftWall"));
+	if (RigidBody->IsCollision(LeftWall))
 	{
-		if (RigidBody->IsCollision(Wall))
-		{
-			Ball* BallObject = reinterpret_cast<Ball*>(GetGameObject());
-			BallObject->Reset();
-		}
+		Player* Player2 = reinterpret_cast<Player*>(InWorld.GetObject(Text::GetHash("Player2")));
+		Player2->SetScore(Player2->GetScore() + 1);
+
+		Ball* BallObject = reinterpret_cast<Ball*>(GetGameObject());
+		BallObject->Reset();
+	}
+
+	RigidBodyComponent* RightWall = InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("RightWall"));
+	if (RigidBody->IsCollision(RightWall))
+	{
+		Player* Player1 = reinterpret_cast<Player*>(InWorld.GetObject(Text::GetHash("Player1")));
+		Player1->SetScore(Player1->GetScore() + 1);
+
+		Ball* BallObject = reinterpret_cast<Ball*>(GetGameObject());
+		BallObject->Reset();
 	}
 }
