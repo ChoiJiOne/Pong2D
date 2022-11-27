@@ -43,15 +43,13 @@ void BallPhysicComponent::CheckToPlayerCollision(World& InWorld)
 
 	for (auto Object : Objects)
 	{
-		Player* CurrentPlayer = reinterpret_cast<Player*>(Object);
+		Player* PlayerObject = reinterpret_cast<Player*>(Object);
+		RigidBodyComponent* PlayerBody = PlayerObject->GetComponent<RigidBodyComponent>(Text::GetHash("Body"));
 
-		if (RigidBody->IsCollision(CurrentPlayer->GetComponent<RigidBodyComponent>(Text::GetHash("Body"))))
+		if (RigidBody->IsCollision(PlayerBody))
 		{
-			Vec2f Normal = CurrentPlayer->GetNormal();
-			Vec2f Direction(
-				cosf(Math::ToRadian(RigidBody->GetRotate())),
-				sinf(Math::ToRadian(RigidBody->GetRotate()))
-			);
+			Vec2f Normal = PlayerObject->GetNormal();
+			Vec2f Direction(cosf(Math::ToRadian(RigidBody->GetRotate())), sinf(Math::ToRadian(RigidBody->GetRotate())));
 
 			if (Normal * Direction < 0)
 			{
