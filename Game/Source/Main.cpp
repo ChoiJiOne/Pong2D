@@ -12,6 +12,25 @@ class Pong2D : public GameFramework
 {
 public:
 	/**
+	 * 현재 게임의 상태입니다.
+	 * 
+	 * START : 게임의 시작 상태입니다.
+	 * SETTING : 게임의 기본적인 설정을 수행하는 상태입니다.
+	 * PLAY : 게임을 플레이하고 있는 상태입니다.
+	 * PAUSE : 게임을 중지한 상태입니다. 
+	 * DONE : 게임이 종료된 상태입니다.
+	 */
+	enum class EGameState : int32_t
+	{
+		START   = 0,
+		SETTING = 1,
+		PLAY    = 2,
+		PAUSE   = 3,
+		DONE    = 4
+	};
+
+public:
+	/**
 	 * Pong2D 게임의 디폴트 생성자입니다.
 	 * 이때, 초기화를 수행하기 위해서는 Init 메서드를 호출해야 합니다.
 	 */
@@ -165,9 +184,27 @@ public:
 		}
 
 		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
-		for (auto Object : Objects)
+
+		switch (CurrentGameState_)
 		{
-			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+		case EGameState::START:
+			break;
+
+		case EGameState::SETTING:
+			break;
+
+		case EGameState::PLAY:
+			for (auto Object : Objects)
+			{
+				Object->Update(*Input_, Timer_.GetDeltaSeconds());
+			}
+			break;
+
+		case EGameState::PAUSE:
+			break;
+
+		case EGameState::DONE:
+			break;
 		}
 	}
 
@@ -181,10 +218,30 @@ public:
 	{
 		Renderer_->BeginFrame(Color::Black);
 
-		std::array<GameObject*, 5> Objects = { Background_.get(), Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
-		for (auto Object : Objects)
+		Background_->Render(*Renderer_, *Camera_);
+
+		std::array<GameObject*, 4> Objects = {  Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+
+		switch (CurrentGameState_)
 		{
-			Object->Render(*Renderer_, *Camera_);
+		case EGameState::START:
+			break;
+
+		case EGameState::SETTING:
+			break;
+
+		case EGameState::PLAY:
+			for (auto Object : Objects)
+			{
+				Object->Update(*Input_, Timer_.GetDeltaSeconds());
+			}
+			break;
+
+		case EGameState::PAUSE:
+			break;
+
+		case EGameState::DONE:
+			break;
 		}
 
 		Renderer_->EndFrame();
@@ -192,6 +249,12 @@ public:
 
 
 private:
+	/**
+	 * 현재 게임 상태입니다.
+	 */
+	EGameState CurrentGameState_ = EGameState::START;
+
+
 	/**
 	 * 게임 타이머입니다.
 	 */
