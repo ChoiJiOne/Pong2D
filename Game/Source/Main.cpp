@@ -3,6 +3,7 @@
 #include "Ball.h"
 #include "Player.h"
 #include "Ground.h"
+#include "ScoreBoard.h"
 #include "Background.h"
 
 /**
@@ -23,6 +24,7 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		ScoreBoard_.reset();
 		Ball_.reset();
 		Player2_.reset();
 		Player1_.reset();
@@ -129,6 +131,15 @@ public:
 			10.0f,
 			500.0f
 		);
+
+		ScoreBoard_ = std::make_unique<ScoreBoard>(
+			World_.get(),
+			Text::GetHash("ScoreBoard"),
+			Vec2f(0.0f, 300.0f),
+			400.0f,
+			100.0f,
+			Color::Cyan
+		);
 	}
 
 
@@ -164,7 +175,7 @@ public:
 			bIsDone_ = true;
 		}
 
-		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		std::array<GameObject*, 5> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get(), ScoreBoard_.get() };
 		for (auto Object : Objects)
 		{
 			Object->Update(*Input_, Timer_.GetDeltaSeconds());
@@ -183,18 +194,11 @@ public:
 
 		Background_->Render(*Renderer_, *Camera_);
 
-		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		std::array<GameObject*, 5> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get(), ScoreBoard_.get() };
 		for (auto Object : Objects)
 		{
 			Object->Render(*Renderer_, *Camera_);
 		}
-
-		Renderer_->DrawText2D(
-			ContentManager::Get().GetFont(Text::GetHash("Font128")),
-			Text::Format(L"%d:%d", Player1_->GetScore(), Player2_->GetScore()),
-			Vec2i(500, 100),
-			Color::Cyan
-		);
 
 		Renderer_->EndFrame();
 	}
@@ -242,6 +246,11 @@ private:
 	 */
 	std::unique_ptr<Ball> Ball_ = nullptr;
 
+
+	/**
+	 * 게임 스코어 보드입니다.
+	 */
+	std::unique_ptr<ScoreBoard> ScoreBoard_ = nullptr;
 };
 
 
