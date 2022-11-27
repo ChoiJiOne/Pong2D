@@ -390,7 +390,7 @@ public:
 	inline static Vec2f Reflect(const Vec2f& InVector, const Vec2f& InNormal)
 	{
 		Vec2f Normal = InNormal;
-		float Project = InVector * InNormal;
+		float Project = Dot(InVector, InNormal);
 
 		Normal.x *= (Project * 2.0f);
 		Normal.y *= (Project * 2.0f);
