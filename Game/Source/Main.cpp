@@ -23,6 +23,10 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		Ball_.reset();
+		Player2_.reset();
+		Player1_.reset();
+		Ground_.reset();
 		Background_.reset();
 		Camera_.reset();
 	}
@@ -87,6 +91,44 @@ public:
 			1000.0f,
 			800.0f
 		);
+
+		Player1_ = std::make_unique<Player>(
+			World_.get(),
+			Text::GetHash("Player1"),
+			Player::EType::PLAYER1,
+			Vec2f(-350.0f, 0.0f),
+			25.0f,
+			150.0f,
+			350.0f
+		);
+
+		Player2_ = std::make_unique<Player>(
+			World_.get(),
+			Text::GetHash("Player2"),
+			Player::EType::PLAYER2,
+			Vec2f(+350.0f, 0.0f),
+			25.0f,
+			150.0f,
+			350.0f
+		);
+
+		Ground_ = std::make_unique<Ground>(
+			World_.get(),
+			Text::GetHash("Ground"),
+			Vec2f(0.0f, 0.0f),
+			900.0f,
+			450.0f,
+			20.0f
+		);
+
+		Ball_ = std::make_unique<Ball>(
+			World_.get(),
+			Text::GetHash("Ball"),
+			Vec2f(0.0f, 0.0f),
+			15.0f,
+			10.0f,
+			300.0f
+		);
 	}
 
 
@@ -121,6 +163,12 @@ public:
 		{
 			bIsDone_ = true;
 		}
+
+		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		for (auto Object : Objects)
+		{
+			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+		}
 	}
 
 
@@ -133,7 +181,11 @@ public:
 	{
 		Renderer_->BeginFrame(Color::Black);
 
-		Background_->Render(*Renderer_, *Camera_);
+		std::array<GameObject*, 5> Objects = { Background_.get(), Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
+		for (auto Object : Objects)
+		{
+			Object->Render(*Renderer_, *Camera_);
+		}
 
 		Renderer_->EndFrame();
 	}
@@ -156,6 +208,30 @@ private:
 	 * 게임의 백그라운드입니다.
 	 */
 	std::unique_ptr<Background> Background_ = nullptr;
+
+
+	/**
+	 * 게임 그라운드입니다.
+	 */
+	std::unique_ptr<Ground> Ground_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어1입니다.
+	 */
+	std::unique_ptr<Player> Player1_ = nullptr;
+
+
+	/**
+	 * 게임 플레이어2입니다.
+	 */
+	std::unique_ptr<Player> Player2_ = nullptr;
+
+
+	/**
+	 * 게임 공입니다.
+	 */
+	std::unique_ptr<Ball> Ball_ = nullptr;
 };
 
 
