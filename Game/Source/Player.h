@@ -90,6 +90,22 @@ public:
 	Vec2f GetNormal() const { return Normal_; }
 
 
+	/**
+	 * 플레이어의 획득 점수를 설정합니다.
+	 * 
+	 * @param InScore - 설정할 획득 점수 값입니다.
+	 */
+	void SetScore(const int32_t& InScore) { Score_ = InScore; }
+
+
+	/**
+	 * 플레이어의 획득 점수를 얻습니다.
+	 * 
+	 * @return 플레이어의 획득 점수를 반환합니다.
+	 */
+	int32_t GetScore() const { return Score_; }
+
+
 private:
 	/**
 	 * 게임 플레이어의 타입입니다.
@@ -102,4 +118,10 @@ private:
 	 * 이 벡터는 위치 벡터가 아닌 방향 벡터입니다.
 	 */
 	Vec2f Normal_;
+
+
+	/**
+	 * 게임 플레이어의 획득 점수입니다.
+	 */
+	int32_t Score_ = 0;
 };
