@@ -42,6 +42,9 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		QuitButton_.reset();
+		SettingButton_.reset();
+		StartButton_.reset();
 		Ball_.reset();
 		Player2_.reset();
 		Player1_.reset();
@@ -93,7 +96,9 @@ public:
 			}
 		);
 
-		ContentManager::Get().LoadFont(Text::GetHash("Font"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
+		ContentManager::Get().LoadFont(Text::GetHash("Font128"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
+		ContentManager::Get().LoadFont(Text::GetHash("Font64"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 64.0f);
+		ContentManager::Get().LoadFont(Text::GetHash("Font32"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 32.0f);
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.bmp");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleBlue"), *Renderer_, "texture\\PaddleBlue.bmp");
@@ -148,6 +153,51 @@ public:
 			10.0f,
 			300.0f
 		);
+
+
+		std::size_t Font32Key = Text::GetHash("Font32");
+
+		StartButton_ = std::make_unique<Button>(
+			Vec2f(500.0f, 400.0f),
+			300.0f,
+			80.0f,
+			L"START",
+			Font32Key,
+			Color::Blue,
+			Color::Black,
+			[&]() {
+				CurrentGameState_ = EGameState::PLAY;
+			},
+			0.95f
+		);
+
+		SettingButton_ = std::make_unique<Button>(
+			Vec2f(500.0f, 500.0f),
+			300.0f,
+			80.0f,
+			L"SETTING",
+			Font32Key,
+			Color::Blue,
+			Color::Black,
+			[&]() {
+				CurrentGameState_ = EGameState::SETTING;
+			},
+			0.95f
+		);
+
+		QuitButton_ = std::make_unique<Button>(
+			Vec2f(500.0f, 600.0f),
+			300.0f,
+			80.0f,
+			L"QUIT",
+			Font32Key,
+			Color::Blue,
+			Color::Black,
+			[&]() {
+				bIsDone_ = true;
+			},
+			0.95f
+		);
 	}
 
 
@@ -183,11 +233,16 @@ public:
 			bIsDone_ = true;
 		}
 
+		std::array<Button*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
 		std::array<GameObject*, 4> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
 
 		switch (CurrentGameState_)
 		{
 		case EGameState::START:
+			for (auto Object : Buttons)
+			{
+				Object->Update(*Input_);
+			}
 			break;
 
 		case EGameState::SETTING:
@@ -220,11 +275,16 @@ public:
 
 		Background_->Render(*Renderer_, *Camera_);
 
+		std::array<Button*, 3> Buttons = { StartButton_.get(), SettingButton_.get(), QuitButton_.get() };
 		std::array<GameObject*, 4> Objects = {  Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get() };
 
 		switch (CurrentGameState_)
 		{
 		case EGameState::START:
+			for (auto Object : Buttons)
+			{
+				Object->Render(*Renderer_);
+			}
 			break;
 
 		case EGameState::SETTING:
@@ -233,7 +293,7 @@ public:
 		case EGameState::PLAY:
 			for (auto Object : Objects)
 			{
-				Object->Update(*Input_, Timer_.GetDeltaSeconds());
+				Object->Render(*Renderer_, *Camera_);
 			}
 			break;
 
@@ -295,6 +355,24 @@ private:
 	 * 게임 공입니다.
 	 */
 	std::unique_ptr<Ball> Ball_ = nullptr;
+
+
+	/**
+	 * 게임 시작 버튼입니다.
+	 */
+	std::unique_ptr<Button> StartButton_ = nullptr;
+
+
+	/**
+	 * 게임 설정 버튼입니다.
+	 */
+	std::unique_ptr<Button> SettingButton_ = nullptr;
+
+
+	/**
+	 * 게임 종료 버튼입니다.
+	 */
+	std::unique_ptr<Button> QuitButton_ = nullptr;
 };
 
 
