@@ -1,5 +1,6 @@
 #include "BallPhysicComponent.h"
 #include "Ball.h"
+#include "CollisionAudioComponent.h"
 #include "Player.h"
 
 #include <GameObject.h>
@@ -55,6 +56,8 @@ void BallPhysicComponent::CheckToPlayerCollision(World& InWorld)
 			{
 				Vec2f Reflection = Math::Reflect(Direction, Normal);
 				RigidBody->SetRotate(Math::ToDegree(atan2f(Reflection.y, Reflection.x)));
+
+				GetGameObject()->GetComponent<CollisionAudioComponent>(Text::GetHash("Audio"))->SetDetectCollision(true);
 			}
 		}
 	}
@@ -80,6 +83,8 @@ void BallPhysicComponent::CheckToWallCollision(World& InWorld)
 			{
 				Vec2f Reflection = Math::Reflect(Direction, Normal);
 				RigidBody->SetRotate(Math::ToDegree(atan2f(Reflection.y, Reflection.x)));
+
+				GetGameObject()->GetComponent<CollisionAudioComponent>(Text::GetHash("Audio"))->SetDetectCollision(true);
 			}
 		}
 	}
@@ -97,6 +102,8 @@ void BallPhysicComponent::CheckToWallCollision(World& InWorld)
 
 		Ball* BallObject = reinterpret_cast<Ball*>(GetGameObject());
 		BallObject->Reset();
+
+		GetGameObject()->GetComponent<CollisionAudioComponent>(Text::GetHash("Audio"))->SetDetectCollision(true);
 	}
 
 	RigidBodyComponent* RightWall = InWorld.GetObject(Text::GetHash("Ground"))->GetComponent<RigidBodyComponent>(Text::GetHash("RightWall"));
@@ -107,5 +114,7 @@ void BallPhysicComponent::CheckToWallCollision(World& InWorld)
 
 		Ball* BallObject = reinterpret_cast<Ball*>(GetGameObject());
 		BallObject->Reset();
+
+		GetGameObject()->GetComponent<CollisionAudioComponent>(Text::GetHash("Audio"))->SetDetectCollision(true);
 	}
 }
