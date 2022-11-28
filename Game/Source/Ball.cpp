@@ -1,6 +1,7 @@
 #include "Ball.h"
 #include "BallInputComponent.h"
 #include "BallPhysicComponent.h"
+#include "CollisionAudioComponent.h"
 #include "SpriteRenderComponent.h"
 
 #include <Text.hpp>
@@ -18,6 +19,7 @@ Ball::Ball(
 	AddComponent<BallInputComponent>(Text::GetHash("Input"));
 	AddComponent<RigidBodyComponent>(Text::GetHash("Body"), InPosition, 2.0f * InRadius, 2.0f * InRadius, InRotate, InVelocity, true);
 	AddComponent<BallPhysicComponent>(Text::GetHash("Physic"));
+	AddComponent<CollisionAudioComponent>(Text::GetHash("Audio"), Text::GetHash("Collision"));
 	AddComponent<SpriteRenderComponent>(Text::GetHash("Render"), Text::GetHash("Ball"));
 
 	Reset();
@@ -31,6 +33,7 @@ void Ball::Update(Input& InInput, float InDeltaSeconds)
 {
 	GetComponent<BallInputComponent>(Text::GetHash("Input"))->Tick(InInput);
 	GetComponent<BallPhysicComponent>(Text::GetHash("Physic"))->Tick(*World_, InDeltaSeconds);
+	GetComponent<CollisionAudioComponent>(Text::GetHash("Audio"))->Tick();
 }
 
 void Ball::Render(Renderer& InRenderer, Camera& InCamera)
