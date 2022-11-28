@@ -132,7 +132,7 @@ public:
 			Vec2f(0.0f, 0.0f),
 			15.0f,
 			10.0f,
-			600.0f
+			400.0f
 		);
 
 		ScoreBoard_ = std::make_unique<ScoreBoard>(
