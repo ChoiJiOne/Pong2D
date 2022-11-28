@@ -76,6 +76,9 @@ public:
 			}
 		);
 
+		ContentManager::Get().LoadMusic(Text::GetHash("Background"), "audio\\Background.mp3");
+		ContentManager::Get().LoadSound(Text::GetHash("Click"), "audio\\Click.mp3");
+		ContentManager::Get().LoadSound(Text::GetHash("Collision"), "audio\\Collision.mp3");
 		ContentManager::Get().LoadFont(Text::GetHash("Font128"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.bmp");
@@ -129,7 +132,7 @@ public:
 			Vec2f(0.0f, 0.0f),
 			15.0f,
 			10.0f,
-			500.0f
+			600.0f
 		);
 
 		ScoreBoard_ = std::make_unique<ScoreBoard>(
@@ -140,6 +143,8 @@ public:
 			100.0f,
 			Color::Cyan
 		);
+
+		//ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(true);
 	}
 
 
@@ -151,7 +156,7 @@ public:
 	virtual void Run() override
 	{
 		Timer_.Reset();
-
+	
 		while (!bIsDone_)
 		{
 			Input_->Tick();
