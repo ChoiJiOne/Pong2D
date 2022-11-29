@@ -36,12 +36,13 @@ public:
 
 	/**
 	 * 뮤직을 플레이합니다.
+	 * 이때, -1을 전달하면 무한 반복합니다.
 	 * 
-	 * @param bIsLoop - 반복재생할지 확인합니다.
+	 * @param InCountOfLoop - 반복 재생할 횟수입니다.
 	 * 
 	 * @throws 뮤직 플레이에 실패하면 C++ 표준 예외를 던집니다.
 	 */
-	void Play(bool bIsLoop = false);
+	void Play(const int32_t& InCountOfLoop);
 
 
 	/**

@@ -20,9 +20,9 @@ Music::~Music()
 	}
 }
 
-void Music::Play(bool bIsLoop)
+void Music::Play(const int32_t& InCountOfLoop)
 {
-	CHECK((Mix_PlayMusic(Music_, static_cast<int32_t>(bIsLoop)) == 0), "failed to play music");
+	CHECK((Mix_PlayMusic(Music_, InCountOfLoop) == 0), "failed to play music");
 }
 
 bool Music::IsPlay() const

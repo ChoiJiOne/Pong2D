@@ -144,7 +144,7 @@ public:
 			Color::Cyan
 		);
 
-		//ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(true);
+		ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(-1);
 	}
 
 
