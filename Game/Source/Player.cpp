@@ -16,6 +16,7 @@ Player::Player(
 	const float& InVelocity
 ) : GameObject(InWorld, InSignature)
 {
+	StartPosition_ = InPosition;
 	Type_ = InType;
 	Normal_ = (Type_ == EType::PLAYER1) ? Vec2f(1.0f, 0.0f) : Vec2f(-1.0f, 0.0f);
 
@@ -41,4 +42,9 @@ void Player::Update(Input& InInput, float InDeltaSeconds)
 void Player::Render(Renderer& InRenderer, Camera& InCamera)
 {
 	GetComponent<SpriteRenderComponent>(Text::GetHash("Render"))->Tick(InRenderer, InCamera);
+}
+
+void Player::Reset()
+{
+	GetComponent<RigidBodyComponent>(Text::GetHash("Body"))->SetPosition(StartPosition_);
 }
