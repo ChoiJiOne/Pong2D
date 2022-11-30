@@ -147,7 +147,7 @@ public:
 			Vec2f(-350.0f, 0.0f),
 			25.0f,
 			150.0f,
-			400.0f
+			500.0f
 		);
 
 		Player2_ = std::make_unique<Player>(
@@ -157,7 +157,7 @@ public:
 			Vec2f(+350.0f, 0.0f),
 			25.0f,
 			150.0f,
-			400.0f
+			500.0f
 		);
 
 		Ground_ = std::make_unique<Ground>(
@@ -175,7 +175,7 @@ public:
 			Vec2f(0.0f, 0.0f),
 			15.0f,
 			10.0f,
-			400.0f
+			700.0f
 		);
 
 		ScoreBoard_ = std::make_unique<ScoreBoard>(
