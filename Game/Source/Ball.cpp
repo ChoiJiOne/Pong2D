@@ -59,13 +59,25 @@ void Ball::Start()
 	CurrentState_ = EState::MOVE;
 
 	float Rotate = 0.0f;
-	if (Math::GenerateRandomInt<int32_t>(1, 2) == 1)
+	int32_t Quadrant = Math::GenerateRandomInt<int32_t>(1, 4);
+
+	switch (Quadrant)
 	{
-		Rotate = Math::GenerateRandomFloat<float>(-45.0f, 45.0f);
-	}
-	else
-	{
-		Rotate = Math::GenerateRandomFloat<float>(135.0f, 225.0f);
+	case 1:
+		Rotate = Math::GenerateRandomFloat<float>(25.0f, 45.0f);
+		break;
+
+	case 2:
+		Rotate = Math::GenerateRandomFloat<float>(135.0f, 160.0f);
+		break;
+
+	case 3:
+		Rotate = Math::GenerateRandomFloat<float>(200.0f, 225.0f);
+		break;
+
+	case 4:
+		Rotate = Math::GenerateRandomFloat<float>(315.0f, 340.0f);
+		break;
 	}
 
 	Body->SetCanMove(true);
