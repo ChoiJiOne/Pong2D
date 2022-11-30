@@ -26,6 +26,7 @@ def cleanup_project():
     remove_file("GenerateProjectFiles.bat")
     remove_file("premake5.lua")
     remove_file(".gitignore")
+    remove_file("Build.bat")
     remove_directory("Game")
 
 
@@ -34,6 +35,7 @@ def setup_project():
     project_name = sys.argv[1]
 
     create_generate_project_files_script(project_name)
+    create_build_script(project_name)
     create_premake5_script(project_name)
     create_git_ignore_file(project_name)
     create_game_directory()
@@ -229,6 +231,23 @@ PAUSE
 """.format(project_name, project_name, project_name, project_name)
 
     create_file("GenerateProjectFiles.bat", script_source)
+
+# 게임 프로젝트의 Build.bat 스크립트를 생성합니다.
+def create_build_script(project_name):
+    script_source = """@echo off
+
+echo start build...
+SET option=%1
+
+if not exist {} (
+    echo generate visual studio solution...
+    Engine\\Bin\\premake5.exe vs2019
+)
+
+msbuild.exe {}\\{}.sln -property:Configuration=%%option%% -target:Rebuild
+""".format(project_name, project_name, project_name)
+
+    create_file("Build.bat", script_source)
 
 
 # 게임 디렉토리를 생성합니다.
