@@ -114,6 +114,7 @@ public:
 		ContentManager::Get().LoadMusic(Text::GetHash("Background"), "audio\\Background.mp3");
 		ContentManager::Get().LoadSound(Text::GetHash("Click"), "audio\\Click.mp3");
 		ContentManager::Get().LoadSound(Text::GetHash("Collision"), "audio\\Collision.mp3");
+		ContentManager::Get().LoadFont(Text::GetHash("Font256"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 256.0f);
 		ContentManager::Get().LoadFont(Text::GetHash("Font128"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
 		ContentManager::Get().LoadFont(Text::GetHash("Font32"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 32.0f);
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
@@ -343,6 +344,21 @@ public:
 		}
 		else
 		{
+			int32_t Width = 0, Height = 0;
+			Window_->GetSize(Width, Height);
+
+			Vec2f TitlePosition(
+				static_cast<float>(Width) / 2.0f,
+				static_cast<float>(Height) / 3.0f
+			);
+
+			Renderer_->DrawText2D(
+				ContentManager::Get().GetFont(Text::GetHash("Font256")),
+				L"PONG 2D",
+				Math::ConvertPixelCoordinate(TitlePosition),
+				Color::Cyan
+			);
+
 			std::array<UIButton*, 2> Buttons;
 
 			switch (CurrentGameState_)
