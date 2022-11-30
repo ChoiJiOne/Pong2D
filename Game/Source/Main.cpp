@@ -13,6 +13,19 @@ class Pong2D : public GameFramework
 {
 public:
 	/**
+	 * Pong2D 게임의 상태입니다.
+	 */
+	enum class EGameState : int32_t
+	{
+		START = 0,
+		PLAY  = 1,
+		PAUSE = 2,
+		DONE  = 3
+	};
+
+
+public:
+	/**
 	 * Pong2D 게임의 디폴트 생성자입니다.
 	 * 이때, 초기화를 수행하기 위해서는 Init 메서드를 호출해야 합니다.
 	 */
@@ -24,6 +37,10 @@ public:
 	 */
 	virtual ~Pong2D() 
 	{
+		ResetButton_.reset();
+		ContinueButton_.reset();
+		QuitButton_.reset();
+		StartButton_.reset();
 		ScoreBoard_.reset();
 		Ball_.reset();
 		Player2_.reset();
@@ -80,6 +97,7 @@ public:
 		ContentManager::Get().LoadSound(Text::GetHash("Click"), "audio\\Click.mp3");
 		ContentManager::Get().LoadSound(Text::GetHash("Collision"), "audio\\Collision.mp3");
 		ContentManager::Get().LoadFont(Text::GetHash("Font128"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 128.0f);
+		ContentManager::Get().LoadFont(Text::GetHash("Font32"), *Renderer_, "font\\JetBrainsMono.ttf", 0x20, 0x7E, 32.0f);
 		ContentManager::Get().LoadTexture(Text::GetHash("Space"), *Renderer_, "texture\\Space.png");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleRed"), *Renderer_, "texture\\PaddleRed.bmp");
 		ContentManager::Get().LoadTexture(Text::GetHash("PaddleBlue"), *Renderer_, "texture\\PaddleBlue.bmp");
@@ -104,7 +122,7 @@ public:
 			Vec2f(-350.0f, 0.0f),
 			25.0f,
 			150.0f,
-			350.0f
+			400.0f
 		);
 
 		Player2_ = std::make_unique<Player>(
@@ -114,7 +132,7 @@ public:
 			Vec2f(+350.0f, 0.0f),
 			25.0f,
 			150.0f,
-			350.0f
+			400.0f
 		);
 
 		Ground_ = std::make_unique<Ground>(
@@ -142,6 +160,72 @@ public:
 			400.0f,
 			100.0f,
 			Color::Cyan
+		);
+
+		StartButton_ = std::make_unique<UIButton>(
+			Vec2f(500.0f, 400.0f),
+			300.0f,
+			80.0f,
+			L"START",
+			Text::GetHash("Font32"),
+			Color::Cyan,
+			Color::White,
+			[&]() {
+				CurrentGameState_ = EGameState::PLAY;
+				Timer_.Start();
+				ContentManager::Get().GetSound(Text::GetHash("Click")).Play();
+			},
+			0.98f
+		);
+
+		QuitButton_ = std::make_unique<UIButton>(
+			Vec2f(500.0f, 500.0f),
+			300.0f,
+			80.0f,
+			L"QUIT",
+			Text::GetHash("Font32"),
+			Color::Cyan,
+			Color::White,
+			[&]() { bIsDone_ = true; },
+			0.98f
+		);
+
+		ContinueButton_ = std::make_unique<UIButton>(
+			Vec2f(500.0f, 400.0f),
+			300.0f,
+			80.0f,
+			L"CONTINUE",
+			Text::GetHash("Font32"),
+			Color::Cyan,
+			Color::White,
+			[&]() {
+				CurrentGameState_ = EGameState::PLAY;
+				Timer_.Start();
+				ContentManager::Get().GetMusic(Text::GetHash("Background")).Resume();
+				ContentManager::Get().GetSound(Text::GetHash("Click")).Play();
+			},
+			0.95f
+		);
+
+		ResetButton_ = std::make_unique<UIButton>(
+			Vec2f(500.0f, 400.0f),
+			300.0f,
+			80.0f,
+			L"RESET",
+			Text::GetHash("Font32"),
+			Color::Cyan,
+			Color::White,
+			[&]() {
+				CurrentGameState_ = EGameState::PLAY;
+				Timer_.Reset();
+				Player1_->Reset();
+				Player2_->Reset();
+				Ball_->Reset();
+
+				ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(true);
+				ContentManager::Get().GetSound(Text::GetHash("Click")).Play();
+			},
+			0.95f
 		);
 
 		ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(-1);
@@ -175,15 +259,47 @@ public:
 	 */
 	virtual void Update() override
 	{
-		if (Input_->GetKeyPressState(EKeyCode::CODE_ESCAPE) == EPressState::PRESSED)
+		if (CurrentGameState_ == EGameState::PLAY)
 		{
-			bIsDone_ = true;
-		}
+			if (Input_->GetKeyPressState(EKeyCode::CODE_ESCAPE) == EPressState::PRESSED)
+			{
+				CurrentGameState_ = EGameState::PAUSE;
+			}
 
-		std::array<GameObject*, 5> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get(), ScoreBoard_.get() };
-		for (auto Object : Objects)
+			std::array<GameObject*, 5> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get(), ScoreBoard_.get() };
+			for (auto Object : Objects)
+			{
+				Object->Update(*Input_, Timer_.GetDeltaSeconds());
+			}
+
+			if (Player1_->GetScore() >= WinnerScore || Player2_->GetScore() >= WinnerScore)
+			{
+				CurrentGameState_ = EGameState::DONE;
+			}
+		}
+		else
 		{
-			Object->Update(*Input_, Timer_.GetDeltaSeconds());
+			std::array<UIButton*, 2> Buttons;
+
+			switch (CurrentGameState_)
+			{
+			case EGameState::START:
+				Buttons = { StartButton_.get(), QuitButton_.get() };
+				break;
+
+			case EGameState::PAUSE:
+				Buttons = { ContinueButton_.get(), QuitButton_.get() };
+				break;
+
+			case EGameState::DONE:
+				Buttons = { ResetButton_.get(), QuitButton_.get() };
+				break;
+			}
+
+			for (auto Button : Buttons)
+			{
+				Button->Update(*Input_);
+			}
 		}
 	}
 
@@ -199,10 +315,37 @@ public:
 
 		Background_->Render(*Renderer_, *Camera_);
 
-		std::array<GameObject*, 5> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get(), ScoreBoard_.get() };
-		for (auto Object : Objects)
+		if (CurrentGameState_ == EGameState::PLAY)
 		{
-			Object->Render(*Renderer_, *Camera_);
+			std::array<GameObject*, 5> Objects = { Ground_.get(), Player1_.get(), Player2_.get(), Ball_.get(), ScoreBoard_.get() };
+			for (auto Object : Objects)
+			{
+				Object->Render(*Renderer_, *Camera_);
+			}
+		}
+		else
+		{
+			std::array<UIButton*, 2> Buttons;
+
+			switch (CurrentGameState_)
+			{
+			case EGameState::START:
+				Buttons = { StartButton_.get(), QuitButton_.get() };
+				break;
+
+			case EGameState::PAUSE:
+				Buttons = { ContinueButton_.get(), QuitButton_.get() };
+				break;
+
+			case EGameState::DONE:
+				Buttons = { ResetButton_.get(), QuitButton_.get() };
+				break;
+			}
+
+			for (auto Button : Buttons)
+			{
+				Button->Render(*Renderer_);
+			}
 		}
 
 		Renderer_->EndFrame();
@@ -211,9 +354,21 @@ public:
 
 private:
 	/**
+	 * 현재 게임 상태입니다.
+	 */
+	EGameState CurrentGameState_ = EGameState::START;
+
+
+	/**
 	 * 게임 타이머입니다.
 	 */
 	Timer Timer_;
+
+
+	/**
+	 * 플레이어가 이기기위해 얻어야 할 점수입니다.
+	 */
+	int32_t WinnerScore = 5;
 
 
 	/**
@@ -256,6 +411,30 @@ private:
 	 * 게임 스코어 보드입니다.
 	 */
 	std::unique_ptr<ScoreBoard> ScoreBoard_ = nullptr;
+
+
+	/**
+	 * 게임 시작 버튼입니다.
+	 */
+	std::unique_ptr<UIButton> StartButton_ = nullptr;
+
+
+	/**
+	 * 게임 종료 버튼입니다.
+	 */
+	std::unique_ptr<UIButton> QuitButton_ = nullptr;
+
+
+	/**
+	 * 게임을 계속 진행합니다.
+	 */
+	std::unique_ptr<UIButton> ContinueButton_ = nullptr;
+
+
+	/**
+	 * 게임을 리셋하고 시작합니다.
+	 */
+	std::unique_ptr<UIButton> ResetButton_ = nullptr;
 };
 
 
