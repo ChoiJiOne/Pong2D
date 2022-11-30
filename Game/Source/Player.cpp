@@ -46,5 +46,6 @@ void Player::Render(Renderer& InRenderer, Camera& InCamera)
 
 void Player::Reset()
 {
+	Score_ = 0;
 	GetComponent<RigidBodyComponent>(Text::GetHash("Body"))->SetPosition(StartPosition_);
 }
