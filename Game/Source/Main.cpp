@@ -66,7 +66,7 @@ public:
 	{
 		GameFramework::Init();
 
-		int32_t Width = 1000, Height = 800;
+		int32_t Width = 1200, Height = 800;
 		Window_ = std::make_unique<Window>(
 			WindowConstructorParam{
 				"Pong2D",
@@ -124,14 +124,20 @@ public:
 
 		World_ = std::make_unique<World>();
 
-		Camera_ = std::make_unique<Camera>(Vec2f(0.0f, 0.0f), 1000.0f, 800.0f, 0.0f, 100.0f);
+		Camera_ = std::make_unique<Camera>(
+			Vec2f(0.0f, 0.0f), 
+			static_cast<float>(Width),
+			static_cast<float>(Height), 
+			0.0f, 
+			100.0f
+		);
 
 		Background_ = std::make_unique<Background>(
 			World_.get(),
 			Text::GetHash("Background"),
 			Vec2f(0.0f, 0.0f),
-			1000.0f,
-			800.0f
+			static_cast<float>(Width),
+			static_cast<float>(Height)
 		);
 
 		Player1_ = std::make_unique<Player>(
