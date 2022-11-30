@@ -244,7 +244,7 @@ if not exist {} (
     Engine\\Bin\\premake5.exe vs2019
 )
 
-msbuild.exe {}\\{}.sln -property:Configuration=%%option%% -target:Rebuild
+msbuild.exe {}\\{}.sln -property:Configuration=%option% -target:Rebuild
 """.format(project_name, project_name, project_name)
 
     create_file("Build.bat", script_source)
