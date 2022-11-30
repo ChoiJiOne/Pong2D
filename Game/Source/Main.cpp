@@ -288,6 +288,7 @@ public:
 		{
 			if (Input_->GetKeyPressState(EKeyCode::CODE_ESCAPE) == EPressState::PRESSED)
 			{
+				ContentManager::Get().GetMusic(Text::GetHash("Background")).Stop();
 				CurrentGameState_ = EGameState::PAUSE;
 			}
 
