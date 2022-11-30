@@ -376,6 +376,21 @@ public:
 				break;
 			}
 
+			if (CurrentGameState_ == EGameState::DONE)
+			{
+				Vec2f WinnerPosition(
+					static_cast<float>(Width) / 2.0f,
+					static_cast<float>(Height) / 2.0f
+				);
+
+				Renderer_->DrawText2D(
+					ContentManager::Get().GetFont(Text::GetHash("Font128")),
+					Text::Format(L"Player %d Win!", Player1_->GetScore() > Player2_->GetScore() ? 1 : 2),
+					Math::ConvertPixelCoordinate(WinnerPosition),
+					Color::Yellow
+				);
+			}
+
 			for (auto Button : Buttons)
 			{
 				Button->Render(*Renderer_);
