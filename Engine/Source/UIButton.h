@@ -102,6 +102,14 @@ public:
 	void Render(Renderer& InRenderer);
 
 
+	/**
+	 * 버튼의 위치를 설정합니다.
+	 * 
+	 * @param InPosition - 설정할 버튼의 위치입니다.
+	 */
+	void SetPosition(const Vec2f& InPosition);
+
+
 private:
 	/**
 	 * 마우스 커서가 버튼 영역 내에 감지되는지 확인합니다. 

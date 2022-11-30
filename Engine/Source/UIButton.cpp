@@ -143,6 +143,12 @@ void UIButton::Render(Renderer& InRenderer)
 	InRenderer.DrawText2D(ContentManager::Get().GetFont(FontKey_), Text_, Position, CurrentColor);
 }
 
+void UIButton::SetPosition(const Vec2f& InPosition)
+{
+	Center_ = InPosition;
+	BoundingBox_ = Math::CalculateBoundingBox(Center_, Width_, Height_);
+}
+
 bool UIButton::IsDetectMouseCursor(const Input& InInput)
 {
 	Vec2f CurrentMousePosition = InInput.GetCurrCursorPosition();
