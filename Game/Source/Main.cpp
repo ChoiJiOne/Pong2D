@@ -66,11 +66,12 @@ public:
 	{
 		GameFramework::Init();
 
+		int32_t Width = 1000, Height = 800;
 		Window_ = std::make_unique<Window>(
 			WindowConstructorParam{
 				"Pong2D",
 				200, 200,
-				1000, 800,
+				Width, Height,
 				EWindowFlags::SHOWN | EWindowFlags::RESIZABLE
 			}
 		);
@@ -90,6 +91,23 @@ public:
 
 				Camera_->SetSize(static_cast<float>(Width), static_cast<float>(Height));
 				Background_->SetSize(static_cast<float>(Width), static_cast<float>(Height));
+
+				StartButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f));
+				ContinueButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f));
+				ResetButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f));
+				QuitButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 5.0f / 6.0f));
+			}
+		);
+		Input_->RegisterWindowEvent(
+			EWindowEvent::CODE_FOCUS_LOST,
+			[&]() {
+				CurrentGameState_ = EGameState::PAUSE;
+			}
+		);
+		Input_->RegisterWindowEvent(
+			EWindowEvent::CODE_HIDDEN,
+			[&]() {
+				CurrentGameState_ = EGameState::PAUSE;
 			}
 		);
 
@@ -163,7 +181,7 @@ public:
 		);
 
 		StartButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 400.0f),
+			Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f),
 			300.0f,
 			80.0f,
 			L"START",
@@ -179,7 +197,7 @@ public:
 		);
 
 		QuitButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 500.0f),
+			Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 5.0f / 6.0f),
 			300.0f,
 			80.0f,
 			L"QUIT",
@@ -191,7 +209,7 @@ public:
 		);
 
 		ContinueButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 400.0f),
+			Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f),
 			300.0f,
 			80.0f,
 			L"CONTINUE",
@@ -208,7 +226,7 @@ public:
 		);
 
 		ResetButton_ = std::make_unique<UIButton>(
-			Vec2f(500.0f, 400.0f),
+			Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f),
 			300.0f,
 			80.0f,
 			L"RESET",
