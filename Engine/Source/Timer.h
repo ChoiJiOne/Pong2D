@@ -184,7 +184,7 @@ private:
 
 
 	/**
-	 * Tick 호출 시간입냅니다.
+	 * Tick 호출 시간입니다.
 	 */
 	uint64_t CurrTime_ = 0ULL;
 };
