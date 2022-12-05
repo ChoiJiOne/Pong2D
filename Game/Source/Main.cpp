@@ -96,18 +96,32 @@ public:
 				ContinueButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f));
 				ResetButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f));
 				QuitButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 5.0f / 6.0f));
+
+				if (CurrentGameState_ != EGameState::START)
+				{
+					Timer_.Stop();
+					CurrentGameState_ = EGameState::PAUSE;
+				}
 			}
 		);
 		Input_->RegisterWindowEvent(
 			EWindowEvent::CODE_FOCUS_LOST,
 			[&]() {
-				CurrentGameState_ = EGameState::PAUSE;
+				if (CurrentGameState_ != EGameState::START)
+				{	
+					Timer_.Stop();
+					CurrentGameState_ = EGameState::PAUSE;
+				}
 			}
 		);
 		Input_->RegisterWindowEvent(
 			EWindowEvent::CODE_HIDDEN,
 			[&]() {
-				CurrentGameState_ = EGameState::PAUSE;
+				if (CurrentGameState_ != EGameState::START)
+				{
+					Timer_.Stop();
+					CurrentGameState_ = EGameState::PAUSE;
+				}
 			}
 		);
 
