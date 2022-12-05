@@ -7,13 +7,13 @@
 #include "Background.h"
 
 /**
- * Pong2D °ÔÀÓÀÔ´Ï´Ù.
+ * Pong2D ê²Œì„ì…ë‹ˆë‹¤.
  */
 class Pong2D : public GameFramework
 {
 public:
 	/**
-	 * Pong2D °ÔÀÓÀÇ »óÅÂÀÔ´Ï´Ù.
+	 * Pong2D ê²Œì„ì˜ ìƒíƒœì…ë‹ˆë‹¤.
 	 */
 	enum class EGameState : int32_t
 	{
@@ -26,14 +26,14 @@ public:
 
 public:
 	/**
-	 * Pong2D °ÔÀÓÀÇ µğÆúÆ® »ı¼ºÀÚÀÔ´Ï´Ù.
-	 * ÀÌ¶§, ÃÊ±âÈ­¸¦ ¼öÇàÇÏ±â À§ÇØ¼­´Â Init ¸Ş¼­µå¸¦ È£ÃâÇØ¾ß ÇÕ´Ï´Ù.
+	 * Pong2D ê²Œì„ì˜ ë””í´íŠ¸ ìƒì„±ìì…ë‹ˆë‹¤.
+	 * ì´ë•Œ, ì´ˆê¸°í™”ë¥¼ ìˆ˜í–‰í•˜ê¸° ìœ„í•´ì„œëŠ” Init ë©”ì„œë“œë¥¼ í˜¸ì¶œí•´ì•¼ í•©ë‹ˆë‹¤.
 	 */
 	Pong2D() = default;
 
 
 	/**
-	 * Pong2D °ÔÀÓÀÇ °¡»ó ¼Ò¸êÀÚÀÔ´Ï´Ù.
+	 * Pong2D ê²Œì„ì˜ ê°€ìƒ ì†Œë©¸ìì…ë‹ˆë‹¤.
 	 */
 	virtual ~Pong2D() 
 	{
@@ -52,15 +52,15 @@ public:
 
 
 	/**
-	 * º¹»ç »ı¼ºÀÚ¿Í ´ëÀÔ ¿¬»êÀÚ¸¦ ¸í½ÃÀûÀ¸·Î »èÁ¦ÇÕ´Ï´Ù.
+	 * ë³µì‚¬ ìƒì„±ìì™€ ëŒ€ì… ì—°ì‚°ìë¥¼ ëª…ì‹œì ìœ¼ë¡œ ì‚­ì œí•©ë‹ˆë‹¤.
 	 */
 	DISALLOW_COPY_AND_ASSIGN(Pong2D);
 
 
 	/**
-	 * Pong2D °ÔÀÓÀ» ÃÊ±âÈ­ÇÕ´Ï´Ù.
+	 * Pong2D ê²Œì„ì„ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
 	 * 
-	 * @throws °ÔÀÓ ÃÊ±âÈ­¿¡ ½ÇÆĞÇÏ¸é C++ Ç¥ÁØ ¿¹¿Ü¸¦ ´øÁı´Ï´Ù.
+	 * @throws ê²Œì„ ì´ˆê¸°í™”ì— ì‹¤íŒ¨í•˜ë©´ C++ í‘œì¤€ ì˜ˆì™¸ë¥¼ ë˜ì§‘ë‹ˆë‹¤.
 	 */
 	virtual void Init() override
 	{
@@ -97,7 +97,7 @@ public:
 				ResetButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 2.0f / 3.0f));
 				QuitButton_->SetPosition(Vec2f(static_cast<float>(Width) / 2.0f, static_cast<float>(Height) * 5.0f / 6.0f));
 
-				if (CurrentGameState_ != EGameState::START)
+				if (CurrentGameState_ != EGameState::START && CurrentGameState_ != EGameState::DONE)
 				{
 					Timer_.Stop();
 					CurrentGameState_ = EGameState::PAUSE;
@@ -107,8 +107,8 @@ public:
 		Input_->RegisterWindowEvent(
 			EWindowEvent::CODE_FOCUS_LOST,
 			[&]() {
-				if (CurrentGameState_ != EGameState::START)
-				{	
+				if (CurrentGameState_ != EGameState::START && CurrentGameState_ != EGameState::DONE)
+				{
 					Timer_.Stop();
 					CurrentGameState_ = EGameState::PAUSE;
 				}
@@ -117,7 +117,7 @@ public:
 		Input_->RegisterWindowEvent(
 			EWindowEvent::CODE_HIDDEN,
 			[&]() {
-				if (CurrentGameState_ != EGameState::START)
+				if (CurrentGameState_ != EGameState::START && CurrentGameState_ != EGameState::DONE)
 				{
 					Timer_.Stop();
 					CurrentGameState_ = EGameState::PAUSE;
@@ -261,7 +261,7 @@ public:
 				Player2_->Reset();
 				Ball_->Reset();
 
-				ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(true);
+				ContentManager::Get().GetMusic(Text::GetHash("Background")).Play(-1);
 				ContentManager::Get().GetSound(Text::GetHash("Click")).Play();
 			},
 			0.95f
@@ -272,9 +272,9 @@ public:
 
 
 	/**
-	 * Pong2D °ÔÀÓÀ» ½ÇÇàÇÕ´Ï´Ù.
+	 * Pong2D ê²Œì„ì„ ì‹¤í–‰í•©ë‹ˆë‹¤.
 	 * 
-	 * @throws °ÔÀÓ ½ÇÇà¿¡ ½ÇÆĞÇÏ¸é C++ Ç¥ÁØ ¿¹¿Ü¸¦ ´øÁı´Ï´Ù.
+	 * @throws ê²Œì„ ì‹¤í–‰ì— ì‹¤íŒ¨í•˜ë©´ C++ í‘œì¤€ ì˜ˆì™¸ë¥¼ ë˜ì§‘ë‹ˆë‹¤.
 	 */
 	virtual void Run() override
 	{
@@ -292,9 +292,9 @@ public:
 
 
 	/**
-	 * Pong2D °ÔÀÓÀ» ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+	 * Pong2D ê²Œì„ì„ ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
 	 * 
-	 * @throws °ÔÀÓ ¾÷µ¥ÀÌÆ®¿¡ ½ÇÆĞÇÏ¸é C++ Ç¥ÁØ ¿¹¿Ü¸¦ ´øÁı´Ï´Ù.
+	 * @throws ê²Œì„ ì—…ë°ì´íŠ¸ì— ì‹¤íŒ¨í•˜ë©´ C++ í‘œì¤€ ì˜ˆì™¸ë¥¼ ë˜ì§‘ë‹ˆë‹¤.
 	 */
 	virtual void Update() override
 	{
@@ -345,9 +345,9 @@ public:
 
 
 	/**
-	 * Pong2D °ÔÀÓÀ» È­¸é¿¡ ±×¸³´Ï´Ù.
+	 * Pong2D ê²Œì„ì„ í™”ë©´ì— ê·¸ë¦½ë‹ˆë‹¤.
 	 * 
-	 * @throws °ÔÀÓÀ» È­¸é¿¡ ±×¸®´Â µ¥ ½ÇÆĞÇÏ¸é C++ Ç¥ÁØ ¿¹¿Ü¸¦ ´øÁı´Ï´Ù.
+	 * @throws ê²Œì„ì„ í™”ë©´ì— ê·¸ë¦¬ëŠ” ë° ì‹¤íŒ¨í•˜ë©´ C++ í‘œì¤€ ì˜ˆì™¸ë¥¼ ë˜ì§‘ë‹ˆë‹¤.
 	 */
 	virtual void Render() override
 	{
@@ -424,85 +424,85 @@ public:
 
 private:
 	/**
-	 * ÇöÀç °ÔÀÓ »óÅÂÀÔ´Ï´Ù.
+	 * í˜„ì¬ ê²Œì„ ìƒíƒœì…ë‹ˆë‹¤.
 	 */
 	EGameState CurrentGameState_ = EGameState::START;
 
 
 	/**
-	 * °ÔÀÓ Å¸ÀÌ¸ÓÀÔ´Ï´Ù.
+	 * ê²Œì„ íƒ€ì´ë¨¸ì…ë‹ˆë‹¤.
 	 */
 	Timer Timer_;
 
 
 	/**
-	 * ÇÃ·¹ÀÌ¾î°¡ ÀÌ±â±âÀ§ÇØ ¾ò¾î¾ß ÇÒ Á¡¼öÀÔ´Ï´Ù.
+	 * í”Œë ˆì´ì–´ê°€ ì´ê¸°ê¸°ìœ„í•´ ì–»ì–´ì•¼ í•  ì ìˆ˜ì…ë‹ˆë‹¤.
 	 */
 	int32_t WinnerScore = 5;
 
 
 	/**
-	 * °ÔÀÓ Ä«¸Ş¶óÀÔ´Ï´Ù.
+	 * ê²Œì„ ì¹´ë©”ë¼ì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<Camera> Camera_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓÀÇ ¹é±×¶ó¿îµåÀÔ´Ï´Ù.
+	 * ê²Œì„ì˜ ë°±ê·¸ë¼ìš´ë“œì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<Background> Background_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ ±×¶ó¿îµåÀÔ´Ï´Ù.
+	 * ê²Œì„ ê·¸ë¼ìš´ë“œì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<Ground> Ground_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ ÇÃ·¹ÀÌ¾î1ÀÔ´Ï´Ù.
+	 * ê²Œì„ í”Œë ˆì´ì–´1ì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<Player> Player1_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ ÇÃ·¹ÀÌ¾î2ÀÔ´Ï´Ù.
+	 * ê²Œì„ í”Œë ˆì´ì–´2ì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<Player> Player2_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ °øÀÔ´Ï´Ù.
+	 * ê²Œì„ ê³µì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<Ball> Ball_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ ½ºÄÚ¾î º¸µåÀÔ´Ï´Ù.
+	 * ê²Œì„ ìŠ¤ì½”ì–´ ë³´ë“œì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<ScoreBoard> ScoreBoard_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ ½ÃÀÛ ¹öÆ°ÀÔ´Ï´Ù.
+	 * ê²Œì„ ì‹œì‘ ë²„íŠ¼ì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<UIButton> StartButton_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓ Á¾·á ¹öÆ°ÀÔ´Ï´Ù.
+	 * ê²Œì„ ì¢…ë£Œ ë²„íŠ¼ì…ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<UIButton> QuitButton_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓÀ» °è¼Ó ÁøÇàÇÕ´Ï´Ù.
+	 * ê²Œì„ì„ ê³„ì† ì§„í–‰í•©ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<UIButton> ContinueButton_ = nullptr;
 
 
 	/**
-	 * °ÔÀÓÀ» ¸®¼ÂÇÏ°í ½ÃÀÛÇÕ´Ï´Ù.
+	 * ê²Œì„ì„ ë¦¬ì…‹í•˜ê³  ì‹œì‘í•©ë‹ˆë‹¤.
 	 */
 	std::unique_ptr<UIButton> ResetButton_ = nullptr;
 };
